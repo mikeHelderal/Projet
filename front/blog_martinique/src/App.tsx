@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import './App.css'
 import {BrowserRouter , Routes, Route} from 'react-router-dom'
-import Connexion from './Pages/Auth/Connexion'
-import Inscription from './Pages/Auth/Inscription'
-import Accueil from './Pages/Accueil'
-import NavBar from './Component/NavBar'
+import Connexion from './Vue/Pages/Connexion'
+import Inscription from './Vue/Pages/Inscription'
+import Accueil from './Vue/Accueil'
+import NavBar from './Vue/Component/NavBar'
 
 
 function App() {

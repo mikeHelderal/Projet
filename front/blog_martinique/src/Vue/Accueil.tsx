@@ -1,5 +1,5 @@
 import React from 'react'
-import NavBar from '../Component/NavBar'
+import NavBar from './Component/NavBar'
 import {NavLink,Outlet} from 'react-router-dom'
 
 const Accueil = () => {

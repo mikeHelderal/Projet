@@ -47,9 +47,9 @@ const Inscription = () => {
             <label htmlFor="password">Mot de passe : </label>
             <input id='password' type='password' name='password'  onChange={handleChange}/>
 
-            <label htmlFor="born">Date de naissance: </label>
+            <label htmlFor="born">Date de naissance:  </label>
             <input id='born' type='date' name='born'  onChange={handleChange}/>
-
+         
             <button>Connexion</button>
         </form>        
     </section>
