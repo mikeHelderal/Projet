@@ -1,15 +1,17 @@
 
 import {City} from "../models/index.js";
+import { createCity } from "../repository/city.repository.js";
 
 const add = async (req, res) => {
      try {
-          const city = await City.create( req.body);
-          res.status(201).json({message : "Comment has been added", comment});
-     } catch (error) {
+           const result = await City.create( req.body);
+          res.status(201).json({message : "City has been added", result});
+         } catch (error) {
           console.log(error);
+          
      }
 }
-
+/*
 const getAll = async (req, res) => {
 
      try {
@@ -37,8 +39,8 @@ const deleteById = async (req, res) => {
           console.log(error);
      }
 }
-
+*/
 export {
-     add, getAll, getById, deleteById
+     add// getAll, getById, deleteById
 }
 

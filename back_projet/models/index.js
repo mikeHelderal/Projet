@@ -1,4 +1,7 @@
 import { Sequelize } from "sequelize";
+import express from 'express'
+import { env } from './config.js'
+
 
 
 // IMPORT MODEL
@@ -11,23 +14,6 @@ import publicationModel  from "./publication.model.js";
 import subjectModel  from "./subject.model.js";
 import userModel  from "./user.model.js";
 
-
-const connection = new Sequelize(
-    'martinique', // Nom de la base de donnée
-    'root', // identifiant Mysql
-    '', // Mot de passe Mysql
-    {
-        host: 'localhost', // URL de mySQL
-        dialect: 'mysql'
-    }
-);
-
-try {
-    await connection.authenticate();
-    console.log('Connection has been established successfully.');
-} catch (error) {
-    console.error('Unable to connect to the database:', error);
-}
 
 
 
