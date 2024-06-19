@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
-import { User } from "../models/index.js";
-import { env } from "../config.js";
+import { Users } from "../models/index.js";
+import { env } from  '../config/config.js';
 import bcrypt from "bcrypt";
 
 

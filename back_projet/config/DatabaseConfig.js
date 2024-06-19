@@ -1,4 +1,5 @@
 import { Sequelize } from "sequelize";
+import { env } from "./config.js";
 
 const connection = new Sequelize(
     env.db_name, // Nom de la base de donnée

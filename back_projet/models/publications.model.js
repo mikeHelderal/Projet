@@ -1,21 +1,25 @@
 export default (connection, DataTypes) => {
     connection.define(
-        'News',
+        'Publications',
         {
+           
             name: {
                 type: DataTypes.STRING,
                 allowNull: false
             },
+            date_publication: {
+                type: DataTypes.DATE,
+                allowNull: false
+            },
             content: {
                 type: DataTypes.STRING,
+                allowNull: false
             },
             is_valid: {
                 type: DataTypes.BOOLEAN,
-            },
-            news_date: {
-                type: DataTypes.DATE,
-            },
-        },
-        { timestamps: true }
+                allowNull: false
+            }
+            
+        }, { timestamps: true }
     );
 }

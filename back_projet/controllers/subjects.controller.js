@@ -1,5 +1,5 @@
 
-import {Subject} from "../models/index.js";
+import {Subjects} from "../models/index.js";
 
 const getAll = async (req, res) => {
      try {

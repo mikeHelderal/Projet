@@ -1,9 +1,13 @@
 export default (connection, DataTypes) => {
     connection.define(
-        'Comment',
+        'Comments',
         {
-            comment: {
+            content: {
                 type: DataTypes.STRING,
+                allowNull: false
+            },
+            date_comment: {
+                type: DataTypes.DATE,
                 allowNull: false
             }
         }, { timestamps: true }

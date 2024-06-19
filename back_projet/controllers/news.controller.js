@@ -1,5 +1,5 @@
 
-import {Neighbordhood, News} from "../models/index.js";
+import { News} from "../models/index.js";
 
 const add = async (req, res) => {
     try {

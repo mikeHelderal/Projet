@@ -1,5 +1,5 @@
 
-import {Publication} from "../models/index.js";
+import {Publications} from "../models/index.js";
 
 const add = async (req, res) => {
     try {

@@ -1,11 +1,12 @@
 export default (connection, DataTypes) => {
     connection.define(
-        'Subject',
+        'Neighbordhoods',
         {
             name: {
                 type: DataTypes.STRING,
                 allowNull: false
             }
+
         }, { timestamps: true }
     );
 }

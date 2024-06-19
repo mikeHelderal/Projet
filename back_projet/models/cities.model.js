@@ -1,6 +1,6 @@
 export default (connection, DataTypes) => {
     connection.define(
-        'Neighbordhood',
+        'Cities',
         {
             name: {
                 type: DataTypes.STRING,

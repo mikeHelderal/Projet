@@ -1,9 +1,13 @@
 export default (connection, DataTypes) => {
     connection.define(
-        'City',
+        'Messages',
         {
-            name: {
+            content: {
                 type: DataTypes.STRING,
+                allowNull: false
+            },
+            date_message: {
+                type: DataTypes.DATE,
                 allowNull: false
             }
 

@@ -1,5 +1,5 @@
 
-import {Comment} from "../models/index.js";
+import {Comments} from "../models/index.js";
 
 
 const add = async (req, res) => {

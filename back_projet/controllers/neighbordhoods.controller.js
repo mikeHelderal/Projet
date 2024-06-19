@@ -1,5 +1,5 @@
 
-import {Neighbordhood} from "../models/index.js";
+import {Neighbordhoods} from "../models/index.js";
 
 const getAll = async (req, res) => {
      try {

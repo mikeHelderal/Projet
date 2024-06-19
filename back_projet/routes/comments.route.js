@@ -1,18 +1,15 @@
 import express from 'express';
-import {signUp, login, getAll, getById, updateById, deleteById} from "../controllers/user.controller.js";
+import {getAll, getById, updateById, deleteById, add} from "../controllers/comments.controller.js";
 import { verifieToken } from '../utils/auth.js'
-import { verifieAdmin } from '../utils/auth.js'
-
 
 const router = express.Router();
 
 
-router.post("/login", login);
-router.post("/signUp", signUp);
+router.post("/add", verifieToken, add);
 // Route pour obtenir tous les utilisateurs
-router.get("/all", verifieToken,  getAll);
+router.get("/all", getAll);
 // Route pour obtenir un utilisateur spécifique par son ID
-router.get("/get/:id", verifieToken, getById);
+router.get("/get/:id", getById);
 // Route pour mettre à jour un utilisateur spécifique par son ID
 router.put("/update/:id", verifieToken, updateById);
 // Route pour supprimer un utilisateur spécifique par son ID

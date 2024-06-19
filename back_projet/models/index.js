@@ -1,75 +1,118 @@
 import { Sequelize } from "sequelize";
-import express from 'express'
-import { env } from './config.js'
+import express from 'express';
+import { env } from '../config/config.js';
+import connection from "../config/DatabaseConfig.js";
 
 
 
 // IMPORT MODEL
-import cityModel from "./city.model.js";
-import commentModel from "./comment.model.js";
-import evenementModel  from "./evenement.model.js";
-import neighbordhoodModel  from "./neighbordhood.model.js";
+import citiesModel from "./cities.model.js";
+import CommentsModel from "./Comments.model.js";
+import eventsModel from "./events.model.js";
+import neighbordhoodsModel from "./neighbordhoods.model.js";
 import newsModel  from "./news.model.js";
-import publicationModel  from "./publication.model.js";
-import subjectModel  from "./subject.model.js";
-import userModel  from "./user.model.js";
+import publicationsModel from "./publications.model.js";
+import subjectsModel from "./subjects.model.js";
+import usersModel from "./users.model.js";
+import reactions_eventsModel from "./reactions_events.model.js";
+import reactions_publicationsModel from "./reactions_publications.model.js";
+import typesModel from "./types.model.js";
+import responseModel from "./response.model.js";
+import messagesModel from "./messages.model.js";
 
 
 
-
-cityModel(connection, Sequelize);
-commentModel(connection, Sequelize);
-evenementModel(connection, Sequelize);
-neighbordhoodModel(connection, Sequelize);
+citiesModel(connection, Sequelize);
+CommentsModel(connection, Sequelize);
+eventsModel(connection, Sequelize);
+neighbordhoodsModel(connection, Sequelize);
 newsModel(connection, Sequelize);
-publicationModel(connection, Sequelize);
-subjectModel(connection, Sequelize);
-userModel(connection, Sequelize);
+publicationsModel(connection, Sequelize);
+subjectsModel(connection, Sequelize);
+usersModel(connection, Sequelize);
+reactions_eventsModel(connection, Sequelize);
+reactions_publicationsModel(connection, Sequelize);
+typesModel(connection, Sequelize);
+responseModel(connection, Sequelize);
+messagesModel(connection, Sequelize);
 
 const {
-    City,
-    Comment,
-    Evenement,
-    Neighbordhood,
+    Cities,
+    Comments,
+    Events,
+    Neighbordhoods,
     News,
-    Publication,
-    Subject,
-    User
+    Publications,
+    Subjects,
+    Users,
+    Reactions_events,
+    Reactions_publications,
+    Types,
+    Response,
+    Messages
 } = connection.models;
 
-//LIEN BDD 
+//LIEN BDD reaction message response
 
-///CITY
-City.hasMany(Evenement, { as: 'events' });
-Evenement.belongsTo(City);
-City.hasMany(Neighbordhood, { as :"hood" });
-Neighbordhood.belongsTo(City);
+///Cities
+Cities.hasMany(Neighbordhoods, { foreignKey :"id_cities" });
+Neighbordhoods.belongsTo(Cities);
+
+/// COMMENTS
+
+
+//EVENTS
+Events.hasMany(Reactions_events, { foreignKey: "id_events" });
+Reactions_events.belongsTo(Events);
 
 ///NEIGHBORDHOOD
-Neighbordhood.hasMany(Evenement, { as: 'events' });
-Evenement.belongsTo(Neighbordhood);
-Neighbordhood.hasMany(News, { as: 'news' });
-News.belongsTo(Neighbordhood);
+Neighbordhoods.hasMany(Events, { foreignKey: 'id_neighbordhoods' });
+Events.belongsTo(Neighbordhoods);
+Neighbordhoods.hasMany(News, { foreignKey: 'id_neighbordhoods' });
+News.belongsTo(Neighbordhoods);
 
 ///PUBLICATION
-Publication.hasMany(Comment, { as: 'comments' });
-Comment.belongsTo(Publication);
+Publications.hasMany(Comments, { foreignKey: 'id_publications' });
+Comments.belongsTo(Publications);
+Publications.hasMany(Reactions_publications, { foreignKey: "id_publications"});
 
 ///SUBJECT
-Subject.hasMany(Publication, { as: 'publications' });
-Publication.belongsTo(Subject);
-Subject.hasMany(User, {as : "specialists"});
-User.belongsTo(Subject);
+Subjects.hasMany(Publications, { foreignKey: 'id_subjects' });
+Publications.belongsTo(Subjects);
+Subjects.hasMany(Users, {foreignKey : "id_subjects"});
+Users.belongsTo(Subjects);
 
 ///USER
-User.hasMany(Evenement, {as : "events"});
-Evenement.belongsTo(User);
-User.hasMany(Comment, {as : "comments"});
-Comment.belongsTo(User);
-User.hasMany(Publication, {as : "publications"});
-Publication.belongsTo(User,);
-User.hasMany(News, {as : "news"});
-News.belongsTo(User);
+Users.hasMany(Events, {foreignKey : "id_users"});
+Events.belongsTo(Users);
+
+Users.hasMany(Comments, {foreignKey : "id_users"});
+Comments.belongsTo(Users);
+
+Users.hasMany(Publications, {foreignKey : "id_users"});
+Publications.belongsTo(Users,);
+
+Users.hasMany(News, {foreignKey : "id_user"});
+News.belongsTo(Users);
+
+Users.hasMany(Reactions_events, { foreignKey: "id_users"});
+Reactions_events.belongsTo(Users);
+
+Users.hasMany(Reactions_publications, { foreignKey: "id_users"});
+Reactions_publications.belongsTo(Users);
+
+///TYPES
+Types.hasMany(Reactions_events, { foreignKey: "id_types"});
+Reactions_events.belongsTo(Types);
+
+Types.hasMany(Reactions_publications, {foreignKey: "id_types"});
+Reactions_publications.belongsTo(Types);
+
+
+//MESSAGES
+Messages.hasMany(Response, {foreignKey: "id_messages"});
+Response.belongsTo(Messages);
+
 
 
 await connection.sync()
@@ -77,12 +120,18 @@ await connection.sync()
 console.log('Synchro OK');
 
 export {
-    City,
-    Comment,
-    Evenement,
-    Neighbordhood,
+    Cities,
+    Comments,
+    Events,
+    Neighbordhoods,
     News,
-    Publication,
-    Subject,
-    User
+    Publications,
+    Subjects,
+    Users,
+    Reactions_events,
+    Reactions_publications,
+    Types,
+    Response,
+    Messages
+
 }

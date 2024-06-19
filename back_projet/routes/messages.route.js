@@ -1,5 +1,5 @@
 import express from 'express';
-import {add,  getAll, getById, deleteById} from "../controllers/city.controller.js";
+import {add,  getAll, getById, deleteById} from "../controllers/messages.controller.js";
 import { verifieToken } from '../utils/auth.js'
 
 const router = express.Router();

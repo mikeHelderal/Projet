@@ -1,5 +1,5 @@
 
-import {Evenement} from "../models/index.js";
+import {Events} from "../models/index.js";
 
 const add = async (req, res) => {
     try {

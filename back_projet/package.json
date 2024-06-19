@@ -6,7 +6,7 @@
     "type": "module",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "node server.js"
+        "start": "nodemon server.js"
     },
     "author": "mike",
     "license": "ISC",
@@ -21,6 +21,7 @@
         "mongoose": "^8.3.2",
         "mongoose-unique-validator": "^5.0.0",
         "mysql2": "^3.9.7",
-        "sequelize": "^6.37.3"
+        "sequelize": "^6.37.3",
+        "socket.io": "^4.7.5"
     }
 }

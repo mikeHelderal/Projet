@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken'
-import { env } from '../config.js'
-import { createError } from '../error.js'
-import { User } from "../models/index.js";
+import { env } from '../config/config.js';
+import { createError } from '../error.js';
+import { Users } from "../models/index.js";
 
 
 export const verifieToken = (req, res, next) => {
