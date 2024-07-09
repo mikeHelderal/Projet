@@ -1,11 +1,13 @@
 import React from 'react'
 import NavBar from './Component/NavBar'
-import {NavLink,Outlet} from 'react-router-dom'
+import {Outlet} from 'react-router-dom'
+import "../Styles/Accueil.css"
 
 const Accueil = () => {
   return (
     <div>
-    <header className='header'>    
+    <header className='header'>  
+    <NavBar></NavBar>  
     </header>
     <section>
         <Outlet/>        

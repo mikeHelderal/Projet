@@ -1,21 +1,35 @@
 import './App.css'
 import {BrowserRouter , Routes, Route} from 'react-router-dom'
-import Connexion from './Vue/Pages/Connexion'
-import Inscription from './Vue/Pages/Inscription'
+import Connexion from './Vue/Pages/Auth/Connexion'
+import Inscription from './Vue/Pages/Auth/Inscription'
 import Accueil from './Vue/Accueil'
-import NavBar from './Vue/Component/NavBar'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import HistoireAccueil from './Vue/Pages/Histoire/HistoireAccueil'
+import TourismeAccueil from './Vue/Pages/Tourisme/TourismeAccueil'
+import ActualiteAccueil from './Vue/Pages/Actualite/ActualiteAccueil'
+import EvenementAccueil from './Vue/Pages/Evenement/EvenementAccueil'
+
+
 
 
 function App() {
 
   return (
     <BrowserRouter>
-    <NavBar></NavBar>
+    
     <Routes>
+    <Route path='/' element={<Accueil/>}>
       <Route path='/connexion' element={<Connexion/>}/>
       <Route path='/inscription' element={<Inscription/>}/>
-      <Route path='/' element={<Accueil/>}/>
+      <Route path='/histoire' element={<HistoireAccueil/>}/>
+      <Route path='/tourisme' element={<TourismeAccueil/>}/>
+      <Route path='/News' element={<ActualiteAccueil/>}/>
+      <Route path='/Events' element={<EvenementAccueil/>}/>
 
+
+
+
+    </Route>    
 
     </Routes>
     </BrowserRouter> 

@@ -55,62 +55,63 @@ const {
 //LIEN BDD reaction message response
 
 ///Cities
-Cities.hasMany(Neighbordhoods, { foreignKey :"id_cities" });
+Cities.hasMany(Neighbordhoods);
 Neighbordhoods.belongsTo(Cities);
 
 /// COMMENTS
 
 
 //EVENTS
-Events.hasMany(Reactions_events, { foreignKey: "id_events" });
+Events.hasMany(Reactions_events);
 Reactions_events.belongsTo(Events);
 
 ///NEIGHBORDHOOD
-Neighbordhoods.hasMany(Events, { foreignKey: 'id_neighbordhoods' });
+Neighbordhoods.hasMany(Events);
 Events.belongsTo(Neighbordhoods);
-Neighbordhoods.hasMany(News, { foreignKey: 'id_neighbordhoods' });
+Neighbordhoods.hasMany(News);
 News.belongsTo(Neighbordhoods);
 
 ///PUBLICATION
-Publications.hasMany(Comments, { foreignKey: 'id_publications' });
+Publications.hasMany(Comments);
 Comments.belongsTo(Publications);
-Publications.hasMany(Reactions_publications, { foreignKey: "id_publications"});
+Publications.hasMany(Reactions_publications);
+Reactions_publications.belongsTo(Publications);
 
 ///SUBJECT
-Subjects.hasMany(Publications, { foreignKey: 'id_subjects' });
+Subjects.hasMany(Publications);
 Publications.belongsTo(Subjects);
-Subjects.hasMany(Users, {foreignKey : "id_subjects"});
+Subjects.hasMany(Users);
 Users.belongsTo(Subjects);
 
 ///USER
-Users.hasMany(Events, {foreignKey : "id_users"});
+Users.hasMany(Events);
 Events.belongsTo(Users);
 
-Users.hasMany(Comments, {foreignKey : "id_users"});
+Users.hasMany(Comments);
 Comments.belongsTo(Users);
 
-Users.hasMany(Publications, {foreignKey : "id_users"});
+Users.hasMany(Publications);
 Publications.belongsTo(Users,);
 
-Users.hasMany(News, {foreignKey : "id_user"});
+Users.hasMany(News);
 News.belongsTo(Users);
 
-Users.hasMany(Reactions_events, { foreignKey: "id_users"});
+Users.hasMany(Reactions_events);
 Reactions_events.belongsTo(Users);
 
-Users.hasMany(Reactions_publications, { foreignKey: "id_users"});
+Users.hasMany(Reactions_publications);
 Reactions_publications.belongsTo(Users);
 
 ///TYPES
-Types.hasMany(Reactions_events, { foreignKey: "id_types"});
+Types.hasMany(Reactions_events);
 Reactions_events.belongsTo(Types);
 
-Types.hasMany(Reactions_publications, {foreignKey: "id_types"});
+Types.hasMany(Reactions_publications);
 Reactions_publications.belongsTo(Types);
 
 
 //MESSAGES
-Messages.hasMany(Response, {foreignKey: "id_messages"});
+Messages.hasMany(Response);
 Response.belongsTo(Messages);
 
 

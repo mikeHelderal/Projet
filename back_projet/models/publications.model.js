@@ -2,13 +2,12 @@ export default (connection, DataTypes) => {
     connection.define(
         'Publications',
         {
-           
-            name: {
+            title: {
                 type: DataTypes.STRING,
                 allowNull: false
             },
-            date_publication: {
-                type: DataTypes.DATE,
+            resume: {
+                type: DataTypes.STRING,
                 allowNull: false
             },
             content: {
@@ -18,8 +17,11 @@ export default (connection, DataTypes) => {
             is_valid: {
                 type: DataTypes.BOOLEAN,
                 allowNull: false
-            }
-            
+            },
+            date_publication: {
+                type: DataTypes.DATE,
+                allowNull: false
+            },
         }, { timestamps: true }
     );
 }

@@ -1,0 +1,1 @@
+insert into subjects (name) values ("Tourisme Gastronomique"), ("Tourisme Culturel"),("Tourisme Balnéaire"),("Actualité"),("Evènement")

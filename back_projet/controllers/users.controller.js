@@ -25,14 +25,11 @@ const login = async (req, res) => {
                 { email: req.body.email }
         });
         if (!user) return res.status(404).json("User not found !");
-
         const comparePassword = await bcrypt.compare(
             req.body.password,
             user.password
-        );
-        
+        );        
         if (!comparePassword) return res.status(400).json("Wrong Credentials ! ");
-
         const token = jwt.sign(           
             { id: user.id },
             env.token,

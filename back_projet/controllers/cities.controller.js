@@ -1,4 +1,5 @@
 
+import citiesModel from "../models/cities.model.js";
 import {Cities} from "../models/index.js";
 
 const add = async (req, res) => {
@@ -22,8 +23,17 @@ const getAll = async (req, res) => {
 }
 const getById = async (req, res) => {
      try {
-          const Cities = await Cities.findByPk(req.params.id);
-          res.status(200).json(Cities);
+          const cities = await Cities.findByPk(req.params.id);
+          res.status(200).json(cities);
+     } catch (error) {
+        console.log(error);  
+     }
+}
+const getNeighbordhoods = async (req,res) => {
+     try {
+          const cities = await Cities.findByPk(req.params.id);
+          let neighbordhood = await cities.getNeighbordhoods();
+          res.status(200).json(neighbordhood);
      } catch (error) {
         console.log(error);  
      }
@@ -40,6 +50,6 @@ const deleteById = async (req, res) => {
 }
 
 export {
-     add, getAll, getById, deleteById
+     add, getAll, getById,getNeighbordhoods, deleteById
 }
 
