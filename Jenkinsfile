@@ -28,15 +28,6 @@ pipeline {
                 }
             }
         }
-        stage("Run app") {
-            steps {
-                dir('back_projet'){
-                    sh 'npm start'
-                } 
-                dir('front/blog_martinique'){
-                    sh 'npm run dev'
-                }               
-            }
-        }
+        
     }
 }
