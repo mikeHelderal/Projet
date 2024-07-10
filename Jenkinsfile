@@ -14,7 +14,7 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 dir('back_projet'){
-                    bat 'npm install'
+                    sh 'npm install'
                 }
                 dir('front/blog_martinique'){
                     bat 'npm install'
