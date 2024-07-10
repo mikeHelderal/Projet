@@ -70,7 +70,7 @@ const Inscription = () => {
 
             <Form.Group className='mb-3' controlId='lastName'>
                 <Form.Label>Prenom :</Form.Label>
-                <Form.Control required type='text' name='lastName' onChange={handleChange}  />
+                <Form.Control required type='text' name='lastname' onChange={handleChange}  />
                 
                 <Form.Control.Feedback type='invalid' > Please provide a lastname </Form.Control.Feedback>
                 <Form.Control.Feedback  > Looks Good ! </Form.Control.Feedback>

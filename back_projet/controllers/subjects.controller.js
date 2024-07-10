@@ -3,7 +3,7 @@ import {Subjects} from "../models/index.js";
 
 const getAll = async (req, res) => {
      try {
-          const subjects = await Subject.findAll();
+          const subjects = await Subjects.findAll();
           res.status(200).json(subjects);
      } catch (error) {
           console.log(error);
@@ -11,7 +11,7 @@ const getAll = async (req, res) => {
 }
 const getById = async (req, res) => {
      try {
-          const subject = await Subject.findByPk(req.params.id);
+          const subject = await Subjects.findByPk(req.params.id);
           res.status(200).json(subject);
      } catch (error) {
           console.log(error);
@@ -19,7 +19,7 @@ const getById = async (req, res) => {
 }
 const updateById = async (req, res) => {
      try {
-          const subject = await Subject.findByPk(req.params.id);
+          const subject = await Subjects.findByPk(req.params.id);
           if(!subject) return res.status(404).json("Subject not found!");
           await subject.update(req.body);
           res.status(200).json({message: "Subject has been updated!", subject});
@@ -29,7 +29,7 @@ const updateById = async (req, res) => {
 }
 const deleteById = async (req, res) => {
      try {
-          const subjectDeleted = await Subject.destroy({where : {id : req.params.id}});
+          const subjectDeleted = await Subjects.destroy({where : {id : req.params.id}});
           if(!subjectDeleted) return res.status(404).json("Subject not found!");
           res.status(200).json( {message: "Subject has been deleted!"});
 

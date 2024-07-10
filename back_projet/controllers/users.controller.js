@@ -9,7 +9,7 @@ const signUp = async (req, res, next) => {
     try {
         const hashedPassword = await bcrypt.hash(req.body.password,10);
 
-        await User.create({...req.body, password: hashedPassword});
+        await Users.create({...req.body, password: hashedPassword});
         res.status(201).json("User has been created!")
         
     } catch (error) {
@@ -20,7 +20,7 @@ const signUp = async (req, res, next) => {
 }
 const login = async (req, res) => {
     try {
-        const user = await User.findOne({
+        const user = await Users.findOne({
             where:
                 { email: req.body.email }
         });
@@ -42,7 +42,7 @@ const login = async (req, res) => {
 }
 const getAll = async (req, res) => {
     try {
-        const users = await User.findAll();
+        const users = await Users.findAll();
         res.status(200).json(users);
     } catch (error) {
         console.log(error);
@@ -51,7 +51,7 @@ const getAll = async (req, res) => {
 const getById = async (req, res) => {
     try {
         const id = req.params.id;
-        const user = await User.findByPk(id);
+        const user = await Users.findByPk(id);
         res.status(200).json(user);
     } catch (error) {
         
@@ -59,7 +59,7 @@ const getById = async (req, res) => {
 }
 const updateById = async (req, res) => {
     try {
-        const user = await User.findByPk(req.params.id);
+        const user = await Users.findByPk(req.params.id);
         if(!user) return res.status(404).json("User not found!");
         await user.set(req.body);
         await user.save();
@@ -71,7 +71,7 @@ const updateById = async (req, res) => {
 }
 const deleteById = async (req, res) => {
     try {
-        const userDeletes = await User.destroy({where: {id: req.params.id}});
+        const userDeletes = await Users.destroy({where: {id: req.params.id}});
         if (!userDeleted) return res.status(404).json("User not found !");
         res.status(200).json({ message: "User deleted" });
     } catch (error) {

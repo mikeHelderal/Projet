@@ -3,8 +3,8 @@ import {Types} from "../models/index.js";
 
 const getAll = async (req, res) => {
     try {
-        const Types = await Types.findAll();
-        res.status(200).json(Types);
+        const types = await Types.findAll();
+        res.status(200).json(types);
     } catch (error) {
         console.log(error);
     }

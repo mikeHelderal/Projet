@@ -44,7 +44,7 @@ const NavBar = () => {
       </Container>
 
 
-      <Offcanvas show={show} onHide={handleClose} class="offcanvas offcanvas-start show text-bg-dark" >
+      <Offcanvas show={show} onHide={handleClose} className="offcanvas offcanvas-start show text-bg-dark" >
         <Offcanvas.Header >
           <Offcanvas.Title>Votre publication</Offcanvas.Title>
         </Offcanvas.Header>

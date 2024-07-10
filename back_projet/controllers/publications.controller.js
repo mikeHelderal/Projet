@@ -3,6 +3,7 @@ import {Publications} from "../models/index.js";
 
 const add = async (req, res) => {
     try {
+        console.log(res.body)
         await Publication.create(req.body),
         res.status(201).json({message: "Publication added successfully"})
     } catch (error) {
