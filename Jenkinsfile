@@ -17,24 +17,24 @@ pipeline {
                     sh 'npm install'
                 }
                 dir('front/blog_martinique'){
-                    bat 'npm install'
+                    sh 'npm install'
                 }
             }
         }
         stage("Run Tests") {
             steps {
                 dir('back_projet'){
-                    bat 'npm test'
+                    sh 'npm test'
                 }
             }
         }
         stage("Run app") {
             steps {
                 dir('back_projet'){
-                    bat 'npm start'
+                    sh 'npm start'
                 } 
                 dir('front/blog_martinique'){
-                    bat 'npm run dev'
+                    sh 'npm run dev'
                 }               
             }
         }
