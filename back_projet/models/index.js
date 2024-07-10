@@ -7,7 +7,7 @@ import connection from "../config/DatabaseConfig.js";
 
 // IMPORT MODEL
 import citiesModel from "./cities.model.js";
-import CommentsModel from "./Comments.model.js";
+import CommentsModel from "./comments.model.js";
 import eventsModel from "./events.model.js";
 import neighbordhoodsModel from "./neighbordhoods.model.js";
 import newsModel  from "./news.model.js";
