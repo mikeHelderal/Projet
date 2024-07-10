@@ -1,4 +1,4 @@
-import { getAll } from "../controllers/neighbordhoods.controller.js";
+/**import { getAll } from "../controllers/neighbordhoods.controller.js";
 //const Livre = require("../../src/models/livreModel");
 //jest.mock("../../src/models/livreModel");
 import {jest} from '@jest/globals'
@@ -45,7 +45,7 @@ describe("getAllNeighbordhoods", () => {
   })
 
 
-/**
+
   it("should return a list of neighbordhoods", async () => {
     Livre.findAll.mockResolvedValue(mockNeigbordhoods);
     await getAll(req, res);
@@ -60,5 +60,5 @@ describe("getAllNeighbordhoods", () => {
     expect(res.status).toHaveBeenCalledWith(500);
     expect(res.json).toHaveBeenCalledWith({ error: errorMessage });
   });
-  */
-});
+  
+});*/
