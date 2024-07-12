@@ -8,15 +8,6 @@ pipeline {
     tools{
         nodejs "NodeJS"
     }
-    
-    environment {
-        MYSQL_DATABASE='martinique'
-        MYSQL_USER='root'
-        MYSQL_PASSWORD='' 
-        DB_HOST="localhost"     
-        DB_DIALECT = "mysql"
-        
-    }
 
     stages {
         stage('Git Checkout') {
@@ -49,5 +40,28 @@ pipeline {
             }
         }
         
+    }
+    post {
+        success {
+                script { // script pour fusionner les branches 
+
+                    bat  """
+
+                    git config --global user.email "mike.helderal.sio@gmail.com"
+
+                    git config --global user.name "mikeHelderal"
+
+                    git checkout main 
+
+                    git pull origin main
+
+                    git merge dev
+
+                    git push https://mike.helderal.sio@gmail.com:KingBoo972@github.com/mikeHelderal/Projet.git main"""  
+                }
+                always {// nettoyage d
+                        cleanWs()
+                }
+        }
     }
 }
