@@ -45,19 +45,7 @@ pipeline {
         success {
                 script { // script pour fusionner les branches 
 
-                    bat  """
-
-                    git config --global user.email "mike.helderal.sio@gmail.com"
-
-                    git config --global user.name "mikeHelderal"
-
-                    git checkout main 
-
-                    git pull origin main
-
-                    git merge dev
-
-                    git push https://mike.helderal.sio@gmail.com:KingBoo972@github.com/mikeHelderal/Projet.git main"""  
+                    bat  """ echo code pour merger sur main  """  
                 }
                 always {// nettoyage d
                         cleanWs()
