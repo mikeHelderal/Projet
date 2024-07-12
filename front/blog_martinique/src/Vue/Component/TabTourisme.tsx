@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Tab from 'react-bootstrap/Tab'
 import Tabs from 'react-bootstrap/Tabs'
 import "../../Styles/Tab.css"
@@ -6,6 +6,15 @@ import Cards from './CardHT'
 
 
 const TabTourisme = () => {
+
+
+    const [publications, setPublication] = useState();
+
+    useEffect(() => {
+
+    })
+
+
   return (
     <Tabs 
             defaultActiveKey="Gastronomique"

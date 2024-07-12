@@ -16,11 +16,11 @@ export default (connection, DataTypes) => {
             },
             is_valid: {
                 type: DataTypes.BOOLEAN,
-                allowNull: false
+                allowNull: true
             },
             date_publication: {
                 type: DataTypes.DATE,
-                allowNull: false
+                allowNull: true
             },
         }, { timestamps: true }
     );

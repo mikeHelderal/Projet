@@ -5,7 +5,7 @@ import { verifieToken } from '../utils/auth.js'
 const router = express.Router();
 
 
-router.post("/add", verifieToken, add);
+router.post("/add", add);
 // Route pour obtenir tous les utilisateurs
 router.get("/all", getAll);
 // Route pour obtenir un utilisateur spécifique par son ID

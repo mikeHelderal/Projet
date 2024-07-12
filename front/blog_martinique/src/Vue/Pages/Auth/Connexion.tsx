@@ -2,6 +2,8 @@ import axios from 'axios';
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { URl } from '../../../Utils/Constant/URL';
+import {useDispatch, useSelector} from  'react-redux';
+import * as ACTION from '../../../../redux/reducers/user';
 
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -14,6 +16,8 @@ const Connexion = () => {
     const [user, setUser] = useState({});
     const [validated, setValidated] = useState(false);
     const [validity, setValidity] = useState(false);
+    const dispatch = useDispatch();
+
 
 
     const handleChange = (e: any) =>{
@@ -40,9 +44,11 @@ const Connexion = () => {
 
 
     const connexion = () => {
+      dispatch(ACTION.FETCH_START());
         const enregistrer = async () => {
           try {
             const response = await axios.post(URl.LOGIN, user);
+            dispatch(ACTION.FETCH_SUCCES(response.data))
             console.log(response);
             navigate("/");
           } catch (error) {

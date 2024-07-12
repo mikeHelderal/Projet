@@ -2,11 +2,16 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { URl } from '../../Utils/Constant/URL.js';
+import { User, RootState,  } from '../../Utils/interfaces/user.interface.js';
+
 
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Feedback from 'react-bootstrap/Feedback';
 import { InputGroup } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
+import {getUser} from '../../../services/selector/User.selecteur.js';
+
 
 
 const FormulairePublication = () => {
@@ -17,6 +22,7 @@ const FormulairePublication = () => {
   const [validated, setValidated] = useState(false);
   const [validity, setValidity] = useState(false);
   const [subjects, setSubjects] = useState([]);
+  const store: User = useSelector((state: RootState) => getUser(state));
 
   useEffect(  () => {
     const recupSubjects = async () => {
@@ -25,6 +31,7 @@ const FormulairePublication = () => {
       setSubjects(response.data);
     }
     recupSubjects();
+    console.log(store);
   },[])
 
 
@@ -72,11 +79,11 @@ const FormulairePublication = () => {
       <Form.Group className="mb-3" controlId="formBasicTitle">
         <Form.Label>Sujet :</Form.Label>
         <Form.Select onChange={handleChange} name='idSubject' aria-label="Default select example">
-        <option   name="idSubject" value="">  </option>
+        <option   name="SubjectId" value="">  </option>
 
           {subjects && subjects.map((subject, index) => 
 
-            <option key={index}  name="idSubject" value={subject.id}>{subject.name}  </option>
+            <option key={index}  name="SubjectId" value={subject.id}>{subject.name}  </option>
           )}
         </Form.Select> 
         <Form.Control.Feedback type="invalid">Please provide an subject</Form.Control.Feedback>
