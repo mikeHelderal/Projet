@@ -1,6 +1,6 @@
 import React from 'react'
 import {Outlet} from 'react-router-dom'
-import TabHistoire from '../../Component/TabHistoire'
+import TabHistoire from './TabHistoire'
 
 
 const HistoireAccueil = () => {

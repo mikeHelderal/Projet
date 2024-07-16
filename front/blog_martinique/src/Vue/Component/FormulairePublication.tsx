@@ -4,9 +4,10 @@ import { useNavigate } from 'react-router-dom'
 import { URl } from '../../Utils/Constant/URL.js';
 import { User, RootState,  } from '../../Utils/interfaces/user.interface.js';
 
-
+import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import Modal from 'react-bootstrap/Modal';
 import Feedback from 'react-bootstrap/Feedback';
 import { InputGroup } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
@@ -23,6 +24,8 @@ const FormulairePublication = () => {
   const [validity, setValidity] = useState(false);
   const [subjects, setSubjects] = useState([]);
   const store: User = useSelector((state: RootState) => getUser(state));
+  const [show, setShow] = useState(false);
+
 
   useEffect(  () => {
     const recupSubjects = async () => {
@@ -32,6 +35,7 @@ const FormulairePublication = () => {
     }
     recupSubjects();
     console.log(store);
+    setShow(false);
   },[])
 
 
@@ -39,6 +43,10 @@ const FormulairePublication = () => {
       const {name, value} = e.currentTarget;
       await setPublication((publication: any) => ({...publication, [name]: value}));
   } 
+
+  
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
 
 
@@ -66,7 +74,7 @@ const FormulairePublication = () => {
           console.log(response);
           navigate("/");
         } catch (error) {
-          alert("probleme lors de la publication ");
+          handleShow();
         }
       }
       enregistrer();
@@ -74,6 +82,14 @@ const FormulairePublication = () => {
 
   return (
     <div>
+      <Alert show={show} variant="danger" onClose={() => handleClose()} dismissible>
+        <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
+        <p>
+          Change this and that and try again. Duis mollis, est non commodo
+          luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.
+          Cras mattis consectetur purus sit amet fermentum.
+        </p>
+      </Alert>
     
     <Form noValidate validated={validated}  onSubmit={handleSubmit}>
       <Form.Group className="mb-3" controlId="formBasicTitle">

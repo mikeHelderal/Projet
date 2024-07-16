@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import Tab from 'react-bootstrap/Tab'
 import Tabs from 'react-bootstrap/Tabs'
-import "../../Styles/Tab.css"
-import Cards from './CardHT'
+import "../../../Styles/Tab.css"
+import CardHT from '../../Component/CardHT'
 
 
 const TabTourisme = () => {
@@ -23,13 +23,13 @@ const TabTourisme = () => {
             justify
         >
             <Tab eventKey="Gastronomique" title="Gastronomique">
-                <Cards></Cards>
+                <CardHT></CardHT>
             </Tab>
             <Tab eventKey="Culturel" title="Culturel">
-                <Cards></Cards>
+                <CardHT></CardHT>
             </Tab>
             <Tab eventKey="Balnéaire" title="Balnéaire">
-                <Cards></Cards>
+                <CardHT></CardHT>
             </Tab>
 
 

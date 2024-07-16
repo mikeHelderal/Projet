@@ -2,7 +2,7 @@ export default (connection, DataTypes) => {
     connection.define(
         'Events',
         {
-            name: {
+            title: {
                 type: DataTypes.STRING,
                 allowNull: false
             },
@@ -16,7 +16,7 @@ export default (connection, DataTypes) => {
             },
             is_valid: {
                 type: DataTypes.BOOLEAN,
-                allowNull: false
+                allowNull: true
             }
         }, { timestamps: true }
     );
