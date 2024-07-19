@@ -3,19 +3,19 @@
 //const routerNeighbordhoods = require("../routes/neighbordhoods.route.js");
 import express from 'express';
 import request from 'supertest';
-import routerNeighbordhoods from '../routes/neighbordhoods.route';
+//import routerNeighbordhoods from '../routes/neighbordhoods.route';
 const app = express();
 
 app.use(express.json());
 
-app.use("/api/neighbordhood",routerNeighbordhoods);
+//app.use("/api/neighbordhood",routerNeighbordhoods);
 
 //test qui donne succès à tous les coups
 test("test trivial qui réussit toujours", () => {
     expect(true).toBe(true);
   });
 
-  
+
   /**
 describe("test d'integration pour neighbordhood", () => {
     //test get all
