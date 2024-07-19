@@ -1,55 +1,103 @@
 pipeline {
     agent any
     
+   
     parameters {
         stashedFile '.env'
     }
-    
-    tools{
-        nodejs "NodeJS"
+
+    environment {
+        NODE_ENV = 'test'
+        GIT_CREDENTIALS_ID = 'CredentialBM' // Remplacez par l'ID de vos credentials Jenkins
     }
 
+    tools{
+        nodejs:"NodeJS"
+    }
+    
+
+
     stages {
-        stage('Git Checkout') {
+        stage('Checkout') {
             steps {
-                git branch: 'dev', url: 'https://github.com/mikeHelderal/Projet.git'
+                script {
+                    // Checkout the 'dev' branch
+                    checkout([$class: 'GitSCM', branches: [[name: '*/dev']], 
+                            doGenerateSubmoduleConfigurations: false, 
+                            extensions: [], submoduleCfg: [], 
+                            userRemoteConfigs: [[credentialsId: env.GIT_CREDENTIALS_ID, url: 'https://github.com/mikeHelderal/Projet.git']]])
+                }
             }
         }
-        stage('Import .env') {
+         stage('Import .env') {
            steps {
                 dir('back_projet') {
                     unstash '.env'
                 }
             }
         }
+
         stage('Install Dependencies') {
             steps {
-                dir('back_projet'){
-                    bat 'npm install'
-                }
-                dir('front/blog_martinique'){
-                    bat 'npm install'
+                script {
+                    // Install Node.js dependencies for both frontend and backend
+                    dir('back_projet') {
+                        bat 'npm install'
+                    }
+                    dir('front/blog_martinique') {
+                        bat 'npm install'
+                    }
                 }
             }
         }
-        stage("Run Tests") {
+
+        stage('Run Tests') {
             steps {
-                dir('back_projet'){
-                    bat 'npm test'
+                script {
+                    // Run tests for both frontend and backend
+                    dir('front/blog_martinique') {
+                        echo 'sur le front'
+                        
+                    }
+                    dir('back_projet') {
+                        echo 'sur le back'
+                        bat 'npm test'
+                    }
                 }
             }
         }
+
         
     }
+
+    
     post {
         success {
-                script { // script pour fusionner les branches 
+            script {
+                checkout([$class: 'GitSCM', branches: [[name: '*/dev']], 
+                              doGenerateSubmoduleConfigurations: false, 
+                              extensions: [], submoduleCfg: [], 
+                              userRemoteConfigs: [[credentialsId: env.GIT_CREDENTIALS_ID, url: 'https://github.com/mikeHelderal/Projet.git']]])
 
-                    bat  """ echo code pour merger sur main  """  
+                echo 'Tests succeeded, merging dev into main'
+                withCredentials([usernamePassword(credentialsId: env.GIT_CREDENTIALS_ID, passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+                    bat """
+                        git config --global user.email "mike.helderal.sio@gmail.com"
+                        git config --global user.name "mikeHelderal"
+                        git checkout main
+                        git pull origin main
+                        git merge origin/dev
+                        git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/mikeHelderal/Projet.git main
+                    """
                 }
-                always {// nettoyage d
-                        cleanWs()
-                }
+            }
+        }
+        failure {
+            echo 'Tests failed, merge to main aborted.'
+        }
+        always {
+            echo 'Cleaning up workspace'
+            cleanWs()
         }
     }
 }
