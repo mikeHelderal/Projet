@@ -8,6 +8,7 @@ import * as ACTION from '../../../../redux/reducers/user';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Feedback from 'react-bootstrap/Feedback';
+import { connexion } from '../../../../services/auth.service';
 
 
 const Connexion = () => {
@@ -28,34 +29,25 @@ const Connexion = () => {
 
 
     const handleSubmit = (e: any) => {
-      console.log("handleSubmit")
         e.preventDefault();
         const form = e.currentTarget;
-        console.log("checkValidity => ",form.checkValidity() )
 
         setValidity(form.checkValidity());
         setValidated(true);
 
         if(form.checkValidity()){
-            console.log(" ici ce fera l'appel connexion");
-            connexion();
+            ceConnecter();
         }
     }
 
 
-    const connexion = () => {
+    const ceConnecter = async () => {
       dispatch(ACTION.FETCH_START());
-        const enregistrer = async () => {
-          try {
-            const response = await axios.post(URl.LOGIN, user);
-            dispatch(ACTION.FETCH_SUCCES(response.data))
-            console.log(response);
-            navigate("/");
-          } catch (error) {
-            alert("utilisateur introuvable veuillez vous incscrire");
-          }
-        }
-        enregistrer();
+      const result = await connexion(user)
+      dispatch(ACTION.FETCH_SUCCES(result))
+      localStorage.setItem("User",JSON.stringify(result));
+      navigate("/blogMartinique");
+
     }
 
   return (

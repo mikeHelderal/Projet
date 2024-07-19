@@ -14,6 +14,8 @@
     width: 100%;
     height: 10vh;
     display: grid;
+    background-color: #293035;
+
 }
 
 h1{
@@ -25,11 +27,14 @@ body{
     padding: 0;
     margin: 0;   
     font-family: 'Jersey 10', sans-serif;
+    background-color: #293035;
+
     
 }
 
 
 section{
     min-height: 70vh;
+    background-color: #293035;
 
 }

@@ -1,1 +1,1 @@
-insert into types (name,id_cities) values ("like",),("unlike",)
+insert into types (name) values ("like",),("unlike",)

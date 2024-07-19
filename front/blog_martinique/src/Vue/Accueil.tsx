@@ -1,5 +1,5 @@
 import React from 'react'
-import NavBar from './Component/NavBar'
+import NavBar from "../Vue/Component/NavBar"
 import {Outlet} from 'react-router-dom'
 import "../Styles/Accueil.css"
 

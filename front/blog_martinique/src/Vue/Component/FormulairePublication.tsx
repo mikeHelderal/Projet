@@ -7,8 +7,6 @@ import { User, RootState,  } from '../../Utils/interfaces/user.interface.js';
 import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import Modal from 'react-bootstrap/Modal';
-import Feedback from 'react-bootstrap/Feedback';
 import { InputGroup } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import {getUser} from '../../../services/selector/User.selecteur.js';
@@ -25,16 +23,19 @@ const FormulairePublication = () => {
   const [subjects, setSubjects] = useState([]);
   const store: User = useSelector((state: RootState) => getUser(state));
   const [show, setShow] = useState(false);
+  const userTampon = localStorage.getItem("User");
+  const user = JSON.parse(userTampon);
+  const userId = user.id;
 
 
   useEffect(  () => {
     const recupSubjects = async () => {
       const response = await axios.get(URl.GET_ALL_SUBJECT);
-      console.log("response => ",response);
       setSubjects(response.data);
     }
     recupSubjects();
-    console.log(store);
+    console.log("localstorage => ",userId);
+    setPublication((publication: any) => ({...publication, userId}));
     setShow(false);
   },[])
 
@@ -42,6 +43,7 @@ const FormulairePublication = () => {
   const handleChange = async (e: any) =>{
       const {name, value} = e.currentTarget;
       await setPublication((publication: any) => ({...publication, [name]: value}));
+      console.log(publication);
   } 
 
   
@@ -91,14 +93,11 @@ const FormulairePublication = () => {
         </p>
       </Alert>
     
-    <Form noValidate validated={validated}  onSubmit={handleSubmit}>
+    <Form noValidate encType='multipart/form-data' method='post' validated={validated}  onSubmit={handleSubmit}>
       <Form.Group className="mb-3" controlId="formBasicTitle">
         <Form.Label>Sujet :</Form.Label>
         <Form.Select onChange={handleChange} name='idSubject' aria-label="Default select example">
-        <option   name="SubjectId" value="">  </option>
-
           {subjects && subjects.map((subject, index) => 
-
             <option key={index}  name="SubjectId" value={subject.id}>{subject.name}  </option>
           )}
         </Form.Select> 
@@ -119,6 +118,13 @@ const FormulairePublication = () => {
         <Form.Control.Feedback type="invalid">Please provide an resume</Form.Control.Feedback>
         <Form.Control.Feedback  > Looks Good ! </Form.Control.Feedback>
       </Form.Group>
+
+      <Form.Group className="position-relative mb-3">
+            <Form.Label>File</Form.Label>
+            <Form.Control type="file" required name="image" onChange={handleChange} />
+            <Form.Control.Feedback type="invalid" >Veuillez insérer une image </Form.Control.Feedback>
+            <Form.Control.Feedback  > Looks Good ! </Form.Control.Feedback>
+          </Form.Group>
 
       
       <InputGroup>

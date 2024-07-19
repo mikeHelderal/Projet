@@ -15,22 +15,16 @@ import EvenementAccueil from './Vue/Pages/Evenement/EvenementAccueil'
 function App() {
 
   return (
-    <BrowserRouter>
-    
+    <BrowserRouter>    
     <Routes>
-    <Route path='/' element={<Accueil/>}>
-      <Route path='/connexion' element={<Connexion/>}/>
-      <Route path='/inscription' element={<Inscription/>}/>
-      <Route path='/histoire' element={<HistoireAccueil/>}/>
-      <Route path='/tourisme' element={<TourismeAccueil/>}/>
-      <Route path='/News' element={<ActualiteAccueil/>}/>
-      <Route path='/Events' element={<EvenementAccueil/>}/>
-
-
-
-
-    </Route>    
-
+      <Route path='/blogMartinique' element={<Accueil/>}>
+        <Route path='/blogMartinique/connexion' element={<Connexion/>}/>
+        <Route path='/blogMartinique/inscription' element={<Inscription/>}/>
+        <Route path='/blogMartinique/histoire' element={<HistoireAccueil/>}/>
+        <Route path='/blogMartinique/tourisme' element={<TourismeAccueil/>}/>
+        <Route path='/blogMartinique/News' element={<ActualiteAccueil/>}/>
+        <Route path='/blogMartinique/Events' element={<EvenementAccueil/>}/>
+      </Route>    
     </Routes>
     </BrowserRouter> 
   )

@@ -1,11 +1,12 @@
 
 div{
     height: 10%;
+    background-color: #293035;
 }
 .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
-    color: #dc3545;
+    color: #A62014;
     background-color: green;
-    border-color: var(--bs-nav-tabs-link-active-border-color);
+    border-color: #293035;
 }
 .nav {
     --bs-nav-link-padding-x: 1rem;
@@ -14,6 +15,7 @@ div{
     --bs-nav-link-color: green;
     --bs-nav-link-hover-color: var(--bs-link-hover-color);
     --bs-nav-link-disabled-color: var(--bs-secondary-color);
+    --bs-nav-link-disabled-color: #293035;
     display: flex;
     flex-wrap: wrap;
     padding-left: 0;

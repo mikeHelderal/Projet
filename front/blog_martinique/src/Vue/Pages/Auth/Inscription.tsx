@@ -1,55 +1,62 @@
 import axios from 'axios';
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { URl } from '../../../Utils/Constant/URL';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Feedback from 'react-bootstrap/Feedback';
+import {inscrire } from '../../../../services/auth.service'
+import { USER } from '../../../Utils/Constant/Types';
 
 
 const Inscription = () => {
 
     const navigate = useNavigate();
-    const [user, setUser] = useState({});
+    const [user, setUser] = useState<USER>({});
     const [validated, setValidated] = useState(false);
     const [validity, setValidity] = useState(false);
+    const [subjects, setSubjects] = useState([]);
 
+
+
+    useEffect(  () => {
+        const recupSubjects = async () => {
+          const response = await axios.get(URl.GET_ALL_SUBJECT);
+          console.log("response => ",response);
+          setSubjects(response.data);
+        }
+        recupSubjects();
+      },[])
 
     const handleChange = (e: any) =>{
-        console.log("target => ", e.target)
         const {name, value} = e.target;
-        console.log("name => ", name);
-        console.log("value => ", value);
         setUser((user: any) => ({...user, [name]: value})); 
     } 
 
     const handleSubmit = (e: any) => {
-        console.log("handleSubmit")
         e.preventDefault();
-        const form = e.currentTarget;
-        console.log("checkValidity => ",form.checkValidity() )
+        validityCheck(e);
 
+    }
+
+    const validityCheck = (e: any) => {
+        const form = e.currentTarget;
         setValidity(form.checkValidity());
         setValidated(true);
-
         if(form.checkValidity()){
-            console.log(" ici ce ferza l'appel inscription");
             inscription();
         }
 
     }
 
-    const inscription = () => {
-        const inscrire = async () => {
-            try {
-                const response = await axios.post(URl.SIGNUP, user);
-                console.log(response);
-                navigate('/connexion');
-            } catch (error) {
-                alert("utilisateur introuvable veuillez vous incscrire");
-            }
+    const inscription = async () => {
+        try {
+            const result = await inscrire(user) ;
+            console.log("result => ",result)
+            navigate("/blogMartinique/connexion")
+        } catch (error) {
+            
         }
-        inscrire();
     }
 
   return (
@@ -73,6 +80,18 @@ const Inscription = () => {
                 <Form.Control required type='text' name='lastname' onChange={handleChange}  />
                 
                 <Form.Control.Feedback type='invalid' > Please provide a lastname </Form.Control.Feedback>
+                <Form.Control.Feedback  > Looks Good ! </Form.Control.Feedback>
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="formBasicTitle">
+                <Form.Label>Sujet :</Form.Label>
+                <Form.Select onChange={handleChange} name='idSubject' aria-label="Default select example">
+                    <option   name="SubjectId" value="">  </option>
+                    {subjects && subjects.map((subject, index) => 
+                        <option key={index}  name="SubjectId" value={subject.id}>{subject.name}  </option>
+                    )}
+                </Form.Select> 
+                <Form.Control.Feedback type="invalid">Please provide an subject</Form.Control.Feedback>
                 <Form.Control.Feedback  > Looks Good ! </Form.Control.Feedback>
             </Form.Group>
 

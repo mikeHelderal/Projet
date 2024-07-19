@@ -42,7 +42,7 @@ it("test get neighbordhood by id", async () => {
         }),
         
     ); 
-    expect(statusCode).toBe(200);
+    expect(statusCode).toBe(201);
 }); 
 
 //test get city

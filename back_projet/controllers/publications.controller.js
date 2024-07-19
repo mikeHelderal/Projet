@@ -1,11 +1,14 @@
 
 import {Publications} from "../models/index.js";
+import multer from 'multer'
+
 
 const add = async (req, res) => {
     try {
-        console.log(res.body)
-        await Publications.create(req.body),
-        res.status(201).json({message: "Publication added successfully"})
+        console.log("body => ", req.body);
+        console.log("req file => ", req.file );
+        //await Publications.create(req.body),
+        //res.status(201).json({message: "Publication added successfully"})
     } catch (error) {
         console.log(error);
     }

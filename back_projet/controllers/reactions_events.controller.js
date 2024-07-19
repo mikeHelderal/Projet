@@ -16,25 +16,37 @@ const add = async (req, res) => {
 }
 const getAll = async (req, res) => {
     try {
-        const Reactions_events = await Reactions_events.findAll();
-        res.status(200).json(Reactions_eventss);
+        const reactions_events = await Reactions_events.findAll();
+        res.status(200).json(reactions_eventss);
     } catch (error) {
         console.log(error);
     }
 }
 const getById = async (req, res) => {
     try {
-        const Reactions_events = await Reactions_events.findByPk(req.params.id);
-        res.status(200).json(Reactions_events);
+        const reactions_events = await Reactions_events.findByPk(req.params.id);
+        res.status(200).json(reactions_events);
     } catch (error) {
         console.log(error);
     }
 }
+
+const getByIdUser = async (req, res) => {
+    try {
+        const reactions = await Reactions_events.findOne({where : {id: req.params.id}});
+        if(!reactions) return res.status(404).json("Reactions_events not found!");
+        res.status(200).json( reactions);
+
+    } catch (error) {
+        res.status(500).json( {message: "une erreur est parvenue !"});
+
+    }
+}
 const updateById = async (req, res) => {
     try {
-        const Reactions_events = await Reactions_events.findByPk(req.params.id);
-        if(!Reactions_events) return res.status(404).json("Reactions_events not found!");
-        const result = await Reactions_events.update(req.body);
+        const reactions_events = await Reactions_events.findByPk(req.params.id);
+        if(!reactions_events) return res.status(404).json("Reactions_events not found!");
+        const result = await reactions_events.update(req.body);
         io.emit("newReactionEvent", result);
         res.status(200).json({message: "Reactions_events has been updated!", Reactions_events});
     } catch (error) {
@@ -43,8 +55,8 @@ const updateById = async (req, res) => {
 }
 const deleteById = async (req, res) => {
     try {
-        const Reactions_eventsDeleted = await Reactions_events.destroy({where : {id : req.params.id}});
-        if(!Reactions_eventsDeleted) return res.status(404).json("Reactions_events not found!");
+        const reactions_eventsDeleted = await Reactions_events.destroy({where : {id : req.params.id}});
+        if(!reactions_eventsDeleted) return res.status(404).json("Reactions_events not found!");
         res.status(200).json( {message: "Reactions_events has been deleted!"});
 
     } catch (error) {
@@ -55,6 +67,6 @@ const deleteById = async (req, res) => {
 
 
 export {
-    add, getAll, getById, updateById, deleteById
+    add, getAll, getById, updateById,getByIdUser , deleteById
 }
 

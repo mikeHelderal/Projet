@@ -116,7 +116,7 @@ Response.belongsTo(Messages);
 
 
 
-await connection.sync({ alter: true })
+await connection.sync()
 
 console.log('Synchro OK');
 

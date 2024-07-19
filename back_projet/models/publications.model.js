@@ -14,6 +14,10 @@ export default (connection, DataTypes) => {
                 type: DataTypes.STRING,
                 allowNull: false
             },
+            image: {
+                type: DataTypes.STRING,
+                allowNull: true
+            },
             is_valid: {
                 type: DataTypes.BOOLEAN,
                 allowNull: true

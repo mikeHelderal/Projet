@@ -80,6 +80,7 @@ export const URl = {
     ADD_REACTION_EVENT: "http://localhost:8181/api/reaction_events/add",
     GET_ALL_REACTION_EVENT: "http://localhost:8181/api/reaction_events/all",
     GET_REACTION_EVENT_BY_ID: "http://localhost:8181/api/reaction_events/get/",
+    GET_REACTION_EVENT_BY_USER: "http://localhost:8181/api/reaction_events/getByUser/",
     DELETE_REACTION_EVENT: "http://localhost:8181/api/reaction_events/delete/",
 
 
