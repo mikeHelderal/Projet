@@ -5,10 +5,9 @@ const connection = new Sequelize(
     env.db_name, // Nom de la base de donnée
     env.db_user, // identifiant Mysql
     env.db_password, // Mot de passe Mysql
-    {
-        host: env.db_host, // URL de mySQL
-        dialect: env.db_dialect
-    }
+    env.db_host, // URL de mySQL
+    env.db_dialect
+    
 );
 
 try {
