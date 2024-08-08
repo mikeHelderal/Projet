@@ -2,57 +2,65 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { getReactPubli } from '../../../services/selector/ReactionPubli.selecteur';
 import * as ACTION from '../../../redux/reducers/reactionPubli';
+import * as ACTIONNBPUBLI from '../../../redux/reducers/nbReactionPublication';
 import axios from 'axios';
 import { URl } from '../../Utils/Constant/URL';
 import { RootState } from '../../Utils/interfaces/reactPubli.interface';
 import { Badge, Button } from 'react-bootstrap';
 import "../../Styles/reaction.css";
+import { RootStateReaciontPublication } from '../../Utils/interfaces/nbReactionPublication.interface';
+
+import { getNbReactionPublication } from '../../../services/selector/NbReactionPublication.selecteur';
+import { io } from "socket.io-client";
+
 
 
 const ReactionPublication = (props: any) => {
 
 
+    const socket = io(URl.BACK);
     const dispatch = useDispatch();
     const mes_reactions = useSelector((state: RootState) => getReactPubli(state));
     const PublicationId = props.PublicationId;
-    const [reactions, setReactions] = useState();
-    const [nbLike, setNbLike] = useState(0);
-    const [nbUnlike, setNbUnlike] = useState(0);
 
     const userId = localStorage.getItem("UserId")
     const LIKE_ID = 1;
     const UNLIKE_ID = 2;
 
+    const nbReactP = useSelector((state: RootStateReaciontPublication) => getNbReactionPublication(state));
+
 
     useEffect( () => {
-        console.log("props =>",props.PublicationId);
-        dispatch(ACTION.FETCH_START())
-        const recupLike = async () => {
-          const response = await axios.get(URl.GET_ALL_REACTION_PUBLICATION);
-          setReactions(response.data.data);
-        }
+        dispatch(ACTION.FETCH_START())  ;
+        dispatch(ACTIONNBPUBLI.FETCH_START());
         
         const recupMesLike = async () => {
           const response = await axios.get(URl.GET_REACTION_PUBLICATION_BY_ID_USER + userId);
           //setMesReactions([response.data.data]);
           dispatch(ACTION.FETCH_SUCCESS(response.data.data))
         }
-        
-        const RecupNbLike  = async  () => {
-            const result = await axios.get(URl.GET_NB_REACTION_PUBLICATION_BY_ID_PUBLICATION + PublicationId);
-            console.log("nb like =>",result.data.data);
-            setNbLike(result.data.data);
-        }
 
-        const RecupNbUnlike  = async  () => {
-            const result = await axios.get(URl.GET_NB_UNLIKE_BY_ID_PUBLICATION + PublicationId);
-            console.log("nb like =>",result.data.data);
-            setNbUnlike(result.data.data);
+        const recupCountreact = async () => {
+          const response = await axios(URl.GET_ALL_REACTION_PUBLICATION);
+          console.log("tttttt => ", response);
+          dispatch(ACTIONNBPUBLI.FETCH_SUCCESS(response.data.data));
+          console.log("nb reaction via redux => ", nbReactP);
         }
-        recupLike();
+        
+
+        
         recupMesLike();
-        RecupNbLike();
-        RecupNbUnlike();
+        recupCountreact();
+
+        socket.on("connect", () => {
+          console.log("Connected to the server");
+          socket.on('getNbReactionP', (response) => {
+              console.log("response: ", response);
+              dispatch(ACTIONNBPUBLI.FETCH_SUCCESS( response))
+          })
+      })
+
+
         
     
       },[])
@@ -127,14 +135,7 @@ const unlike = async (publicationId: any) => {
 
         }
         else if(maReaction[0].TypeId == LIKE_ID){
-          const leUnlike = {
-            "id" : maReaction[0].id ,
-            "PublicationId": publicationId,
-            "UserId": userId,
-            "TypeId": LIKE_ID ,
-            "createdAt": maReaction[0].createdAt,
-            "updatedAt": maReaction[0].updatedAt,
-          } 
+          
           let response = await axios.put(URl.UPDATE_REACTION_PUBLICATION_BY_ID +maReaction[0].id);
           dispatch(ACTION.FETCH_UPDATE(response.data.data))
         }
@@ -186,7 +187,15 @@ const styliserUnlike= (idPublication: number) => {
                     </svg>
                   </Badge>
                   <br></br>
-                  <span >{nbLike}</span>
+                  {console.log("test", nbReactP)}
+                  {nbReactP.map((item, index) => (
+                    <span key={index} >
+                      {item.Publicationid == props.PublicationId && item.TypeId == 1 ?
+                      <span>{item.nombre}</span>
+                      : null}
+                      </span>
+                  ))}
+                 
                 </Button>
                             
                 <Button variant={styliserUnlike(PublicationId) ? 'danger' : 'outline-danger' }  onClick={() => {unlike(PublicationId)}}>
@@ -197,7 +206,13 @@ const styliserUnlike= (idPublication: number) => {
                     </svg>
                   </Badge>
                   <br></br>
-                  <span>{nbUnlike} </span>
+                  {nbReactP.map((item, index) => (
+                    <span key={index} >
+                      {item.Publicationid == props.PublicationId && item.TypeId == 2 ?
+                      <span>{item.nombre}</span>
+                      : <span>    </span>}
+                      </span>
+                  ))}
                 </Button>
                 
                 </fieldset>

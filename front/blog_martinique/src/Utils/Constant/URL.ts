@@ -98,7 +98,7 @@ export const URl = {
     DELETE_REACTION_PUBLICATION: "http://localhost:8181/api/reaction_publication/delete/",
     GET_REACTION_PUBLICATION_BY_ID_USER: "http://localhost:8181/api/reaction_publication/get/user/",
 
-    GET_NB_REACTION_PUBLICATION_BY_ID_PUBLICATION: "http://localhost:8181/api/reaction_publication/get/nblike/",
+    GET_NB_LIKE_BY_ID_PUBLICATION: "http://localhost:8181/api/reaction_publication/get/nblike/",
     GET_NB_UNLIKE_BY_ID_PUBLICATION: "http://localhost:8181/api/reaction_publication/get/nbunlike/",
 
 

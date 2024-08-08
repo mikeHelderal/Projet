@@ -1,4 +1,5 @@
 
+import { Sequelize } from "sequelize";
 import {Reactions_publications} from "../models/index.js";
 import { io } from "../Services/Socket.js";
 
@@ -7,15 +8,16 @@ import { io } from "../Services/Socket.js";
 const add = async (req, res) => {
     try {
         const result = await Reactions_publications.create( req.body);
-        io.emit("newReactionPublication", result);
-        if(req.body.TypeId == 1){
-            const response = await Reactions_publications.count({where : {PublicationId : req.body.PublicationId, TypeId: 1}})
-            io.emit("nblike", response);
-        }else {
-            const response = await Reactions_publications.count({where : {PublicationId : req.body.PublicationId, TypeId: 2}})
-            io.emit("nbunlike", response);
-        }
+        const response = await Reactions_publications.findAll({
+            attributes: [
+              'Publicationid',
+              'TypeId',// We had to list all attributes...
+              [Sequelize.fn('COUNT', Sequelize.col('PublicationId')), 'nombre'], // To add the aggregation...
+            ],
+            group: ['PublicationId', 'TypeId'],
+          });
         
+        io.emit("getNbReactionP", response);
         res.status(201).json({message : "Reactions_events has been added",data: result});
         } catch (error) {
         res.status(500).json({message : "get all events message encountered a problem", data: error});         
@@ -47,11 +49,18 @@ const countUnlike = async (req, res) => {
 }
 const getAll = async (req, res) => {
     try {
-        const result = await Reactions_publications.findAll();
+        const result = await Reactions_publications.findAll({
+            attributes: [
+              'Publicationid',
+              'TypeId',// We had to list all attributes...
+              [Sequelize.fn('COUNT', Sequelize.col('PublicationId')), 'nombre'], // To add the aggregation...
+            ],
+            group: ['PublicationId', 'TypeId'],
+          });
         if(result.length == 0){
             res.status(200).json({message:"void", data: result});
         }else{
-            res.status(200).json({message:"get all", data: result});
+            res.status(200).json({message:"get all reaction publication", data: result});
         }
         
     } catch (error) {
@@ -102,8 +111,16 @@ const updateById = async (req, res) => {
             try {
                 reaction.TypeId = 2;
             const result = await reaction.save();
-            console.log("apres save => ")
-            console.log("avant res => ",result.dataValues);
+            const response = await Reactions_publications.findAll({
+                attributes: [
+                  'Publicationid',
+                  'TypeId',// We had to list all attributes...
+                  [Sequelize.fn('COUNT', Sequelize.col('PublicationId')), 'nombre'], // To add the aggregation...
+                ],
+                group: ['PublicationId', 'TypeId'],
+              });
+            
+            io.emit("getNbReactionP", response);
             res.status(200).json({message: "Reactions publications has been updated!", data: result.dataValues});
             } catch (error) {
                 console.log("ERROR => ",error);
@@ -113,8 +130,16 @@ const updateById = async (req, res) => {
             try {
                 reaction.TypeId = 1;
             const result = await reaction.save();
-            console.log("apres save => ");
-            console.log("avant res => ",result.dataValues);
+            const response = await Reactions_publications.findAll({
+                attributes: [
+                  'Publicationid',
+                  'TypeId',// We had to list all attributes...
+                  [Sequelize.fn('COUNT', Sequelize.col('PublicationId')), 'nombre'], // To add the aggregation...
+                ],
+                group: ['PublicationId', 'TypeId'],
+              });
+            
+            io.emit("getNbReactionP", response);
             res.status(200).json({message: "Reactions publications has been updated!", data: result.dataValues});
             } catch (error) {
                 console.log("ERROR => ", error);
@@ -130,6 +155,16 @@ const deleteById = async (req, res) => {
     try {
         const result = await Reactions_publications.destroy({where : {id : req.params.id}});
         if(!result) return res.status(404).json({message: "Reactions publications not found!"});
+        const response = await Reactions_publications.findAll({
+            attributes: [
+              'Publicationid',
+              'TypeId',// We had to list all attributes...
+              [Sequelize.fn('COUNT', Sequelize.col('PublicationId')), 'nombre'], // To add the aggregation...
+            ],
+            group: ['PublicationId', 'TypeId'],
+          });
+        
+        io.emit("getNbReactionP", response);
         res.status(200).json( {message: "Reactions_publications has been deleted!"});
 
     } catch (error) {

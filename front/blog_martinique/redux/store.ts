@@ -3,7 +3,8 @@ Cette dependences ets un outil qui permet de faciliter l'utilisation de redux.
 */
 import { configureStore } from "@reduxjs/toolkit";
 import reactionPubli from "./reducers/reactionPubli";
-import commentair from "./reducers/commentair"
+import commentair from "./reducers/commentair";
+import nbReactPublication from "./reducers/nbReactionPublication";
 /* 
 cONFIGUREsTORE PERMET DE CRÉER LE STORE plus simplement contrairement aux version précédentes de redux.
 
@@ -18,6 +19,7 @@ La fonction configureStore se connecte automatiquement au DevTools
 export default configureStore({
   reducer: {
     reactionPubli: reactionPubli,
-    commentair: commentair
+    commentair: commentair,
+    nbReactionPublication: nbReactPublication
   },
 });
