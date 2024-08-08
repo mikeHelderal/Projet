@@ -2,8 +2,8 @@
 Cette dependences ets un outil qui permet de faciliter l'utilisation de redux.
 */
 import { configureStore } from "@reduxjs/toolkit";
-import User from "./reducers/user";
-
+import reactionPubli from "./reducers/reactionPubli";
+import commentair from "./reducers/commentair"
 /* 
 cONFIGUREsTORE PERMET DE CRÉER LE STORE plus simplement contrairement aux version précédentes de redux.
 
@@ -17,6 +17,7 @@ La fonction configureStore se connecte automatiquement au DevTools
 
 export default configureStore({
   reducer: {
-    User: User
+    reactionPubli: reactionPubli,
+    commentair: commentair
   },
 });

@@ -8,6 +8,8 @@ import Feedback from 'react-bootstrap/Feedback';
 import {inscrire } from '../../../../services/auth.service'
 import { USER } from '../../../Utils/Constant/Types';
 
+import '../../../Styles/Formulaire.css'
+
 
 const Inscription = () => {
 
@@ -22,8 +24,8 @@ const Inscription = () => {
     useEffect(  () => {
         const recupSubjects = async () => {
           const response = await axios.get(URl.GET_ALL_SUBJECT);
-          console.log("response => ",response);
-          setSubjects(response.data);
+          console.log("response => ",response.data.data);
+          setSubjects(response.data.data);
         }
         recupSubjects();
       },[])
@@ -61,9 +63,9 @@ const Inscription = () => {
 
   return (
     <div>          
-        <Form noValidate validated={validated}  onSubmit={handleSubmit}>
+        <Form className='formulaire' noValidate validated={validated}  onSubmit={handleSubmit}>
             <Form.Group className='mb-4' controlId='firstName'>
-                <Form.Label>Nom :</Form.Label>
+                <Form.Label className='label' >Nom :</Form.Label>
                 <Form.Control 
                 required={true}
                     name='firstName'
@@ -76,7 +78,7 @@ const Inscription = () => {
             </Form.Group>
 
             <Form.Group className='mb-3' controlId='lastName'>
-                <Form.Label>Prenom :</Form.Label>
+                <Form.Label className='label'>Prenom :</Form.Label>
                 <Form.Control required type='text' name='lastname' onChange={handleChange}  />
                 
                 <Form.Control.Feedback type='invalid' > Please provide a lastname </Form.Control.Feedback>
@@ -84,7 +86,7 @@ const Inscription = () => {
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicTitle">
-                <Form.Label>Sujet :</Form.Label>
+                <Form.Label className='label'>Sujet :</Form.Label>
                 <Form.Select onChange={handleChange} name='idSubject' aria-label="Default select example">
                     <option   name="SubjectId" value="">  </option>
                     {subjects && subjects.map((subject, index) => 
@@ -96,21 +98,21 @@ const Inscription = () => {
             </Form.Group>
 
             <Form.Group className='mb-3' controlId='email'>
-                <Form.Label>Email :</Form.Label>
+                <Form.Label className='label'>Email :</Form.Label>
                 <Form.Control required type='email' name='email' onChange={handleChange} />
                 <Form.Control.Feedback type='invalid' > Please provide a email </Form.Control.Feedback>
                 <Form.Control.Feedback type='valid' >Looks Good ! </Form.Control.Feedback>
             </Form.Group>
 
             <Form.Group className='mb-3' controlId='password'>
-                <Form.Label>Mot de passe :</Form.Label>
+                <Form.Label className='label'>Mot de passe :</Form.Label>
                 <Form.Control required type='password' name='password' onChange={handleChange} />
                 <Form.Control.Feedback type='invalid' > Please provide a password </Form.Control.Feedback>
                 <Form.Control.Feedback type='valid' >Looks Good ! </Form.Control.Feedback>
             </Form.Group>
 
             <Form.Group className='mb-3' controlId='born'>
-                <Form.Label>Date de naissance :</Form.Label>
+                <Form.Label className='label'>Date de naissance :</Form.Label>
                 <Form.Control required type='date' name='born' onChange={handleChange} />
                 <Form.Control.Feedback type="invalid" > Please provide a date of born </Form.Control.Feedback>
                 <Form.Control.Feedback type='valid' > Looks Good !</Form.Control.Feedback>

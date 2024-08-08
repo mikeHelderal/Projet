@@ -3,46 +3,48 @@ import {Events} from "../models/index.js";
 
 const add = async (req, res) => {
     try {
-        await Evenement.create(req.body),
-        res.status(201).json({message: "Evenement added successfully"})
+        const result = await Events.create(req.body);
+        res.status(201).json({message: "Evenement added successfully", data: result})
     } catch (error) {
-        console.log(error);
+        res.status(500).json({message : "add events message encountered a problem", data: error});         
     }
 }
 const getAll = async (req, res) => {
     try {
-        const evenements = await Evenement.findAll();
-        res.status(200).json(evenements);
+        const result = await Events.findAll();
+        if(!result) return res.status(404).json({message: "events not found!", data: null});
+        res.status(200).json({message: "get all events", data: result});
     } catch (error) {
-        console.log(error);
+        res.status(500).json({message : "get all events message encountered a problem", data: error});         
     }
 }
 const getById = async (req, res) => {
     try {
-        const evenement = await Evenement.findByPk(req.params.id);
-        res.status(200).json(evenement);
+        const result = await Events.findByPk(req.params.id);
+        if(!result) return res.status(404).json({message: "events not found!", data: null});
+        res.status(200).json({message: "get by id", data: result});
     } catch (error) {
-        console.log(error);
+        res.status(500).json({message : "add events message encountered a problem", data: error});         
     }
 }
 const updateById = async (req, res) => {
     try {
-        const evenement = await Evenement.findByPk(req.params.id);
-        if(!evenement) return res.status(404).json("Evenement not found!")
-        await evenement.update(req.body);
-        res.status(200).json({message: "Evenement has been updated", evenement});
+        const response = await Events.findByPk(req.params.id);
+        if(!response) return res.status(404).json({message: "Events not found!", data: null})
+        const result = await response.update(req.body);
+        res.status(200).json({message: "Evenement has been updated", data: result});
 
     } catch (error) {
-        console.log(error);
+        res.status(500).json({message : "add events message encountered a problem", data: error});         
     }
 }
 const deleteById = async (req, res) => {
     try {
         const evenementDeleted = await Evenement.destroy({where: {id : req.params.id}});
-        if (!evenementDeleted) return res.status(404).json("Evenement not found !");
-        res.status(200).json({ message: "Evenement deleted" });
+        if (!evenementDeleted) return res.status(404).json({message: "Evenement not found !", data: null});
+        res.status(200).json({ message: "Evenement deleted" , data: null});
     } catch (error) {
-        
+        res.status(500).json({message : "add events message encountered a problem", data: error});         
     }
 }
 

@@ -1,20 +1,20 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { User } from "../../src/Utils/interfaces/user.interface"
+import { commentair } from "../../src/Utils/interfaces/commentaire.interface"
 
-type initialUser = {
-  data: User[];
+type initialCom = {
+  data: commentair[];
   loading: boolean | null;
   error: boolean
 }
 
-const initialState: initialUser = {
+const initialState: initialCom = {
   data: [],
   loading: null,
   error: false
 } 
 
 export const Reseau = createSlice({
-  name: "User",
+  name: "commentair",
   initialState,
   /* 
     C'EST ICI QUE LES "REDUCERS" sont définis.
@@ -23,24 +23,28 @@ export const Reseau = createSlice({
     FETCH_START, FETCH_SUCCES et FETCH_FAILURE 
   */
   reducers: {
-    FETCH_START: (draft: initialUser) => {
+    FETCH_START: (draft: initialCom) => {
       draft.loading = true
     }, 
-    FETCH_SUCCES: (draft: initialUser, actions: PayloadAction<User[]> ) => {
+    FETCH_SUCCESS: (draft: initialCom, actions: PayloadAction<commentair[]> ) => {
       draft.loading = false
       draft.data = actions.payload
     },
-    FETCH_FAILURE: (draft: initialUser) => {
+    FETCH_FAILURE: (draft: initialCom) => {
       draft.loading = false
       draft.error = true
+    },
+    FETCH_UPDATE: (draft: initialCom, actions: PayloadAction<commentair>) => {
+      draft.data = draft.data.map((item) => item.id === actions.payload.id ?  actions.payload: item)
     }
   }
 })
 
 export const {
   FETCH_START,
-  FETCH_SUCCES,
-  FETCH_FAILURE
+  FETCH_SUCCESS,
+  FETCH_FAILURE,
+  FETCH_UPDATE
 } = Reseau.actions
 
 export default Reseau.reducer

@@ -17,16 +17,8 @@ const TabHistoire = () => {
 
 return (
     <div>
-        <Tabs defaultActiveKey="Bèlè"  id="justify-tab-example" className='mb-3'  fill >
-            <Tab eventKey="Bèlè" title="Bèlè">                
-                <TimelineBele></TimelineBele>
-            </Tab>
-
-            <Tab eventKey="Martinique" title="Martinique">
-                <TimelineMartinique></TimelineMartinique>
-            </Tab>
-
-            <Tab eventKey="Rhum" title="Rhum">
+        <Tabs defaultActiveKey="FB"  id="justify-tab-example" className='mb-3'  fill >
+            <Tab eventKey="FB" title="Fusion Belka">
                 <TimelineRhum></TimelineRhum>
             </Tab>
         </Tabs>

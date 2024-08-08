@@ -1,5 +1,7 @@
 export const URl = {
 
+    BACK : "http://localhost:8181",
+
     /////users
     LOGIN: "http://localhost:8181/api/user/login",
     SIGNUP: "http://localhost:8181/api/user/signUp",
@@ -24,6 +26,7 @@ export const URl = {
     ADD_COMMENT: "http://localhost:8181/api/comment/add",
     GET_ALL_COMMENT: "http://localhost:8181/api/comment/all",
     GET_COMMENT_BY_ID: "http://localhost:8181/api/comment/get/",
+    GET_COMMENT_BY_PUBLICATION: "http://localhost:8181/api/comment/get/publication/",
     UPDATE_COMMENT: "http://localhost:8181/api/comment/update/",
     DELETE_COMMENT: "http://localhost:8181/api/comment/delete/",
 
@@ -80,8 +83,9 @@ export const URl = {
     ADD_REACTION_EVENT: "http://localhost:8181/api/reaction_events/add",
     GET_ALL_REACTION_EVENT: "http://localhost:8181/api/reaction_events/all",
     GET_REACTION_EVENT_BY_ID: "http://localhost:8181/api/reaction_events/get/",
-    GET_REACTION_EVENT_BY_USER: "http://localhost:8181/api/reaction_events/getByUser/",
     DELETE_REACTION_EVENT: "http://localhost:8181/api/reaction_events/delete/",
+    ///get/user/:id
+
 
 
 
@@ -90,7 +94,15 @@ export const URl = {
     ADD_REACTION_PUBLICATION: "http://localhost:8181/api/reaction_publication/add",
     GET_ALL_REACTION_PUBLICATION: "http://localhost:8181/api/reaction_publication/all",
     GET_REACTION_PUBLICATION_BY_ID: "http://localhost:8181/api/reaction_publication/",
+    UPDATE_REACTION_PUBLICATION_BY_ID: "http://localhost:8181/api/reaction_publication/update/",
     DELETE_REACTION_PUBLICATION: "http://localhost:8181/api/reaction_publication/delete/",
+    GET_REACTION_PUBLICATION_BY_ID_USER: "http://localhost:8181/api/reaction_publication/get/user/",
+
+    GET_NB_REACTION_PUBLICATION_BY_ID_PUBLICATION: "http://localhost:8181/api/reaction_publication/get/nblike/",
+    GET_NB_UNLIKE_BY_ID_PUBLICATION: "http://localhost:8181/api/reaction_publication/get/nbunlike/",
+
+
+
 
 
 

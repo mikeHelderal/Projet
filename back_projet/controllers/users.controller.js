@@ -2,6 +2,8 @@ import jwt from "jsonwebtoken";
 import { Users } from "../models/index.js";
 import { env } from  '../config/config.js';
 import bcrypt from "bcrypt";
+import express from 'express'
+
 
 
 const signUp = async (req, res, next) => {
@@ -13,7 +15,7 @@ const signUp = async (req, res, next) => {
         res.status(201).json("User has been created!")
         
     } catch (error) {
-        console.log(error);
+        res.status(500).json({message : "signup encountered a problem", data: error});
         next(error);
         
     }
@@ -35,47 +37,51 @@ const login = async (req, res) => {
             env.token,
             { expiresIn: "24h" }
         );
+        console.log(user);
+        //const { password, ...others } = user._doc
         res.cookie("access_token", token, { httpOnly: true }).status(200) .json(user);
     } catch (e) {
-        console.log(e);
+        res.status(500).json({message : "login encountered a problem", data: e.message});
     }
 }
 const getAll = async (req, res) => {
     try {
-        const users = await Users.findAll();
-        res.status(200).json(users);
+        const result = await Users.findAll();
+        if(!result) return res.status(404).json({message: "users not found!", data: null});
+        res.status(200).json({message: "get all users", data: result});
     } catch (error) {
-        console.log(error);
+        res.status(500).json({message : "get all users  encountered a problem", data: error});
     }
 }
 const getById = async (req, res) => {
     try {
         const id = req.params.id;
-        const user = await Users.findByPk(id);
-        res.status(200).json(user);
+        const result = await Users.findByPk(id);
+        if(!result) return res.status(404).json({message: "user not found!", data: null});
+        res.status(200).json({message: "get by id", data: result});
     } catch (error) {
-        
+        res.status(500).json({message : "get by id user  encountered a problem", data: error}); 
     }
 }
 const updateById = async (req, res) => {
     try {
         const user = await Users.findByPk(req.params.id);
         if(!user) return res.status(404).json("User not found!");
-        await user.set(req.body);
+        user.set(req.body);
         await user.save();
-        res.status(200).json({message: "User has been updated!", user});
+        res.status(200).json({message: "User has been updated!",data: user});
     } catch (error) {
-        console.log(error);
+        res.status(500).json({message : "update by id user  encountered a problem", data: error});
         
     }
 }
 const deleteById = async (req, res) => {
     try {
-        const userDeletes = await Users.destroy({where: {id: req.params.id}});
+        const userDeleted = await Users.destroy({where: {id: req.params.id}});
         if (!userDeleted) return res.status(404).json("User not found !");
         res.status(200).json({ message: "User deleted" });
     } catch (error) {
-        console.log(error);
+        res.status(500).json({message : "delete by id user encountered a problem", data: error});
         
     }
 }

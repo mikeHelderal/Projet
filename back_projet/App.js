@@ -22,6 +22,8 @@ import routerReactionPublication from './routes/reactions_publications.route.js'
 import routerTypes from './routes/types.route.js';
 import routerResponse from './routes/response.route.js';
 import routerMessages from './routes/messages.route.js';
+import bodyParser from 'body-parser';
+//import bodyParser from 'body-parser';
 
 
 const app = express()
@@ -31,7 +33,13 @@ const app = express()
 // MIDDLEWARE
 app.use(express.json())
 app.use(cookieParser())
+app.use(express.urlencoded({ extended: true }));
 //app.use(cors())
+
+app.use('/uploads', express.static('./uploads'));
+app.use(bodyParser.text({type: '/'}));
+
+app.use(cors())
 
 
 app.use((req, res, next) => {

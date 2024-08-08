@@ -91,7 +91,7 @@ Users.hasMany(Comments);
 Comments.belongsTo(Users);
 
 Users.hasMany(Publications);
-Publications.belongsTo(Users,);
+Publications.belongsTo(Users);
 
 Users.hasMany(News);
 News.belongsTo(Users);
