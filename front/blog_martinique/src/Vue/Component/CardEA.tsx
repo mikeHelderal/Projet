@@ -47,8 +47,6 @@ const CardEA = (props : any) => {
 
   },[])
 
-
-
   const liker = async (publicationId: any) => {
     dispatch(ACTION.FETCH_START())      
     if(mes_reactions.length == 0){
@@ -170,10 +168,11 @@ const afficherCom = (idPublication: number) => {
   console.log("afficher com =>W ",selecteurCom);
   if(selecteurCom.includes(idPublication)){
     console.log("dans le selecteur");
+    selecteurCom.splice(selecteurCom.indexOf(idPublication, 1));
     //return false
   }else{
-    setSelecteurCom([...selecteurCom, idPublication])
     console.log("n'est pas dans le selecteur");
+    setSelecteurCom([...selecteurCom, idPublication])
     //return true
   }
 }
