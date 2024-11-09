@@ -71,7 +71,9 @@ export const URl = {
 
     ////////publications
     ADD_PUBLICATION: "http://localhost:8181/api/publication/add",
-    GET_ALL_PUBLICATION: "http://localhost:8181/api/publication/all",
+    GET_ALL_PUBLICATION_VALID: "http://localhost:8181/api/publication/all",
+    GET_ALL_PUBLICATION_EN_ATTENTE: "http://localhost:8181/api/publication/all",
+    GET_ALL_PUBLICATION_EN_ATTENTE_BY_IDUSER: "http://localhost:8181/api/publication/all/attente/user/",
     GET_PUBLICATION_BY_ID: "http://localhost:8181/api/publication/get/",
     UPDATE_PUBLICATION: "http://localhost:8181/api/publication/update/",
     DELETE_PUBLICATION: "http://localhost:8181/api/publication/delete/",

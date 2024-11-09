@@ -39,9 +39,9 @@ const CardEA = (props : any) => {
     }
     setMesPublication(props.publication);
     recupMesLike();
-    
+      
 
-  },[])
+  })
 
 
 const afficherCom = (idPublication: number) => {
@@ -52,6 +52,18 @@ const afficherCom = (idPublication: number) => {
     setSelecteurCom([...selecteurCom, idPublication])
     //return true
   }
+}
+
+const validerPublication = async (idPublication: number) => {
+
+  try {
+    const valider = await axios.put(URl.UPDATE_PUBLICATION+idPublication);
+    console.log("valider => ",valider.data.result);
+    setMesPublication(valider.data.result);
+  } catch (e) {
+    console.log("error");
+  }
+
 }
 
 
@@ -74,17 +86,25 @@ const afficherCom = (idPublication: number) => {
                   : null}
 
             </Card.Body>
-            <Card.Footer>
-              <ReactionPublication PublicationId = {item.id}></ReactionPublication>
-                <br></br>
-                <Button variant="danger" onClick={() => {setShowCom(!showCom), afficherCom(item.id)}}>Commentaires</Button>
-                {selecteurCom.includes(item.id) ? 
-                  <div>
-                    affichage commentaire
-                    <Commentaires PublicationId = {item.id}  Commentaires = {item.Comments}></Commentaires>
-                  </div>
-                  : null}
-            </Card.Footer>
+            {props.valid == true ?
+              <Card.Footer>
+                <ReactionPublication PublicationId = {item.id}></ReactionPublication>
+                  <br></br>
+                  <Button variant="danger" onClick={() => {setShowCom(!showCom), afficherCom(item.id)}}>Commentaires</Button>
+                    {selecteurCom.includes(item.id) ? 
+                      <div>
+                        affichage commentaire
+                        <Commentaires PublicationId = {item.id}  Commentaires = {item.Comments}></Commentaires>
+                      </div>
+                    : null}
+              </Card.Footer> 
+            :
+              <Card.Footer>
+                  <br></br>
+                  <Button variant="danger" onClick={() => {validerPublication(item.id)}} >valider</Button>
+                  
+              </Card.Footer> }
+
         </Card>
      ))} 
     </div>

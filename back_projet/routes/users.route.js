@@ -10,7 +10,7 @@ const router = express.Router();
 router.post("/login", login);
 router.post("/signUp", signUp);
 // Route pour obtenir tous les utilisateurs
-router.get("/all", verifieToken,  getAll);
+router.get("/all",  getAll);
 // Route pour obtenir un utilisateur spécifique par son ID
 router.get("/get/:id", verifieToken, getById);
 // Route pour mettre à jour un utilisateur spécifique par son ID

@@ -7,6 +7,7 @@ import { io } from "socket.io-client";
 import { useDispatch, useSelector } from 'react-redux';
 import { RootStateCom } from '../../Utils/interfaces/commentaire.interface';
 //import { socket } from '../../socket.ts';
+import Response from "./Response.tsx"
 
 import * as ACTION from '../../../redux/reducers/commentair.tsx';
 
@@ -88,7 +89,7 @@ const Commentaires = (props : any) => {
           <span key={index}  >
             {  item.PublicationId == props.PublicationId ?
 
-            <Toast className='com dark' >
+        <Toast className='com dark' >
             <Toast.Header closeButton={false}>
                 <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
                 <strong className="me-auto">{item.User.firstName}</strong>
@@ -97,7 +98,12 @@ const Commentaires = (props : any) => {
             <Toast.Body>{item.content}</Toast.Body>
         </Toast>  
         : null}
+        
         </span>
+
+
+
+
         ))}
 
 <Form className='formulaire' noValidate validated={validated}  onSubmit={handleSubmit}>

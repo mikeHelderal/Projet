@@ -17,7 +17,7 @@ const ActualiteAccueil = () => {
 
   useEffect(() => {
       const recupPublication = async () => {
-          const response = await axios.get(URl.GET_ALL_PUBLICATION);
+          const response = await axios.get(URl.GET_ALL_PUBLICATION_VALID);
           let result = response.data.data.filter((res: any) => res.SubjectId == idBalneaire );
           console.log("résult => ",result);
           setPublication(result);
@@ -32,7 +32,7 @@ const ActualiteAccueil = () => {
         <header className='header'>  
         </header>
         <section>
-            <CardEA publication = {publications} ></CardEA>        
+            <CardEA publication = {publications} valid = {true} ></CardEA>        
         </section>
         <footer className='footer'>
         <h1></h1>

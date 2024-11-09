@@ -36,9 +36,33 @@ const add = async (req, res,next) => {
 
     }
 }
-const getAll = async (req, res) => {
+const getAllPubliValider = async (req, res) => {
     try {
-        const result = await Publications.findAll({include: [{model: Comments, include: [{model: Users}]}]});
+        const result = await Publications.findAll({where :
+             {is_valid: true},
+             include: [{model: Comments, include: [{model: Users}]}]});
+        if(!result) return res.status(404).json({message: "Publication not found!", data: null})
+        res.status(200).json({message: "get all publication ", data: result});
+    } catch (error) {
+        res.status(500).json({message : "get all Publication encountered a problem", data: error});
+    }
+}
+
+const getAllPubliEnAttente = async (req, res) => {
+    try {
+        const result = await Publications.findAll({where : {is_valid: false,include: [{model: Comments, include: [{model: Users}]}]}});
+        if(!result) return res.status(404).json({message: "Publication not found!", data: null})
+        res.status(200).json({message: "get all publication ", data: result});
+    } catch (error) {
+        res.status(500).json({message : "get all Publication encountered a problem", data: error});
+    }
+}
+
+const getAllPubliEnAttenteByIdUser = async (req, res) => {
+    try {
+        const result = await Publications.findAll({where :
+            {UserId: req.params.UserId, is_valid: false}
+            ,include: [{model: Comments, include: [{model: Users}]}]});
         if(!result) return res.status(404).json({message: "Publication not found!", data: null})
         res.status(200).json({message: "get all publication ", data: result});
     } catch (error) {
@@ -58,7 +82,16 @@ const updateById = async (req, res) => {
     try {
         const publication = await Publications.findByPk(req.params.id);
         if(!publication) return res.status(404).json({message: "Publication not found!", data: null})
-        const result = await publication.update(req.body);
+
+            publication.is_valid = true;
+            const enregistrement = await publication.save();
+            const result = await Publications.findAll({where :
+                {UserId: publication.UserId, is_valid: false}
+                ,include: [{model: Comments, include: [{model: Users}]}]});
+
+
+
+
         if(!result) return res.status(404).json({message: "Publication not found!", data: null})
         res.status(200).json({message: "Publication has been updated", result});
     } catch (error) {
@@ -78,6 +111,6 @@ const deleteById = async (req, res) => {
 
 
 export {
-    add, getAll, getById, updateById, deleteById
+    add, getAllPubliValider, getAllPubliEnAttente,getAllPubliEnAttenteByIdUser, getById, updateById, deleteById
 }
 

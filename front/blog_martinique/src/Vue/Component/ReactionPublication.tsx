@@ -187,7 +187,6 @@ const styliserUnlike= (idPublication: number) => {
                     </svg>
                   </Badge>
                   <br></br>
-                  {console.log("test", nbReactP)}
                   {nbReactP.map((item, index) => (
                     <span key={index} >
                       {item.Publicationid == props.PublicationId && item.TypeId == 1 ?

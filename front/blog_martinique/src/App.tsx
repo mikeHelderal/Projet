@@ -8,6 +8,7 @@ import HistoireAccueil from './Vue/Pages/Histoire/HistoireAccueil'
 import TourismeAccueil from './Vue/Pages/Tourisme/TourismeAccueil'
 import ActualiteAccueil from './Vue/Pages/Actualite/ActualiteAccueil'
 import EvenementAccueil from './Vue/Pages/Evenement/EvenementAccueil'
+import GestionUser from './Vue/Pages/Admin/GestionUser'
 
 
 
@@ -25,6 +26,8 @@ function App() {
         <Route path='/blogMartinique/tourisme' element={<TourismeAccueil/>}/>
         <Route path='/blogMartinique/News' element={<ActualiteAccueil/>}/>
         <Route path='/blogMartinique/Events' element={<EvenementAccueil/>}/>
+        <Route path='/blogMartinique/GU' element={<GestionUser/>}/>
+
       </Route>    
     </Routes>
     </BrowserRouter> 
