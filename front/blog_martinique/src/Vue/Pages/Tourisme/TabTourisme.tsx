@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Tab from 'react-bootstrap/Tab'
 import Tabs from 'react-bootstrap/Tabs'
 import "../../../Styles/Tab.css"
-import CardHT from '../../Component/CardHT'
+import CardHT from '../../Component/CardEvent'
 import { URl } from '../../../Utils/Constant/URL'
 import axios from 'axios'
 
@@ -17,7 +17,6 @@ const TabTourisme = () => {
         const recupPublication = async () => {
             const response = await axios.get(URl.GET_ALL_PUBLICATION);
             let result = response.data.data.filter((res: any) => res.SubjectId == idBalneaire );
-            console.log("résult => ",result);
             setPublication(result);
         }
         recupPublication();

@@ -2,7 +2,25 @@
 import {Events} from "../models/index.js";
 
 const add = async (req, res) => {
+    let profilePicture = ""
+    const EventObject = req.body
     try {
+
+        if (req.file) {
+            const { buffer, originalname } = req.file
+            const timestamp = Date.now()
+            const name = originalname.split(' ').join('_')
+            const ref = `${name}-${timestamp}.webp`
+            const path = `./uploads/${ref}`
+            sharp(buffer).resize(450).webp().toFile(path)
+            profilePicture = `${req.protocol}://${req.get('host')}/images/${ref}`
+        }
+
+
+
+
+
+
         const result = await Events.create(req.body);
         res.status(201).json({message: "Evenement added successfully", data: result})
     } catch (error) {
@@ -29,13 +47,20 @@ const getById = async (req, res) => {
 }
 const updateById = async (req, res) => {
     try {
-        const response = await Events.findByPk(req.params.id);
-        if(!response) return res.status(404).json({message: "Events not found!", data: null})
-        const result = await response.update(req.body);
-        res.status(200).json({message: "Evenement has been updated", data: result});
+        const event = await Events.findByPk(req.params.id);
+        if(!event) return res.status(404).json({message: "Event not found!", data: null})
 
+            event.is_valid = true;
+            const enregistrement = await event.save();
+            const result = await Events.findAll();
+
+
+
+
+        if(!result) return res.status(404).json({message: "Event not found!", data: null})
+        res.status(200).json({message: "Event has been updated", result});
     } catch (error) {
-        res.status(500).json({message : "add events message encountered a problem", data: error});         
+        res.status(500).json({message : "update by id Event encountered a problem", data: error});
     }
 }
 const deleteById = async (req, res) => {

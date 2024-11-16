@@ -17,7 +17,27 @@ export default (connection, DataTypes) => {
             is_valid: {
                 type: DataTypes.BOOLEAN,
                 allowNull: true
-            }
+            },
+            adresse: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            ville: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            image: {
+                type: DataTypes.STRING,
+                allowNull: true
+            },
+            heure_debut: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            heure_fin: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
         }, { timestamps: true }
     );
 }

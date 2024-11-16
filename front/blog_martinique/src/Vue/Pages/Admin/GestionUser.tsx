@@ -5,6 +5,7 @@ import {  Button } from 'react-bootstrap'
 
 import { URl } from '../../../Utils/Constant/URL';
 import ValidationPublication from './ValidationPublication';
+import ValidationEvents from './ValidationEvents';
 
 const GestionUser = () => {
 
@@ -15,7 +16,6 @@ const GestionUser = () => {
         const getUsers = async () => {
             const response = await axios.get(URl.GET_ALL_USER);
             setUsers(response.data.data);
-            console.log(response.data.data);
         }
         getUsers();
     },[])
@@ -30,13 +30,14 @@ const GestionUser = () => {
           <th>email</th>
           <th>date de naissance </th>
           <th>publication en attente</th>
+          <th>evenement en attente</th>
           <th>mot de passe </th>
           <th>statut </th>
         </tr>
       </thead>
       <tbody>
       
-           {users && users.map((item,index) => (
+           {users && users.map((item : any,index : any) => (
             <tr key={index}>
             <td>{item.id}</td>
              <td>{item.firstName}</td>
@@ -44,6 +45,7 @@ const GestionUser = () => {
              <td>{item.email}</td>
              <td>{item.born}</td>
              <td><ValidationPublication UserId = {item.id}></ValidationPublication></td>
+             <td><ValidationEvents UserId = {item.id}></ValidationEvents></td>
              <td><Button variant="danger">reinitialiser</Button></td>
              <td><Button variant="danger">passer admin</Button></td>
 

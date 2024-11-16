@@ -1,5 +1,6 @@
 
 import {Reactions_events} from "../models/index.js";
+import { Sequelize } from "sequelize";
 import { io } from "../Services/Socket.js";
 
 
@@ -11,17 +12,27 @@ const add = async (req, res) => {
         res.status(201).json({message : "Reactions_events has been added", data: result});
         } catch (error) {
         res.status(500).json({message : "add Reactions_events encountered a problem", data: error});
-
-         
     }
 }
 const getAll = async (req, res) => {
     try {
-        const reactions_events = await Reactions_events.findAll();
-        if(!reactions_events) return res.status(404).json({message:"Reactions_events not found!", data: null});
-        res.status(200).json({message: "", data: reactions_events});
+
+        const result = await Reactions_events.findAll({
+            attributes: [
+              'EventId',
+              'TypeId',// We had to list all attributes...
+              [Sequelize.fn('COUNT', Sequelize.col('EventId')), 'nombre'], // To add the aggregation...
+            ],
+            group: ['EventId', 'TypeId'],
+          });
+        if(result.length == 0){
+            res.status(200).json({message:"void", data: result});
+        }else{
+            res.status(200).json({message:"get all reaction event", data: result});
+        }
+        
     } catch (error) {
-        res.status(500).json({message : "get all Reactions_events encountered a problem", data: error});
+        res.status(500).json({message : "get all events  encountered a problem", data: error});
     }
 }
 const getById = async (req, res) => {
@@ -36,24 +47,94 @@ const getById = async (req, res) => {
 
 const getByIdUser = async (req, res) => {
     try {
-        const reactions = await Reactions_events.findOne({where : {id: req.params.id}});
-        if(!reactions) return res.status(404).json({message: "Reactions_events not found!", data: null});
-        res.status(200).json( reactions);
+        const reactions = await Reactions_events.findAll({where : {UserId: req.params.id}});
+        if(!reactions) return res.status(200).json({message: "Reactions_events not found!", data: null});
+        res.status(200).json({ message: "your Reaction Event has been send", data:  reactions});
 
     } catch (error) {
         res.status(500).json( {message: "une erreur est parvenue !", data: null});
 
     }
 }
+
+const getNumberLikeEvent = async (req,res) => {
+    try {
+        const result = await Reactions_events.findAll({where : {EventId: req.params.id}});
+        //if(!result) return res.status(404).json({message: "Reactions_events not found!", data: ""});
+        res.status(200).json({message: "nombre de like", data: result.length});
+
+    } catch (error) {
+        res.status(500).json({message : "get number like event encountered a problem", data: error});
+
+    }
+}
+
+const countLike = async (req, res) => {
+    try {
+        const result = await Reactions_events.count({where : {EventId : req.params.id, TypeId: 1}})
+        io.emit("nblike", result)
+        res.status(201).json({message : "get number of like",data: result});
+
+    } catch (error) {
+        res.status(500).json({message : "get number of like encountered a problem", data: error});         
+
+    }
+}
+
+const countUnlike = async (req, res) => {
+    try {
+        const result = await Reactions_events.count({where : {EventId : req.params.id, TypeId: 2}})
+        io.emit("nbunlike", result)
+        res.status(201).json({message : "get number of like",data: result});
+
+    } catch (error) {
+        res.status(500).json({message : "get number of like encountered a problem", data: error});         
+
+    }
+}
+
 const updateById = async (req, res) => {
     try {
-        const reactions_events = await Reactions_events.findByPk(req.params.id);
-        if(!reactions_events) return res.status(404).json({message:"Reactions_events not found!", data: null});
-        const result = await reactions_events.update(req.body);
-        io.emit("newReactionEvent", result);
-        res.status(200).json({message: "Reactions_events has been updated!", data: result});
+        const reaction = await Reactions_events.findByPk(req.params.id);
+        if(!reaction) return res.status(404).json({message: "Reactions_events not found!", data: null});
+        if(reaction.TypeId == 1){
+            try {
+                reaction.TypeId = 2;
+                const result = await reaction.save();
+                const response = await Reactions_events.findAll({
+                    attributes: [
+                        'EventId',
+                        'TypeId',// We had to list all attributes...
+                        [Sequelize.fn('COUNT', Sequelize.col('EventId')), 'nombre'], // To add the aggregation...
+                    ],
+                    group: ['EventId', 'TypeId'],
+            });
+            
+            io.emit("getNbReactionE", response);
+            res.status(200).json({message: "Reactions event has been updated!", data: result.dataValues});
+            } catch (error) {
+            }
+            
+        }else if(reaction.TypeId == 2){
+            try {
+                reaction.TypeId = 1;
+            const result = await reaction.save();
+            const response = await Reactions_events.findAll({
+                attributes: [
+                    'EventId',
+                    'TypeId',// We had to list all attributes...
+                    [Sequelize.fn('COUNT', Sequelize.col('EventId')), 'nombre'], // To add the aggregation...
+                ],
+                group: ['EventId', 'TypeId'],
+            });
+            
+            io.emit("getNbReactionE", response);
+            res.status(200).json({message: "Reactions event has been updated!", data: result.dataValues});
+            } catch (error) {
+            }            
+        }       
     } catch (error) {
-        res.status(500).json({message : "update Reactions_events encountered a problem", data: error});
+        res.status(500).json({message : "update Reactions event encountered a problem", data: error});
     }
 }
 const deleteById = async (req, res) => {
@@ -70,6 +151,6 @@ const deleteById = async (req, res) => {
 
 
 export {
-    add, getAll, getById, updateById,getByIdUser , deleteById
+    add, getAll, getById, updateById,getByIdUser ,countLike, countUnlike,  deleteById
 }
 

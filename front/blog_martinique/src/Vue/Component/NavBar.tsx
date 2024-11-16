@@ -7,24 +7,33 @@ import Navbar from 'react-bootstrap/Navbar';
 
 import "../../Styles/NavBar.css";
 import FormulairePublication from './FormulairePublication';
+import FormulaireEvent from './FormulaireEvent';
+
+
 const NavBar = () => {
 
 
 
   const [show, setShow] = useState(false);
+  const [showEvent, setShowEvent] = useState(false);
+
 
   useEffect( () => {
 
-    console.log("test");
   },[show])
 
 
   const handleClose = () => {
-    console.log("handleclose => ");
     setShow(false);
+  }
+  const handleCloseEvent = () => {
+    setShowEvent(false);
   }
 
   const handleShow = () => setShow(true);
+
+  const handleShowEvent = () => setShowEvent(true);
+
 
 
 
@@ -40,7 +49,9 @@ const NavBar = () => {
             <Nav.Link href="/blogMartinique/News">Actualité</Nav.Link>
           </Nav>
           <Nav>
+          <Nav.Link href="/blogMartinique/GU">Admin</Nav.Link>
             <Button variant="link-dark" onClick={handleShow} >Créer une publication</Button>
+            <Button variant="link-dark" onClick={handleShowEvent} >Créer un évènement</Button>
             <Nav.Link href="/blogMartinique/inscription">Inscription</Nav.Link>
             <Nav.Link  href="/blogMartinique/connexion">Connexion </Nav.Link>
           </Nav>
@@ -54,6 +65,15 @@ const NavBar = () => {
         </Offcanvas.Header>
         <Offcanvas.Body>
           <FormulairePublication handleClose = {handleClose}></FormulairePublication>
+        </Offcanvas.Body>
+      </Offcanvas>
+
+      <Offcanvas show={showEvent} onHide={handleCloseEvent} className="offcanvas offcanvas-start show text-bg-dark" >
+        <Offcanvas.Header closeButton >
+          <Offcanvas.Title>Votre Evenement</Offcanvas.Title>
+        </Offcanvas.Header>
+        <Offcanvas.Body>
+          <FormulaireEvent handleCloseEvent = {handleCloseEvent}></FormulaireEvent>
         </Offcanvas.Body>
       </Offcanvas>
     </Navbar>

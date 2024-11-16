@@ -23,23 +23,19 @@ const EvenementFormulaire = () => {
     
 
     const handleSubmit = (e: any) => {
-        console.log("handleSubmit")
         e.preventDefault();
         const form = e.currentTarget;
-        console.log("checkValidity => ",form.checkValidity() )
 
         setValidity(form.checkValidity());
         setValidated(true);
 
         if(form.checkValidity()){
-            console.log(" ici ce fera l'appel connexion");
         }
     }
 
     const publier = async () => {
         try {
             const response = await axios.post(URl.ADD_EVENTS, evenment);
-            console.log("response => ",response);
         } catch (error) {
             alert("probleme lors de la publication ");
             

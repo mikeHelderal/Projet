@@ -7,7 +7,6 @@ import express from 'express'
 
 
 const signUp = async (req, res, next) => {
-    //console.log("OBJET => ", req.body);
     try {
         const hashedPassword = await bcrypt.hash(req.body.password,10);
 
@@ -37,7 +36,6 @@ const login = async (req, res) => {
             env.token,
             { expiresIn: "24h" }
         );
-        console.log(user);
         //const { password, ...others } = user._doc
         res.cookie("access_token", token, { httpOnly: true }).status(200) .json(user);
     } catch (e) {

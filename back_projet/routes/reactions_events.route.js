@@ -1,5 +1,5 @@
 import express from 'express';
-import {add,  getAll, getById, deleteById, getByIdUser} from "../controllers/reactions_events.controller.js";
+import {add,  getAll, getById,updateById,countLike, countUnlike, deleteById, getByIdUser} from "../controllers/reactions_events.controller.js";
 import { verifieToken } from '../utils/auth.js'
 
 const router = express.Router();
@@ -11,7 +11,12 @@ router.get("/all", getAll);
 // Route pour obtenir un utilisateur spécifique par son ID
 router.get("/get/:id", getById);
 
-router.get("getByUser/:id", getByIdUser);
+router.get("/getByUser/:id", getByIdUser);
+router.put("/update/:id", updateById);
+
+router.get("/get/nblike/:id", countLike)
+
+router.get("/get/nbunlike/:id", countUnlike)
 
 // Route pour supprimer un utilisateur spécifique par son ID
 router.delete("/delete/:id", verifieToken, deleteById);

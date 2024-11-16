@@ -40,7 +40,7 @@ export const URl = {
     GET_EVENT_BY_ID: "http://localhost:8181/api/evenement/get/",
     UPDATE_EVENT: "http://localhost:8181/api/evenement/update/",
     DELETE_EVENT: "http://localhost:8181/api/evenement/delete/",
-
+    
 
     /////////messages
     ADD_MESSAGE: "http://localhost:8181/api/messages/add",
@@ -85,6 +85,12 @@ export const URl = {
     ADD_REACTION_EVENT: "http://localhost:8181/api/reaction_events/add",
     GET_ALL_REACTION_EVENT: "http://localhost:8181/api/reaction_events/all",
     GET_REACTION_EVENT_BY_ID: "http://localhost:8181/api/reaction_events/get/",
+    GET_REACTION_EVENT_BY_ID_USER: "http://localhost:8181/api/reaction_events/getByUser/",
+    UPDATE_REACTION_EVENT_BY_ID: "http://localhost:8181/api/reaction_events/update/",
+
+    GET_NB_LIKE_BY_ID_EVENT: "http://localhost:8181/api/reaction_event/get/nblike/",
+    GET_NB_UNLIKE_BY_ID_EVENT: "http://localhost:8181/api/reaction_event/get/nbunlike/",
+
     DELETE_REACTION_EVENT: "http://localhost:8181/api/reaction_events/delete/",
     ///get/user/:id
 

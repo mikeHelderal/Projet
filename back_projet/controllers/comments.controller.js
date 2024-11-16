@@ -25,7 +25,6 @@ const getAll = async (req, res) => {
                }               
           ]});
           if(!result) return res.status(404).json({message: "comments not found!", data: null});
-          console.log(result.Users)
 
           res.status(200).json({message: "get all comment", data: result});
      } catch (error) {

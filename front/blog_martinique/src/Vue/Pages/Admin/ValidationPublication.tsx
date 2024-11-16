@@ -4,24 +4,20 @@ import { URl } from '../../../Utils/Constant/URL';
 import { Button } from 'react-bootstrap';
 import Modal from 'react-bootstrap/Modal';
 import CardEA from '../../Component/CardEA';
+import { useSelector } from 'react-redux';
+import { RootStatePublications } from '../../../Utils/interfaces/publication.interface';
+import { getPublicationsAttenteByIdUser} from "../../../../services/selector/Publication.selecteur.tsx"
 
 
 const ValidationPublication = (props : any) => {
 
-    const [publications, setPublications] = useState();
+    // [publications, setPublications] = useState();
 
     const [show, setShow] = useState(false);
-
+    const publications = useSelector((state: RootStatePublications) => getPublicationsAttenteByIdUser(state, props.UserId));
 
     useEffect( () => {
-        const getPublication = async () => {
-            console.log("props => ", props.UserId);
-            const response = await axios.get(URl.GET_ALL_PUBLICATION_EN_ATTENTE_BY_IDUSER+props.UserId);
-            setPublications(response.data.data);
-            console.log("response => ",response.data.data);
-
-        };
-        getPublication();
+        
     },[])
 
     

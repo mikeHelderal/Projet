@@ -31,16 +31,13 @@ const Commentaires = (props : any) => {
         dispatch(ACTION.FETCH_START())
         const recupComments = async () => {
             const response = await axios.get(URl.GET_ALL_COMMENT);
-            console.log(response.data.data)
             dispatch(ACTION.FETCH_SUCCESS(response.data.data))
             setCommentaires(response.data.data);
             
         }
         recupComments();
         socket.on("connect", () => {
-            console.log("Connected to the server");
             socket.on('newComment', (response) => {
-                console.log("response: ", response);
                 dispatch(ACTION.FETCH_SUCCESS( response))
             })
         })
@@ -57,7 +54,6 @@ const Commentaires = (props : any) => {
         e.preventDefault();
         const form = e.currentTarget;
 
-        console.log(commentaire)
 
         setValidity(form.checkValidity());
         setValidated(true);
@@ -71,7 +67,6 @@ const Commentaires = (props : any) => {
         dispatch(ACTION.FETCH_START());
         try {
             const response = await axios.post(URl.ADD_COMMENT, commentaire);
-            console.log("response => ",response.data.response);
             //dispatch(ACTION.FETCH_SUCCESS( response.data.response))
             
         } catch (error) {

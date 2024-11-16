@@ -1,5 +1,5 @@
 import express from 'express';
-import {add, getAllPubliValider, getAllPubliEnAttente,getAllPubliEnAttenteByIdUser, getById, updateById, deleteById} from "../controllers/publications.controller.js";
+import {add,getAllPubli, getAllPubliValider, getAllPubliEnAttente,getAllPubliEnAttenteByIdUser, getById, updateById, deleteById} from "../controllers/publications.controller.js";
 import { verifieToken } from '../utils/auth.js'
 
 
@@ -11,7 +11,7 @@ const router = express.Router();
 
 router.post("/add", upload, multerController.uploadImage);
 // Route pour obtenir tous les utilisateurs
-router.get("/all", getAllPubliValider);
+router.get("/all", getAllPubli);
 router.get("/all/attente", getAllPubliEnAttente);
 router.get("/all/attente/user/:UserId", getAllPubliEnAttenteByIdUser);
 // Route pour obtenir un utilisateur spécifique par son ID

@@ -11,7 +11,7 @@ import { InputGroup } from 'react-bootstrap';
 import NavBar from './NavBar.js';
 
 
-const FormulairePublication = (props) => {
+const FormulairePublication = (props: any) => {
 
   
   const navigate = useNavigate();
@@ -31,11 +31,9 @@ const FormulairePublication = (props) => {
   useEffect(  () => {
     const recupSubjects = async () => {
       const response = await axios.get(URl.GET_ALL_SUBJECT);
-      console.log(response.data.data);
       setSubjects(response.data.data);
     }
     recupSubjects();
-    console.log("localstorage => ",userId);
     setPublication((publication: any) => ({...publication, userId}));
     setShow(false);
   },[])
@@ -43,7 +41,6 @@ const FormulairePublication = (props) => {
 
   const handleChange = async (e: any) =>{
       const {name, value} = e.currentTarget;
-      console.log(e.currentTarget.value);
       await setPublication((publication: any) => ({...publication, [name]: value}));
   } 
 
@@ -52,7 +49,6 @@ const FormulairePublication = (props) => {
 
 
   const handleSubmit = (e: any) => {
-    console.log("handleSubmit")
       e.preventDefault();
       const formData = new FormData();
         formData.append('SubjectId', subject);
@@ -63,14 +59,12 @@ const FormulairePublication = (props) => {
         formData.append('UserId', userId);
 
       const form = e.currentTarget;
-      console.log("checkValidity => ",form.checkValidity() )
 
       setValidity(form.checkValidity());
       setValidated(true);
       const config = {headers:{ 'Content-Type': 'multipart/form-data; boundary=77f77c04-2c7b-4179-aca3-my-cool-boundary'}};
 
       if(form.checkValidity()){
-          console.log(" ici ce fera l'appel connexion");
           publier(config, formData);
           e.target = null ;
       }
@@ -80,9 +74,7 @@ const FormulairePublication = (props) => {
   const publier = (config: any, formData: any) => {
       const enregistrer = async () => {
         try {
-          console.log("formdata => ",formData)
           const response = await axios.post(URl.ADD_PUBLICATION, formData,config);
-          console.log(response);
           
           props.handleClose();
           

@@ -12,7 +12,6 @@ import { USER } from '../src/Utils/Constant/Types';
 const inscrire = async(user: USER) => {
     try {
         const response = await axios.post(URl.SIGNUP, user);
-        console.log(response);
         return response;
     } catch (error) {
         return {id: "error", msg: "erreur lors de la connexion de l'utilisateur"};
@@ -23,7 +22,6 @@ const inscrire = async(user: USER) => {
 const connexion = async (user: USER) => {
     try {
         const response = await axios.post(URl.LOGIN, user);
-        console.log(response.data); 
         localStorage.setItem('UserId', response.data.id);
         return response.data ;       
     } catch (error) {

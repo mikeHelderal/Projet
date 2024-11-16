@@ -1,5 +1,5 @@
 
-import {Publications} from "../models/index.js";
+import {Events, Publications} from "../models/index.js";
 
 export const uploadImage = async (req, res, next) => {
     //code de add publication
@@ -10,18 +10,14 @@ export const uploadImage = async (req, res, next) => {
        
         if (req.file) {
             const { buffer, originalname } = req.file
-            console.log("Jusqu'ici tout va bien...", req.file.originalname)
             const timestamp = Date.now()
             const name = originalname.split('.');
 
             const ref = `${name[0]}-${timestamp}.png`
             const path = `./uploads/${ref}`
             profilePicture = `${req.protocol}://${req.get('host')}/uploads/${ref}`
-            console.log("profile.picture => ",profilePicture);
         }
         req.body.image = profilePicture ;
-        console.log("body => ", req.body);
-        console.log("req file => ", req.file );
 
         const publi = {
             SubjectId: publicationObject.SubjectId,
@@ -42,5 +38,46 @@ export const uploadImage = async (req, res, next) => {
 
 export const uploadImages = (req, res, next) => {
     res.send("uploaded successfully")
+}
+
+
+export const uploadImageEvent = async (req, res, next) => {
+    //code de add publication
+    let profilePicture = ""
+    const EventObject = req.body
+    try {
+       
+       
+        if (req.file) {
+            const { buffer, originalname } = req.file
+            const timestamp = Date.now()
+            const name = originalname.split('.');
+
+            const ref = `${name[0]}-${timestamp}.png`
+            const path = `./uploads/${ref}`
+            profilePicture = `${req.protocol}://${req.get('host')}/uploads/${ref}`
+        }
+        req.body.image = profilePicture ;
+
+        const event = {
+            title: EventObject.title,
+            image: profilePicture,
+            content: EventObject.content,
+            UserId: EventObject.UserId,
+            adresse: EventObject.adresse,
+            ville: EventObject.ville,
+            date_event: EventObject.date_event,
+            heure_debut: EventObject.heure_debut,
+            heure_fin: EventObject.heure_fin,
+
+
+        }
+        
+        const response = await Events.create(event);
+        res.status(201).json({message: "Event added successfully", data: response})
+    } catch (error) {
+        res.status(500).json({message : "add Event encountered a problem", data: error});
+
+    }
 }
 

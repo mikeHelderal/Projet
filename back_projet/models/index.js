@@ -66,8 +66,6 @@ Events.hasMany(Reactions_events);
 Reactions_events.belongsTo(Events);
 
 ///NEIGHBORDHOOD
-Neighbordhoods.hasMany(Events);
-Events.belongsTo(Neighbordhoods);
 Neighbordhoods.hasMany(News);
 News.belongsTo(Neighbordhoods);
 

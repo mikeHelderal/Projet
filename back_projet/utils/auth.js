@@ -19,6 +19,5 @@ export const verifieToken = (req, res, next) => {
     })
 }
 export const verifieAdmin = (req, res, next) => {
-    console.log(req.user);
 }
 

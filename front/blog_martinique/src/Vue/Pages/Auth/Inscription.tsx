@@ -24,7 +24,6 @@ const Inscription = () => {
     useEffect(  () => {
         const recupSubjects = async () => {
           const response = await axios.get(URl.GET_ALL_SUBJECT);
-          console.log("response => ",response.data.data);
           setSubjects(response.data.data);
         }
         recupSubjects();
@@ -54,7 +53,6 @@ const Inscription = () => {
     const inscription = async () => {
         try {
             const result = await inscrire(user) ;
-            console.log("result => ",result)
             navigate("/blogMartinique/connexion")
         } catch (error) {
             

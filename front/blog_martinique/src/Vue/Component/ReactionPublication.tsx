@@ -21,6 +21,7 @@ const ReactionPublication = (props: any) => {
     const socket = io(URl.BACK);
     const dispatch = useDispatch();
     const mes_reactions = useSelector((state: RootState) => getReactPubli(state));
+
     const PublicationId = props.PublicationId;
 
     const userId = localStorage.getItem("UserId")
@@ -42,9 +43,7 @@ const ReactionPublication = (props: any) => {
 
         const recupCountreact = async () => {
           const response = await axios(URl.GET_ALL_REACTION_PUBLICATION);
-          console.log("tttttt => ", response);
           dispatch(ACTIONNBPUBLI.FETCH_SUCCESS(response.data.data));
-          console.log("nb reaction via redux => ", nbReactP);
         }
         
 
@@ -53,9 +52,7 @@ const ReactionPublication = (props: any) => {
         recupCountreact();
 
         socket.on("connect", () => {
-          console.log("Connected to the server");
           socket.on('getNbReactionP', (response) => {
-              console.log("response: ", response);
               dispatch(ACTIONNBPUBLI.FETCH_SUCCESS( response))
           })
       })

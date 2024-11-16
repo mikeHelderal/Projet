@@ -51,7 +51,7 @@ const getAll = async (req, res) => {
     try {
         const result = await Reactions_publications.findAll({
             attributes: [
-              'Publicationid',
+              'PublicationId',
               'TypeId',// We had to list all attributes...
               [Sequelize.fn('COUNT', Sequelize.col('PublicationId')), 'nombre'], // To add the aggregation...
             ],
@@ -106,7 +106,6 @@ const updateById = async (req, res) => {
     try {
         const reaction = await Reactions_publications.findByPk(req.params.id);
         if(!reaction) return res.status(404).json({message: "Reactions_publications not found!", data: null});
-        console.log("avant save => ");
         if(reaction.TypeId == 1){
             try {
                 reaction.TypeId = 2;
@@ -123,7 +122,6 @@ const updateById = async (req, res) => {
             io.emit("getNbReactionP", response);
             res.status(200).json({message: "Reactions publications has been updated!", data: result.dataValues});
             } catch (error) {
-                console.log("ERROR => ",error);
             }
             
         }else if(reaction.TypeId == 2){
@@ -142,7 +140,6 @@ const updateById = async (req, res) => {
             io.emit("getNbReactionP", response);
             res.status(200).json({message: "Reactions publications has been updated!", data: result.dataValues});
             } catch (error) {
-                console.log("ERROR => ", error);
             }
             
         }
