@@ -144,9 +144,9 @@ const validerEvent = async (idEvent: number) => {
               <Card.Body>
               <Container>
                 <Row>
-                  <Col><h4>Date : <Badge bg="secondary">date</Badge></h4></Col>
-                  <Col><h4> Lieu : <Badge bg="secondary">lieu</Badge></h4></Col>
-                  <Col><h4> Horraire : <Badge bg="secondary">horaire</Badge></h4></Col>
+                  <Col><h4>Date : <Badge bg="secondary">{item.date_event}</Badge></h4></Col>
+                  <Col><h4> Lieu : <Badge bg="secondary">{item.adresse} {item.ville}</Badge></h4></Col>
+                  <Col><h4> Horraire : <Badge bg="secondary">de {item.heure_debut} à {item.heure_fin}</Badge></h4></Col>
                 </Row> 
                 <br /><br />               
                 <Row>

@@ -20,15 +20,22 @@ const ValidationPublication = (props : any) => {
         
     },[])
 
+    const disabledButton = () => {
+        if (publications.length === 0) {
+            return true;
+        }else{
+            return false;
+        }
+    }
     
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
 
-  return (
+    return (
     <div>
         <div>
-            <Button variant="danger" onClick={handleShow} >voir </Button>
+            <Button variant="danger" disabled={disabledButton()} onClick={handleShow} >voir </Button>
         </div>
         <div>
         <Modal show={show} fullscreen= {true} scrollable= {true} onHide={handleClose}>

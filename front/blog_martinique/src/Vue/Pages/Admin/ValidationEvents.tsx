@@ -14,8 +14,17 @@ const ValidationEvents = (props : any) => {
    const events = useSelector((state: RootStateEvents) => getEventsAttenteByIdUser(state, props.UserId));
 
    useEffect( () => {
+    console.log(events);
        
    },[])
+
+   const disabledButton = () => {
+    if (events.length === 0) {
+        return true;
+    }else{
+        return false;
+    }
+   }
 
    
  const handleClose = () => setShow(false);
@@ -25,7 +34,7 @@ const ValidationEvents = (props : any) => {
  return (
    <div>
        <div>
-           <Button variant="danger" onClick={handleShow} >voir </Button>
+           <Button variant="danger" disabled= {disabledButton()} onClick={handleShow} >voir </Button>
        </div>
        <div>
        <Modal show={show} fullscreen= {true} scrollable= {true} onHide={handleClose}>
