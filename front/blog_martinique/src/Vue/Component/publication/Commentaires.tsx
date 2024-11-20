@@ -1,17 +1,17 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { URl } from '../../Utils/Constant/URL'
+import { URl } from '../../../Utils/Constant/URL.ts'
 import { Button, Form, Toast, ToastContainer } from 'react-bootstrap';
-import "../../Styles/Commentaires.css";
+import "../../../Styles/Commentaires.css";
 import { io } from "socket.io-client";
 import { useDispatch, useSelector } from 'react-redux';
-import { RootStateCom } from '../../Utils/interfaces/commentaire.interface';
+import { RootStateCom } from '../../../Utils/interfaces/commentaire.interface.ts';
 //import { socket } from '../../socket.ts';
-import Response from "./Response.tsx"
+import Response from "../Response.tsx"
 
-import * as ACTION from '../../../redux/reducers/commentair.tsx';
+import * as ACTION from '../../../../redux/reducers/commentair.tsx';
 
-import { getCommentair} from "../../../services/selector/Commentair.selecteur.tsx"
+import { getCommentair} from "../../../../services/selector/Commentair.selecteur.tsx"
 
 const Commentaires = (props : any) => {
     const userId = localStorage.getItem("UserId");
@@ -80,7 +80,7 @@ const Commentaires = (props : any) => {
 
   return (
     <span>
-        {lesCommentaires && lesCommentaires.map((item, index) => (
+        {lesCommentaires && lesCommentaires.map((item: any, index: any) => (
           <span key={index}  >
             {  item.PublicationId == props.PublicationId ?
 

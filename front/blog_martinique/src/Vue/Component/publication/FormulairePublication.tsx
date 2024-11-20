@@ -1,15 +1,14 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { URl } from '../../Utils/Constant/URL.js';
-import { User, RootState,  } from '../../Utils/interfaces/reactPubli.interface.js';
 
-import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { InputGroup } from 'react-bootstrap';
-import NavBar from './NavBar.js';
+import { useDispatch } from 'react-redux';
 
+
+import * as publicationService from '../../../../services/publication/publication.service.ts' 
 
 const FormulairePublication = (props: any) => {
 
@@ -18,22 +17,18 @@ const FormulairePublication = (props: any) => {
   const [publication, setPublication] = useState({});
   const [validated, setValidated] = useState(false);
   const [validity, setValidity] = useState(false);
-  const [subjects, setSubjects] = useState([]);
   const [show, setShow] = useState(false);
-  const userId = localStorage.getItem("UserId");
+  const userId: any = localStorage.getItem("UserId");
 
-  const [subject, setSubject] = useState('');
   const [title, setTitle] = useState('');
   const [resume, setResume] = useState('');
-  const [image, setImage] = useState();
+  const [image, setImage] = useState('');
   const [content, setContent] = useState('');
+  const dispatch = useDispatch();
+
 
   useEffect(  () => {
-    const recupSubjects = async () => {
-      const response = await axios.get(URl.GET_ALL_SUBJECT);
-      setSubjects(response.data.data);
-    }
-    recupSubjects();
+  
     setPublication((publication: any) => ({...publication, userId}));
     setShow(false);
   },[])
@@ -44,14 +39,9 @@ const FormulairePublication = (props: any) => {
       await setPublication((publication: any) => ({...publication, [name]: value}));
   } 
 
-  
-
-
-
   const handleSubmit = (e: any) => {
       e.preventDefault();
       const formData = new FormData();
-        formData.append('SubjectId', subject);
         formData.append('title', title);
         formData.append('resume', resume);
         formData.append('image', image);
@@ -65,35 +55,20 @@ const FormulairePublication = (props: any) => {
       const config = {headers:{ 'Content-Type': 'multipart/form-data; boundary=77f77c04-2c7b-4179-aca3-my-cool-boundary'}};
 
       if(form.checkValidity()){
-          publier(config, formData);
+          publicationService.publier(config, formData);
           e.target = null ;
-      }
-  }
-
-
-  const publier = (config: any, formData: any) => {
-      const enregistrer = async () => {
-        try {
-          const response = await axios.post(URl.ADD_PUBLICATION, formData,config);
-          
           props.handleClose();
-          
-        } catch (error) {
-        }
+
       }
-      enregistrer();
   }
+
+
 
   return (
     <div>    
     <Form noValidate encType='multipart/form-data' method='post' validated={validated}  onSubmit={handleSubmit}>
       <Form.Group className="mb-3" controlId="formBasicTitle">
         <Form.Label>Sujet :</Form.Label>
-        <Form.Select onChange={(e)=>{setSubject(e.target.value)}} name='idSubject' aria-label="Default select example">
-          {subjects && subjects.map((subject, index) => 
-            <option key={index}  name="SubjectId" value={subject.id}>{subject.name}  </option>
-          )}
-        </Form.Select> 
         <Form.Control.Feedback type="invalid">Please provide an subject</Form.Control.Feedback>
         <Form.Control.Feedback  > Looks Good ! </Form.Control.Feedback>
       </Form.Group>

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import NavBar from "../Vue/Component/NavBar"
 import {Outlet} from 'react-router-dom'
 import "../Styles/Accueil.css"
@@ -14,6 +14,7 @@ import { URl } from '../Utils/Constant/URL';
 const Accueil = () => {
 
   const dispatch = useDispatch();
+
 
 
   useEffect( () => {
@@ -42,7 +43,7 @@ const Accueil = () => {
   return (
     <div>
     <header className='header'>  
-    <NavBar></NavBar>  
+    <NavBar ></NavBar>  
     </header>
     <section>
         <Outlet/>        

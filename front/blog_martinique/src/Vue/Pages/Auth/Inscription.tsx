@@ -5,7 +5,7 @@ import { URl } from '../../../Utils/Constant/URL';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Feedback from 'react-bootstrap/Feedback';
-import {inscrire } from '../../../../services/auth.service'
+import {inscrire } from '../../../../services/auth/auth.service'
 import { USER } from '../../../Utils/Constant/Types';
 
 import '../../../Styles/Formulaire.css'

@@ -9,27 +9,58 @@ import TourismeAccueil from './Vue/Pages/Tourisme/TourismeAccueil'
 import ActualiteAccueil from './Vue/Pages/Actualite/ActualiteAccueil'
 import EvenementAccueil from './Vue/Pages/Evenement/EvenementAccueil'
 import GestionUser from './Vue/Pages/Admin/GestionUser'
+import { useEffect, useState } from 'react'
 
 
 
 
 
 function App() {
+  const [isAdmin , setisAdmin] = useState("");
+
+  
+  useEffect( () => {
+    if(localStorage.getItem("isAdmin")){
+      console.log("dans le if => ", localStorage.getItem("isAdmin"));
+      if(localStorage.getItem("isAdmin") === "false"){
+        console.log("dans le if is admin false => ", );
+        setisAdmin("connected");
+      }else {
+        console.log("dans le if is admin true => ", );
+
+        setisAdmin("admin");
+      }
+    }else{
+      setisAdmin("not_connected");
+    }
+
+  },[])
+
 
   return (
-    <BrowserRouter>    
-    <Routes>
-      <Route path='/blogMartinique' element={<Accueil/>}>
-        <Route path='/blogMartinique/connexion' element={<Connexion/>}/>
-        <Route path='/blogMartinique/inscription' element={<Inscription/>}/>
-        <Route path='/blogMartinique/histoire' element={<HistoireAccueil/>}/>
-        <Route path='/blogMartinique/tourisme' element={<TourismeAccueil/>}/>
-        <Route path='/blogMartinique/News' element={<ActualiteAccueil/>}/>
-        <Route path='/blogMartinique/Events' element={<EvenementAccueil/>}/>
-        <Route path='/blogMartinique/GU' element={<GestionUser/>}/>
-
-      </Route>    
-    </Routes>
+    <BrowserRouter> 
+      {isAdmin && isAdmin === "admin" ? 
+        <Routes>
+          <Route path='/blogMartinique' element={<Accueil/>}>
+            <Route path='/blogMartinique/connexion' element={<Connexion/>}/>
+            <Route path='/blogMartinique/inscription' element={<Inscription/>}/>
+            <Route path='/blogMartinique/histoire' element={<HistoireAccueil/>}/>
+            <Route path='/blogMartinique/News' element={<ActualiteAccueil/>}/>
+            <Route path='/blogMartinique/Events' element={<EvenementAccueil/>}/>
+            <Route path='/blogMartinique/GU' element={<GestionUser/>}/>
+          </Route>    
+        </Routes>
+    :
+      <Routes>
+        <Route path='/blogMartinique' element={<Accueil/>}>
+          <Route path='/blogMartinique/connexion' element={<Connexion/>}/>
+          <Route path='/blogMartinique/inscription' element={<Inscription/>}/>
+          <Route path='/blogMartinique/histoire' element={<HistoireAccueil/>}/>
+          <Route path='/blogMartinique/News' element={<ActualiteAccueil/>}/>
+          <Route path='/blogMartinique/Events' element={<EvenementAccueil/>}/>
+        </Route>    
+      </Routes>
+  }   
     </BrowserRouter> 
   )
 }

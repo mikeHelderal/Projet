@@ -4,7 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 import { useSelector } from 'react-redux';
 import { RootStateEvents } from '../../../Utils/interfaces/events.interface';
 import { getEvents, getEventsAttenteByIdUser } from '../../../../services/selector/Events.selecteur';
-import CardEvent from '../../Component/CardEvent';
+import CardEvent from '../../Component/event/CardEvent';
 
 
 const ValidationEvents = (props : any) => {
@@ -14,7 +14,6 @@ const ValidationEvents = (props : any) => {
    const events = useSelector((state: RootStateEvents) => getEventsAttenteByIdUser(state, props.UserId));
 
    useEffect( () => {
-    console.log(events);
        
    },[])
 

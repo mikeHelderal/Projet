@@ -5,7 +5,7 @@ import * as ACTION from '../../../../redux/reducers/reactionPubli';
 
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { connexion } from '../../../../services/auth.service';
+import { connexion } from '../../../../services/auth/auth.service';
 import { USER } from '../../../Utils/Constant/Types';
 
 import '../../../Styles/Formulaire.css';
@@ -44,7 +44,10 @@ const Connexion = () => {
       dispatch(ACTION.FETCH_START());
       const result = await connexion(user)
       dispatch(ACTION.FETCH_SUCCESS(result))
+      
       navigate("/blogMartinique");
+      window.location.reload();
+
 
     }
 

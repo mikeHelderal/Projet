@@ -7,7 +7,7 @@ import Navbar from 'react-bootstrap/Navbar';
 
 import "../../Styles/NavBar.css";
 
-import FormulairePublication from './FormulairePublication';
+import FormulairePublication from './publication/FormulairePublication';
 
 
 

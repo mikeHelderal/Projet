@@ -1,19 +1,18 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Badge, Button, Card, Container, Row, Col } from 'react-bootstrap'
-import { URl } from '../../Utils/Constant/URL.ts';
-import "../../Styles/CardT.css";
+import { URl } from '../../../Utils/Constant/URL.ts';
 import { io } from "socket.io-client";
-import { useDispatch, useSelector } from 'react-redux';
-import * as ACTION from '../../../redux/reducers/reactionEvent.tsx';
-import * as ACTIONE  from '../../../redux/reducers/events.tsx';
+import { useDispatch } from 'react-redux';
 
-import { RootState } from '../../Utils/interfaces/reactPubli.interface.ts';
-import { getReactEvents} from "../../../services/selector/reactionEvents.selecteur.tsx"
+import "../../../Styles/CardT.css"
+
+
 import Carousel from 'react-bootstrap/Carousel';
 import ReactionEvents from './ReactionEvents.tsx';
 
 
+import * as eventService from '../../../../services/event/event.service.ts' 
 
 
 const CardEvent = (props : any) => {
@@ -39,16 +38,9 @@ const CardEvent = (props : any) => {
 
 
   useEffect( () => {
-    dispatch(ACTION.FETCH_START())
     
-    
-    const recupMesLike = async () => {
-      const response = await axios.get(URl.GET_REACTION_EVENT_BY_ID_USER + userId);
-      //setMesReactions([response.data.data]);
-      dispatch(ACTION.FETCH_SUCCESS(response.data.data))
-    }
     if(props.valid == true){
-      recupMesLike()
+      eventService.recupMesLike(userId, dispatch);
     }
       
 
@@ -67,13 +59,7 @@ const afficherCom = (idEvent: number) => {
 
 const validerEvent = async (idEvent: number) => {
 
-  dispatch(ACTIONE.FETCH_START())
-
-  try {
-    const valider = await axios.put(URl.UPDATE_EVENT+idEvent);
-    dispatch(ACTIONE.FETCH_SUCCESS(valider.data.result));
-  } catch (e) {
-  }
+  eventService.validerEvent(idEvent, dispatch);
 
 }
 

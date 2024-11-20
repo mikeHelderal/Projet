@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import {Outlet} from 'react-router-dom'
-import CardEvent from '../../Component/CardEvent'
+import CardEvent from '../../Component/event/CardEvent'
 import axios from 'axios'
 import { URl } from '../../../Utils/Constant/URL'
 import { useSelector } from 'react-redux'

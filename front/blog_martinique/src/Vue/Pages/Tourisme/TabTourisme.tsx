@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Tab from 'react-bootstrap/Tab'
 import Tabs from 'react-bootstrap/Tabs'
 import "../../../Styles/Tab.css"
-import CardHT from '../../Component/CardEvent'
+import CardHT from '../../Component/event/CardEvent'
 import { URl } from '../../../Utils/Constant/URL'
 import axios from 'axios'
 

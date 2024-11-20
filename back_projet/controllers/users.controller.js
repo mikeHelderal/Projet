@@ -37,6 +37,7 @@ const login = async (req, res) => {
             { expiresIn: "24h" }
         );
         //const { password, ...others } = user._doc
+        console.log("TOKEN ==> ",token);
         res.cookie("access_token", token, { httpOnly: true }).status(200) .json(user);
     } catch (e) {
         res.status(500).json({message : "login encountered a problem", data: e.message});

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { URl } from '../../../Utils/Constant/URL';
 import { Button } from 'react-bootstrap';
 import Modal from 'react-bootstrap/Modal';
-import CardEA from '../../Component/CardEA';
+import CardEA from '../../Component/publication/CardEA.tsx';
 import { useSelector } from 'react-redux';
 import { RootStatePublications } from '../../../Utils/interfaces/publication.interface';
 import { getPublicationsAttenteByIdUser} from "../../../../services/selector/Publication.selecteur.tsx"
@@ -15,6 +15,7 @@ const ValidationPublication = (props : any) => {
 
     const [show, setShow] = useState(false);
     const publications = useSelector((state: RootStatePublications) => getPublicationsAttenteByIdUser(state, props.UserId));
+    console.log(publications);
 
     useEffect( () => {
         

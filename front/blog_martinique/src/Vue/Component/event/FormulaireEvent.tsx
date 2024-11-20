@@ -1,14 +1,17 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { URl } from '../../Utils/Constant/URL';
+import { URl } from '../../../Utils/Constant/URL.ts';
 
 import Form from 'react-bootstrap/Form';
 import { InputGroup } from 'react-bootstrap';
-import NavBar from './NavBar.js';
+import NavBar from '../NavBar.js';
 
 import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
+
+import * as eventService from '../../../../services/event/event.service.ts' 
+
 
 const FormulaireEvent = (props : any) => {
 
@@ -29,6 +32,8 @@ const FormulaireEvent = (props : any) => {
     const [date, setDate] = useState('');
     const [heureDebut, setHeureDebut] = useState('');
     const [heureFin, setHeureFin] = useState('');
+    const dispatch = useDispatch();
+
 
 
 
@@ -61,22 +66,11 @@ const FormulaireEvent = (props : any) => {
         setValidated(true);
         const config = {headers:{ 'Content-Type': 'multipart/form-data; boundary=77f77c04-2c7b-4179-aca3-my-cool-boundary'}};
         if(form.checkValidity()){
-            publier(config, formData);
+            eventService.publier(config, formData);
             e.target = null ;
+            props.handleClose();
         }   
     }
-
-    const publier = (config: any, formData: any) => {
-        const enregistrer = async () => {
-            try {
-                const response = await axios.post(URl.ADD_EVENTS, formData,config);
-                props.handleCloseEvent();        
-            } catch (error) {
-            }   
-        }
-        enregistrer();
-    }
-
 
 
     return (

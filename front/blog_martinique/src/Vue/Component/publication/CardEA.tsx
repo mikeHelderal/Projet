@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
-import { Badge, Button, Card } from 'react-bootstrap'
-import { URl } from '../../Utils/Constant/URL';
-import "../../Styles/CardT.css";
+import { Badge, Button, Card, Container, Row, Col } from 'react-bootstrap'
+import Carousel from 'react-bootstrap/Carousel';
+
+import { URl } from '../../../Utils/Constant/URL.ts';
+import "../../../Styles/CardT.css";
 import { io } from "socket.io-client";
 import { useDispatch, useSelector } from 'react-redux';
-import * as ACTION from '../../../redux/reducers/reactionPubli';
-import * as ACTIONP  from '../../../redux/reducers/publications.tsx';
+import * as ACTION from '../../../../redux/reducers/reactionPubli.tsx';
+import * as ACTIONP  from '../../../../redux/reducers/publications.tsx';
 
-import { RootState } from '../../Utils/interfaces/reactPubli.interface';
-import { getReactPubli} from "../../../services/selector/ReactionPubli.selecteur.tsx"
+import * as publicationService from '../../../../services/publication/publication.service.ts' 
+
+import { RootState } from '../../../Utils/interfaces/reactPubli.interface.ts';
+import { getReactPubli} from "../../../../services/selector/ReactionPubli.selecteur.tsx"
 import Commentaires from './Commentaires.tsx';
 import ReactionPublication from './ReactionPublication.tsx';
 
@@ -31,17 +35,7 @@ const CardEA = (props : any) => {
 
 
   useEffect( () => {
-    dispatch(ACTION.FETCH_START())
-    
-    
-    const recupMesLike = async () => {
-      const response = await axios.get(URl.GET_REACTION_PUBLICATION_BY_ID_USER + userId);
-      //setMesReactions([response.data.data]);
-      dispatch(ACTION.FETCH_SUCCESS(response.data.data))
-    }
-    recupMesLike();
-      
-
+    publicationService.recupMesLike(userId, dispatch)
   },[])
 
 
@@ -56,15 +50,15 @@ const afficherCom = (idPublication: number) => {
 }
 
 const validerPublication = async (idPublication: number) => {
+  publicationService.validerPublication(idPublication, dispatch);
+}
 
-  dispatch(ACTIONP.FETCH_START())
-
-  try {
-    const valider = await axios.put(URl.UPDATE_PUBLICATION+idPublication);
-    dispatch(ACTIONP.FETCH_SUCCESS(valider.data.result));
-  } catch (e) {
+const disabledButton = () => {
+  if(userId){
+    return false;
+  }else{
+    return true;
   }
-
 }
 
 
@@ -87,7 +81,7 @@ const validerPublication = async (idPublication: number) => {
               <Card.Footer>
                 <ReactionPublication PublicationId = {item.id}></ReactionPublication>
                 <br></br>
-                <Button variant="danger" onClick={() => {setShowCom(!showCom), afficherCom(item.id)}}>Commentaires</Button>
+                <Button variant="danger" disabled= {disabledButton()} onClick={() => {setShowCom(!showCom), afficherCom(item.id)}}>Commentaires</Button>
                   {selecteurCom.includes(item.id) ? <div> affichage commentaire <Commentaires PublicationId = {item.id}  Commentaires = {item.Comments}></Commentaires></div>
                   : null}
               </Card.Footer> 
@@ -101,9 +95,20 @@ const validerPublication = async (idPublication: number) => {
           <Card className='card' key={index} bg='dark' text='success' border='danger' >
             <Card.Header className='text-center'><h1> {item.title}</h1> </Card.Header>
               <Card.Body>
-                <Card.Text>
-                  {item.resume}
-                </Card.Text>
+              <Container>               
+                <Row>
+                  <Col>
+                    <Card.Text>{item.resume}</Card.Text>
+                  </Col>                  
+                  <Col>
+                    <Carousel>
+                      <Carousel.Item>
+                      <img className="img-fluid rounded" src={item.image} alt="Saint-James"></img>
+                      </Carousel.Item>
+                    </Carousel>
+                  </Col>
+                </Row>
+              </Container> 
                 <Button variant="danger" onClick={() => {setShow(!show), setSelecteur(item.id)}}>voir Article</Button>
                 { show && selecteur == item.id ?  <div> {item.content}  </div>          : null}
               </Card.Body>

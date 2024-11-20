@@ -15,7 +15,7 @@ router.get("/all", getAll);
 // Route pour obtenir un utilisateur spécifique par son ID
 router.get("/get/:id", getById);
 // Route pour mettre à jour un utilisateur spécifique par son ID
-router.put("/update/:id", verifieToken, updateById);
+router.put("/update/:id", updateById);
 // Route pour supprimer un utilisateur spécifique par son ID
 router.delete("/delete/:id", verifieToken, deleteById);
 
