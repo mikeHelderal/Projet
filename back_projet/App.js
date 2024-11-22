@@ -29,55 +29,19 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 const app = express()
-
-
-
-/** Gestion des erreurs CORS */
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*')
-  res.setHeader(
-      'Access-Control-Allow-Headers',
-      'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization'
-  )
-  res.setHeader(
-      'Access-Control-Allow-Methods',
-      'GET, POST, PUT, DELETE, PATCH, OPTIONS'
-  )
-  res.setHeader("Access-Control-Allow-Credentials", true);
-
-  next()
-})
-
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-console.log("filename => ",__dirname);
-
-
-
 // MIDDLEWARE
 app.use(express.json())
 app.use(cookieParser())
 app.use(express.urlencoded({ extended: true }));
-//app.use(cors())
-
-//app.use('/uploads', express.static('./uploads'));
-//app.use('/uploads', express.static(path.join( __dirname , './uploads')));
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(bodyParser.text({type: '/'}));
 
-app.use(cors())
-
-/**
-app.use((req, res, next) => {
-    res.setHeader("Access-Control-Allow-Origin", "http://localhost:5173");
-    res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-    res.setHeader("Access-Control-Allow-Credentials", true);
-    return next();
-  });
- */
-
+// CORS
+app.use(cors({
+        origin: env.CORS_ORIGIN, //  <- port React. Ex: 'http://localhost:3000'
+        credentials: true,
+        methods: ['GET', 'PUT', 'POST', 'DELETE'],
+        allowedHeaders: ['Content-Type', 'Authorization']
+}))
 
 // MIDDLEWARE TO ROUTE
 // app.use("/api/article", routerArticle)
@@ -95,6 +59,10 @@ app.use("/api/reaction_publication", routerReactionPublication);
 app.use("/api/type", routerTypes);
 app.use("/api/response", routerResponse);
 app.use("/api/messages", routerMessages);
+
+// STATIC FILES
+app.use('/uploads', express.static('./uploads')); // <- Ici, on valide les images (static files)
+
 
 
 export default app ;
