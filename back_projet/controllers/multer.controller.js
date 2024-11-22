@@ -13,7 +13,7 @@ export const uploadImage = async (req, res, next) => {
             const timestamp = Date.now()
             const name = originalname.split('.');
 
-            const ref = `${name[0]}-${timestamp}.png`
+            const ref = `${name[0]}-${timestamp}.jpeg`
             const path = `./uploads/${ref}`
             profilePicture = `${req.protocol}://${req.get('host')}/uploads/${ref}`
         }
@@ -53,7 +53,7 @@ export const uploadImageEvent = async (req, res, next) => {
             const timestamp = Date.now()
             const name = originalname.split('.');
 
-            const ref = `${name[0]}-${timestamp}.png`
+            const ref = `${name[0]}-${timestamp}.jpeg`
             const path = `./uploads/${ref}`
             profilePicture = `${req.protocol}://${req.get('host')}/uploads/${ref}`
         }

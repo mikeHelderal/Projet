@@ -19,6 +19,7 @@ import ReactionPublication from './ReactionPublication.tsx';
 
 
 
+
 const CardEA = (props : any) => {
   //const socket = io("http://localhost:8181");
   const mesPublications = props.publication; 
@@ -54,6 +55,7 @@ const validerPublication = async (idPublication: number) => {
 }
 
 const disabledButton = () => {
+  
   if(userId){
     return false;
   }else{
@@ -101,11 +103,7 @@ const disabledButton = () => {
                     <Card.Text>{item.resume}</Card.Text>
                   </Col>                  
                   <Col>
-                    <Carousel>
-                      <Carousel.Item>
-                      <img className="img-fluid rounded" src={item.image} alt="Saint-James"></img>
-                      </Carousel.Item>
-                    </Carousel>
+                      <img className="img-fluid rounded" src={item.image} ></img>
                   </Col>
                 </Row>
               </Container> 

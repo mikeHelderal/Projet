@@ -11,6 +11,7 @@ import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
 
 import * as eventService from '../../../../services/event/event.service.ts' 
+import { useDispatch } from 'react-redux';
 
 
 const FormulaireEvent = (props : any) => {

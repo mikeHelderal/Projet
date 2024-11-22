@@ -18,7 +18,9 @@ const ValidationPublication = (props : any) => {
     console.log(publications);
 
     useEffect( () => {
-        
+        publications.map((item: any)  => {
+            console.log("item => ",item);
+          })
     },[])
 
     const disabledButton = () => {
