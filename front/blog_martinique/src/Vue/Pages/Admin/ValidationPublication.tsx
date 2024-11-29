@@ -15,11 +15,9 @@ const ValidationPublication = (props : any) => {
 
     const [show, setShow] = useState(false);
     const publications = useSelector((state: RootStatePublications) => getPublicationsAttenteByIdUser(state, props.UserId));
-    console.log(publications);
 
     useEffect( () => {
         publications.map((item: any)  => {
-            console.log("item => ",item);
           })
     },[])
 

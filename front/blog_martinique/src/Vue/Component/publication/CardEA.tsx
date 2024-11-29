@@ -74,9 +74,16 @@ const disabledButton = () => {
           <Card className='card' key={index} bg='dark' text='success' border='danger' >
             <Card.Header className='text-center'><h1> {item.title}</h1> </Card.Header>
               <Card.Body>
-                <Card.Text>
-                  {item.resume}
-                </Card.Text>
+              <Container>               
+                <Row>
+                  <Col>
+                    <Card.Text>{item.resume}</Card.Text>
+                  </Col>                  
+                  <Col>
+                      <img className="img-fluid rounded" src={item.image} ></img>
+                  </Col>
+                </Row>
+              </Container> 
                 <Button variant="danger" onClick={() => {setShow(!show), setSelecteur(item.id)}}>voir Article</Button>
                 { show && selecteur == item.id ?  <div> {item.content}  </div>          : null}
               </Card.Body>

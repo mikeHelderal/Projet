@@ -13,7 +13,7 @@ export const uploadImage = async (req, res, next) => {
             const timestamp = Date.now()
             const name = originalname.split('.');
 
-            const ref = `${name[0]}-${timestamp}.jpeg`
+            const ref = `${name[0]}-${publicationObject.title}.jpeg`
             const path = `./uploads/${ref}`
             profilePicture = `${req.protocol}://${req.get('host')}/uploads/${ref}`
         }

@@ -11,7 +11,30 @@ export const URl = {
     DELETE_BY_ID_USER: "http://localhost:8181/api/user/delete/",
 
 
-    //////cities
+    
+
+
+
+/** 
+ * 
+ * 
+ * 
+ * 
+ * 
+    ////////news
+    ADD_NEWS: "http://localhost:8181/api/news/add",
+    GET_ALL_NEWS: "http://localhost:8181/api/news/all",
+    GET_NEWS_BY_ID: "http://localhost:8181/api/news/get/",
+    UPDATE_NEWS: "http://localhost:8181/api/news/update/",
+    DELETE_NEWS: "http://localhost:8181/api/news/delete/",
+
+    ///////neighbordhoods
+    GET_ALL_NEIGHBORDHOOD: "http://localhost:8181/api/neighbhood/all",
+    GET_NEIGHBORDHOOD_BY_ID: "http://localhost:8181/api/neighbordhood/get/",
+    GET_CITY_OF_NEIGHBORDHOOD: "http://localhost:8181/api/neighbhood/city/",
+    DELETE_NEIGHBORDHOOD: "http://localhost:8181/api/neighbordhood/delete/",
+
+    //////cities 
     ADD_CITIES: "http://localhost:8181/api/city/add",
     GET_ALL_CITIES: "http://localhost:8181/api/city/all",
     GET_CITY_BY: "http://localhost:8181/api/city/get:",
@@ -19,8 +42,38 @@ export const URl = {
     DELETE_BY_ID_CITY: "http://localhost:8181/api/city/delete/",
 
 
+    /////////messages
+    ADD_MESSAGE: "http://localhost:8181/api/messages/add",
+    GET_ALL_MESSAGES: "http://localhost:8181/api/messages/all",
+    GET_MESSAGE_BY_ID: "http://localhost:8181/api/messages/get/",
+    DELETE_MESSAGE: "http://localhost:8181/api/messages/delete/",
 
 
+    
+
+
+    //////response
+    ADD_RESPONSE: "http://localhost:8181/api/response/add",
+    GET_ALL_RESPONSE: "http://localhost:8181/api/response/all",
+    GET_RESPONSE_BY_ID: "http://localhost:8181/api/response/get/",
+    DELETE_RESPONSE: "http://localhost:8181/api/response/delete/",
+
+
+
+
+
+
+    ////////subjects
+    ADD_SUBJECT: "http://localhost:8181/api/subject/add",
+    GET_ALL_SUBJECT: "http://localhost:8181/api/subject/all",
+    GET_SUBJECT_BY_ID: "http://localhost:8181/api/subject/get/",
+    UPDATE_SUBJECT: "http://localhost:8181/api/subject/update/",
+    DELETE_SUBJECT: "http://localhost:8181/api/subject/delete/",
+
+
+
+
+*/
 
     ///////comment
     ADD_COMMENT: "http://localhost:8181/api/comment/add",
@@ -42,29 +95,8 @@ export const URl = {
     DELETE_EVENT: "http://localhost:8181/api/evenement/delete/",
     
 
-    /////////messages
-    ADD_MESSAGE: "http://localhost:8181/api/messages/add",
-    GET_ALL_MESSAGES: "http://localhost:8181/api/messages/all",
-    GET_MESSAGE_BY_ID: "http://localhost:8181/api/messages/get/",
-    DELETE_MESSAGE: "http://localhost:8181/api/messages/delete/",
 
 
-
-    ///////neighbordhoods
-    GET_ALL_NEIGHBORDHOOD: "http://localhost:8181/api/neighbhood/all",
-    GET_NEIGHBORDHOOD_BY_ID: "http://localhost:8181/api/neighbordhood/get/",
-    GET_CITY_OF_NEIGHBORDHOOD: "http://localhost:8181/api/neighbhood/city/",
-    DELETE_NEIGHBORDHOOD: "http://localhost:8181/api/neighbordhood/delete/",
-
-
-
-
-    ////////news
-    ADD_NEWS: "http://localhost:8181/api/news/add",
-    GET_ALL_NEWS: "http://localhost:8181/api/news/all",
-    GET_NEWS_BY_ID: "http://localhost:8181/api/news/get/",
-    UPDATE_NEWS: "http://localhost:8181/api/news/update/",
-    DELETE_NEWS: "http://localhost:8181/api/news/delete/",
 
 
 
@@ -110,27 +142,6 @@ export const URl = {
     GET_NB_UNLIKE_BY_ID_PUBLICATION: "http://localhost:8181/api/reaction_publication/get/nbunlike/",
 
 
-
-
-
-
-    //////response
-    ADD_RESPONSE: "http://localhost:8181/api/response/add",
-    GET_ALL_RESPONSE: "http://localhost:8181/api/response/all",
-    GET_RESPONSE_BY_ID: "http://localhost:8181/api/response/get/",
-    DELETE_RESPONSE: "http://localhost:8181/api/response/delete/",
-
-
-
-
-
-
-    ////////subjects
-    ADD_SUBJECT: "http://localhost:8181/api/subject/add",
-    GET_ALL_SUBJECT: "http://localhost:8181/api/subject/all",
-    GET_SUBJECT_BY_ID: "http://localhost:8181/api/subject/get/",
-    UPDATE_SUBJECT: "http://localhost:8181/api/subject/update/",
-    DELETE_SUBJECT: "http://localhost:8181/api/subject/delete/",
 
 
 

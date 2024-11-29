@@ -1,5 +1,5 @@
 import './App.css'
-import {BrowserRouter , Routes, Route} from 'react-router-dom'
+import {BrowserRouter , Routes, Route, Navigate} from 'react-router-dom'
 import Connexion from './Vue/Pages/Auth/Connexion'
 import Inscription from './Vue/Pages/Auth/Inscription'
 import Accueil from './Vue/Accueil'
@@ -21,12 +21,9 @@ function App() {
   
   useEffect( () => {
     if(localStorage.getItem("isAdmin")){
-      console.log("dans le if => ", localStorage.getItem("isAdmin"));
       if(localStorage.getItem("isAdmin") === "false"){
-        console.log("dans le if is admin false => ", );
         setisAdmin("connected");
       }else {
-        console.log("dans le if is admin true => ", );
 
         setisAdmin("admin");
       }

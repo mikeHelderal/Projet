@@ -50,7 +50,7 @@ const FormulaireEvent = (props : any) => {
 
 
 
-    const handleSubmit = (e: any) => {
+    const handleSubmit = async (e: any) => {
         e.preventDefault();
         const formData = new FormData();
             formData.append('title', title);
@@ -67,9 +67,11 @@ const FormulaireEvent = (props : any) => {
         setValidated(true);
         const config = {headers:{ 'Content-Type': 'multipart/form-data; boundary=77f77c04-2c7b-4179-aca3-my-cool-boundary'}};
         if(form.checkValidity()){
-            eventService.publier(config, formData);
+            const result = await eventService.publier(config, formData);
+            console.log("result ==> ",result.message);
+            props.afficherAlert(result.message, "success")
             e.target = null ;
-            props.handleClose();
+            props.handleCloseEvent();
         }   
     }
 

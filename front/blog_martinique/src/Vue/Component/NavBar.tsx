@@ -9,6 +9,7 @@ import "../../Styles/NavBar.css";
 import FormulairePublication from './publication/FormulairePublication';
 import FormulaireEvent from './event/FormulaireEvent';
 
+import Alerte from "../Component/Alerte.tsx"
 
 const NavBar = () => {
 
@@ -17,16 +18,16 @@ const NavBar = () => {
   const [show, setShow] = useState(false);
   const [showEvent, setShowEvent] = useState(false);
   const [isAdmin , setisAdmin] = useState("");
+  const [showAlert, setShowAlert] = useState(false);
+  const [msg, setMsg] = useState("");
+  const [variantAlert, setVariantAlert] = useState("");
 
 
   useEffect( () => {
     if(localStorage.getItem("isAdmin")){
-      console.log("dans le if => ", localStorage.getItem("isAdmin"));
       if(localStorage.getItem("isAdmin") === "false"){
-        console.log("dans le if is admin false => ", );
         setisAdmin("connected");
       }else {
-        console.log("dans le if is admin true => ", );
 
         setisAdmin("admin");
       }
@@ -37,11 +38,24 @@ const NavBar = () => {
   },[show,isAdmin])
 
 
+  const afficherAlert = (msg: any, variant: any) => {
+    setShowAlert(true);
+    setMsg(msg);
+    setVariantAlert(variant);
+    setTimeout(() => {
+      setShowAlert(false);
+      }, 3000);
+  }
+
+
   const handleClose = () => {
     setShow(false);
+
   }
   const handleCloseEvent = () => {
     setShowEvent(false);
+    window.location.reload();
+
   }
 
   const handleShow = () => setShow(true);
@@ -68,6 +82,7 @@ const NavBar = () => {
 
 
   return (
+    
     <Navbar bg="dark" data-bs-theme="dark" collapseOnSelect expand="lg" className="bg-body-tertiary">
       {isAdmin && isAdmin === "not_connected" ? 
          <Container>
@@ -96,6 +111,11 @@ const NavBar = () => {
             <Nav.Link href="/blogMartinique/Events">Evenement</Nav.Link>
             <Nav.Link href="/blogMartinique/News">Actualité</Nav.Link>
           </Nav>
+          <div>  
+                    <Alerte show={true} message={msg} variant="success"></Alerte>
+          </div>
+
+
           <Nav>
           <Nav.Link href="/blogMartinique/GU">Admin</Nav.Link>
             <Button variant="link-dark" onClick={handleShow} >Créer une publication</Button>
@@ -117,6 +137,7 @@ const NavBar = () => {
             <Nav.Link href="/blogMartinique/Events">Evenement</Nav.Link>
             <Nav.Link href="/blogMartinique/News">Actualité</Nav.Link>
           </Nav>
+
           <Nav>
             <Button variant="link-dark" onClick={handleShow} >Créer une publication</Button>
             <Button variant="link-dark" onClick={handleShowEvent} >Créer un évènement</Button>
@@ -127,8 +148,9 @@ const NavBar = () => {
            </Nav>
         </Navbar.Collapse>
       </Container>
+
       }
-     
+
 
 
       <Offcanvas show={show} onHide={handleClose} className="offcanvas offcanvas-start show text-bg-dark" >
@@ -136,7 +158,7 @@ const NavBar = () => {
           <Offcanvas.Title>Votre publication</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
-          <FormulairePublication handleClose = {handleClose}></FormulairePublication>
+          <FormulairePublication afficherAlert = {afficherAlert}  handleClose = {handleClose}></FormulairePublication>
         </Offcanvas.Body>
       </Offcanvas>
 
@@ -145,7 +167,7 @@ const NavBar = () => {
           <Offcanvas.Title>Votre Evenement</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
-          <FormulaireEvent handleCloseEvent = {handleCloseEvent}></FormulaireEvent>
+          <FormulaireEvent afficherAlert = {afficherAlert} handleCloseEvent = {()=> {handleCloseEvent()}}></FormulaireEvent>
         </Offcanvas.Body>
       </Offcanvas>
     </Navbar>
