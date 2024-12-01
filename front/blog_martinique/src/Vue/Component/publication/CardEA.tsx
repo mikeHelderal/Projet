@@ -1,19 +1,12 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios';
-import { Badge, Button, Card, Container, Row, Col } from 'react-bootstrap'
-import Carousel from 'react-bootstrap/Carousel';
+import { useEffect, useState } from 'react'
+import {  Button, Card, Container, Row, Col } from 'react-bootstrap'
 
 import { URl } from '../../../Utils/Constant/URL.ts';
 import "../../../Styles/CardT.css";
-import { io } from "socket.io-client";
-import { useDispatch, useSelector } from 'react-redux';
-import * as ACTION from '../../../../redux/reducers/reactionPubli.tsx';
-import * as ACTIONP  from '../../../../redux/reducers/publications.tsx';
+import { useDispatch, } from 'react-redux';
 
 import * as publicationService from '../../../../services/publication/publication.service.ts' 
 
-import { RootState } from '../../../Utils/interfaces/reactPubli.interface.ts';
-import { getReactPubli} from "../../../../services/selector/ReactionPubli.selecteur.tsx"
 import Commentaires from './Commentaires.tsx';
 import ReactionPublication from './ReactionPublication.tsx';
 
@@ -21,11 +14,8 @@ import ReactionPublication from './ReactionPublication.tsx';
 
 
 const CardEA = (props : any) => {
-  //const socket = io("http://localhost:8181");
   const mesPublications = props.publication; 
   const userId = localStorage.getItem("UserId")
-  const LIKE_ID = 1;
-  const UNLIKE_ID = 2;
   const dispatch = useDispatch();
   //const mes_reactions = useSelector((state: RootState) => getReactPubli(state));
   const [show, setShow] = useState(false);

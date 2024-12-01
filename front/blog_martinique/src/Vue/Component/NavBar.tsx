@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import  { useEffect, useState } from 'react'
 import { Button, Offcanvas  } from 'react-bootstrap';
 
 import Container from 'react-bootstrap/Container';
@@ -9,7 +9,6 @@ import "../../Styles/NavBar.css";
 import FormulairePublication from './publication/FormulairePublication';
 import FormulaireEvent from './event/FormulaireEvent';
 
-import Alerte from "../Component/Alerte.tsx"
 
 const NavBar = () => {
 
@@ -18,9 +17,7 @@ const NavBar = () => {
   const [show, setShow] = useState(false);
   const [showEvent, setShowEvent] = useState(false);
   const [isAdmin , setisAdmin] = useState("");
-  const [showAlert, setShowAlert] = useState(false);
   const [msg, setMsg] = useState("");
-  const [variantAlert, setVariantAlert] = useState("");
 
 
   useEffect( () => {
@@ -38,14 +35,6 @@ const NavBar = () => {
   },[show,isAdmin])
 
 
-  const afficherAlert = (msg: any, variant: any) => {
-    setShowAlert(true);
-    setMsg(msg);
-    setVariantAlert(variant);
-    setTimeout(() => {
-      setShowAlert(false);
-      }, 3000);
-  }
 
 
   const handleClose = () => {
@@ -70,13 +59,7 @@ const NavBar = () => {
     window.location.reload();
   }
 
-  const disabledButton = () => {
-    if (isAdmin == "not_connected" ) {
-        return true;
-    }else{
-        return false;
-    }
-   }
+  
 
 
 
@@ -111,10 +94,7 @@ const NavBar = () => {
             <Nav.Link href="/blogMartinique/Events">Evenement</Nav.Link>
             <Nav.Link href="/blogMartinique/News">Actualité</Nav.Link>
           </Nav>
-          <div>  
-                    <Alerte show={true} message={msg} variant="success"></Alerte>
-          </div>
-
+         
 
           <Nav>
           <Nav.Link href="/blogMartinique/GU">Admin</Nav.Link>
@@ -158,7 +138,7 @@ const NavBar = () => {
           <Offcanvas.Title>Votre publication</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
-          <FormulairePublication afficherAlert = {afficherAlert}  handleClose = {handleClose}></FormulairePublication>
+          <FormulairePublication   handleClose = {handleClose}></FormulairePublication>
         </Offcanvas.Body>
       </Offcanvas>
 
@@ -167,7 +147,7 @@ const NavBar = () => {
           <Offcanvas.Title>Votre Evenement</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
-          <FormulaireEvent afficherAlert = {afficherAlert} handleCloseEvent = {()=> {handleCloseEvent()}}></FormulaireEvent>
+          <FormulaireEvent  handleCloseEvent = {()=> {handleCloseEvent()}}></FormulaireEvent>
         </Offcanvas.Body>
       </Offcanvas>
     </Navbar>

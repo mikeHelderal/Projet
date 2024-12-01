@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { URl } from '../../src/Utils/Constant/URL';
-import React from 'react'
 import { USER } from '../../src/Utils/Constant/Types';
 
 
@@ -9,7 +8,7 @@ import { USER } from '../../src/Utils/Constant/Types';
 
     
 
-const inscrire = async(user: USER) => {
+const inscrire = async(user: any) => {
     try {
         const response = await axios.post(URl.SIGNUP, user);
         return response;

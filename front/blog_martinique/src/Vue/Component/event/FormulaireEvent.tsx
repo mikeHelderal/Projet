@@ -1,13 +1,10 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import  { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { URl } from '../../../Utils/Constant/URL.ts';
 
 import Form from 'react-bootstrap/Form';
 import { InputGroup } from 'react-bootstrap';
-import NavBar from '../NavBar.js';
 
-import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
 
 import * as eventService from '../../../../services/event/event.service.ts' 
@@ -18,11 +15,9 @@ const FormulaireEvent = (props : any) => {
 
     
 
-    const navigate = useNavigate();
     const [event, setEvent] = useState({});
     const [validated, setValidated] = useState(false);
     const [validity, setValidity] = useState(false);
-    const [show, setShow] = useState(false);
     const userId = localStorage.getItem("UserId");
 
     const [title, setTitle] = useState('');
@@ -33,20 +28,15 @@ const FormulaireEvent = (props : any) => {
     const [date, setDate] = useState('');
     const [heureDebut, setHeureDebut] = useState('');
     const [heureFin, setHeureFin] = useState('');
-    const dispatch = useDispatch();
 
 
 
 
     useEffect(  () => {
+        event
         setEvent((event: any) => ({...event, userId}));
-        setShow(false);
     },[])
 
-    const handleChange = async (e: any) =>{
-        const {name, value} = e.currentTarget;
-        await setEvent((event: any) => ({...event, [name]: value}));
-    } 
 
 
 
@@ -67,6 +57,7 @@ const FormulaireEvent = (props : any) => {
         setValidated(true);
         const config = {headers:{ 'Content-Type': 'multipart/form-data; boundary=77f77c04-2c7b-4179-aca3-my-cool-boundary'}};
         if(form.checkValidity()){
+            validity
             const result = await eventService.publier(config, formData);
             console.log("result ==> ",result.message);
             props.afficherAlert(result.message, "success")

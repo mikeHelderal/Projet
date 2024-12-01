@@ -40,7 +40,7 @@ const liker = async (eventId: any, mes_reactions: any[], userId: any, LIKE_ID: a
         }
         else{
             if(maReaction[0].TypeId == LIKE_ID){
-                let response = await axios.delete(URl.DELETE_REACTION_EVENT + maReaction[0].id);
+                await axios.delete(URl.DELETE_REACTION_EVENT + maReaction[0].id);
                 const tampon = mes_reactions.filter((like: any) => like.id !== maReaction[0].id);
                 dispatch(ACTIONReactEvent.FETCH_SUCCESS(tampon))
             }
@@ -76,7 +76,7 @@ if(mes_reactions.length == 0){
     }
     else{
         if(maReaction[0].TypeId == UNLIKE_ID){
-            let response = await axios.delete(URl.DELETE_REACTION_EVENT + maReaction[0].id);
+            await axios.delete(URl.DELETE_REACTION_EVENT + maReaction[0].id);
             const tampon = mes_reactions.filter((unlike: any) => unlike.id !== maReaction[0].id);
             dispatch(ACTIONReactEvent.FETCH_SUCCESS(tampon))  
         }

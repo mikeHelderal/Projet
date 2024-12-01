@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import  { useEffect, useState } from 'react'
 import Tab from 'react-bootstrap/Tab'
 import Tabs from 'react-bootstrap/Tabs'
 import "../../../Styles/Tab.css"
@@ -15,7 +15,7 @@ const TabTourisme = () => {
 
     useEffect(() => {
         const recupPublication = async () => {
-            const response = await axios.get(URl.GET_ALL_PUBLICATION);
+            const response = await axios.get(URl.GET_ALL_PUBLICATION_VALID);
             let result = response.data.data.filter((res: any) => res.SubjectId == idBalneaire );
             setPublication(result);
         }

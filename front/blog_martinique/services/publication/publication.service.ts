@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { URl } from '../../src/Utils/Constant/URL';
-import React from 'react'
 import * as ACTION from '../../redux/reducers/reactionPubli';
 import * as ACTIONP  from '../../redux/reducers/publications.tsx';
 
@@ -25,16 +24,12 @@ const validerPublication = async (idPublication: number, dispatch: any) => {
     }  
 }
 
-const recupSubjects = async () => {
-    const response = await axios.get(URl.GET_ALL_SUBJECT);
-    return response.data.data ;
-}
 
 
 const publier = (config: any, formData: any) => {
     const enregistrer = async () => {
         try {
-            const response = await axios.post(URl.ADD_PUBLICATION, formData,config);        
+            await axios.post(URl.ADD_PUBLICATION, formData,config);        
         } catch (error) {
             console.log(error);
         }
@@ -44,5 +39,5 @@ const publier = (config: any, formData: any) => {
 
 
 export {
-    recupMesLike, validerPublication, recupSubjects, publier
+    recupMesLike, validerPublication, publier
 }

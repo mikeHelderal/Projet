@@ -1,6 +1,4 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react'
-import { URl } from '../../../Utils/Constant/URL';
+import  { useEffect, useState } from 'react'
 import { Button } from 'react-bootstrap';
 import Modal from 'react-bootstrap/Modal';
 import CardEA from '../../Component/publication/CardEA.tsx';
@@ -17,8 +15,7 @@ const ValidationPublication = (props : any) => {
     const publications = useSelector((state: RootStatePublications) => getPublicationsAttenteByIdUser(state, props.UserId));
 
     useEffect( () => {
-        publications.map((item: any)  => {
-          })
+        
     },[])
 
     const disabledButton = () => {

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import  { useEffect, useState } from 'react'
 import Table from 'react-bootstrap/Table';
 import {  Button } from 'react-bootstrap'
 
@@ -9,7 +9,7 @@ import ValidationEvents from './ValidationEvents';
 
 const GestionUser = () => {
 
-    const [users, setUsers] = useState();
+    const [users, setUsers] = useState([]);
 
     useEffect(() => {
         // code here

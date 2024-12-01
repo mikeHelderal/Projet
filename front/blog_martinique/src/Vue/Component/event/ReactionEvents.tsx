@@ -1,14 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import  { useEffect } from 'react'
 import { getReactEvents } from '../../../../services/selector/reactionEvents.selecteur.tsx';
 import {getNbReactionEvent } from '../../../../services/selector/NbReactionEvent.selecteur.tsx'
 import { RootStateEvent } from '../../../Utils/interfaces/reactEvents.interface.ts';
 import { RootStateNbReactiontEvent } from '../../../Utils/interfaces/nbReactionEvent.interface.ts';
 import { useDispatch, useSelector } from 'react-redux';
-import { URl } from '../../../Utils/Constant/URL.ts';
 import { io } from "socket.io-client";
-import * as ACTIONReactEvent from '../../../../redux/reducers/reactionEvent.tsx';
 import * as ACTIONNBReactEvent from '../../../../redux/reducers/nbReactionEvent.tsx'
-import axios from 'axios';
 import { Badge, Button } from 'react-bootstrap';
 import "../../../Styles/reaction.css";
 
@@ -19,7 +16,7 @@ const ReactionEvents = (props: any) => {
 
     
 
-    const socket = io(URl.BACK);
+    const socket = io(import.meta.env.REACT_APP_BACKEND_URL);
     const dispatch = useDispatch();
     const mes_reactions = useSelector((state: RootStateEvent) => getReactEvents(state));
     

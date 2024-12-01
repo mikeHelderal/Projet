@@ -1,15 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import  { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { getReactPubli } from '../../../../services/selector/ReactionPubli.selecteur.tsx';
-import * as ACTION from '../../../../redux/reducers/reactionPubli.tsx';
 import * as ACTIONNBPUBLI from '../../../../redux/reducers/nbReactionPublication.tsx';
 
 
 import * as reactionPublicationService from '../../../../services/reactionPublication/reactionPublication.service.ts' 
 
 
-import axios from 'axios';
-import { URl } from '../../../Utils/Constant/URL.ts';
 import { RootState } from '../../../Utils/interfaces/reactPubli.interface.ts';
 import { Badge, Button } from 'react-bootstrap';
 import "../../../Styles/reaction.css";
@@ -23,7 +20,7 @@ import { io } from "socket.io-client";
 const ReactionPublication = (props: any) => {
 
 
-    const socket = io(URl.BACK);
+    const socket = io(import.meta.env.REACT_APP_BACKEND_URL);
     const dispatch = useDispatch();
     const mes_reactions = useSelector((state: RootState) => getReactPubli(state));
 

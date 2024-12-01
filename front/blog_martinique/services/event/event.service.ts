@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { URl } from '../../src/Utils/Constant/URL';
-import React from 'react'
 import * as ACTION from '../../redux/reducers/reactionEvent.tsx';
 import * as ACTIONE  from '../../redux/reducers/events.tsx';
 

@@ -1,8 +1,5 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Badge, Button, Card, Container, Row, Col } from 'react-bootstrap'
-import { URl } from '../../../Utils/Constant/URL.ts';
-import { io } from "socket.io-client";
 import { useDispatch } from 'react-redux';
 
 import "../../../Styles/CardT.css"
@@ -19,22 +16,12 @@ const CardEvent = (props : any) => {
   //const socket = io("http://localhost:8181");
   const mesEvenment = props.evenment; 
   const userId = localStorage.getItem("UserId")
-  const LIKE_ID = 1;
-  const UNLIKE_ID = 2;
   const dispatch = useDispatch();
   //const mes_reactions = useSelector((state: RootState) => getReactEvents(state));
   const [show, setShow] = useState(false);
   const [selecteur, setSelecteur]= useState(0);
 
-  const [showCom, setShowCom] = useState(false);
-  const [selecteurCom, setSelecteurCom] = useState<Number[]>([0]);
 
-  const options = {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  };
 
 
   useEffect( () => {
@@ -47,15 +34,6 @@ const CardEvent = (props : any) => {
   },[])
 
 
-const afficherCom = (idEvent: number) => {
-  if(selecteurCom.includes(idEvent)){
-    selecteurCom.splice(selecteurCom.indexOf(idEvent, 1));
-    //return false
-  }else{
-    setSelecteurCom([...selecteurCom, idEvent])
-    //return true
-  }
-}
 
 const validerEvent = async (idEvent: number) => {
 

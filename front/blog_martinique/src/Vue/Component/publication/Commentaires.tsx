@@ -1,13 +1,12 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import  { useEffect, useState } from 'react'
 import { URl } from '../../../Utils/Constant/URL.ts'
-import { Button, Form, Toast, ToastContainer } from 'react-bootstrap';
+import { Button, Form, Toast } from 'react-bootstrap';
 import "../../../Styles/Commentaires.css";
 import { io } from "socket.io-client";
 import { useDispatch, useSelector } from 'react-redux';
 import { RootStateCom } from '../../../Utils/interfaces/commentaire.interface.ts';
 //import { socket } from '../../socket.ts';
-import Response from "../Response.tsx"
 
 import * as ACTION from '../../../../redux/reducers/commentair.tsx';
 
@@ -15,7 +14,7 @@ import { getCommentair} from "../../../../services/selector/Commentair.selecteur
 
 const Commentaires = (props : any) => {
     const userId = localStorage.getItem("UserId");
-    const socket = io(URl.BACK);
+    const socket = io(import.meta.env.REACT_APP_BACKEND_URL);
 
 
     const [commentaires, setCommentaires] = useState();
@@ -23,11 +22,12 @@ const Commentaires = (props : any) => {
     const [validated, setValidated] = useState(false);
     const [validity, setValidity] = useState(false);
 
-    const currentMe = localStorage.getItem("UserId")
     const dispatch = useDispatch();
     const lesCommentaires = useSelector((state: RootStateCom) => getCommentair(state))
 
     useEffect(() => {
+        commentaires
+        validity
         dispatch(ACTION.FETCH_START())
         const recupComments = async () => {
             const response = await axios.get(URl.GET_ALL_COMMENT);
@@ -66,7 +66,7 @@ const Commentaires = (props : any) => {
     const commenter = async () => {
         dispatch(ACTION.FETCH_START());
         try {
-            const response = await axios.post(URl.ADD_COMMENT, commentaire);
+            await axios.post(URl.ADD_COMMENT, commentaire);
             //dispatch(ACTION.FETCH_SUCCESS( response.data.response))
             
         } catch (error) {

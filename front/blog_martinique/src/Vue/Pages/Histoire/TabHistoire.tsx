@@ -1,10 +1,7 @@
-import React, { useEffect } from 'react'
 import Tab from 'react-bootstrap/Tab'
 import Tabs from 'react-bootstrap/Tabs'
 import "../../../Styles/Tab.css"
 import TimelineRhum from '../../Component/TimelineRhum'
-import TimelineMartinique from './TimelineMartinique'
-import TimelineBele from './TimelineBele'
 
 
 const TabHistoire = () => {

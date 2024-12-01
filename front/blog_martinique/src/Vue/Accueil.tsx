@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import  { useEffect } from 'react'
 import NavBar from "../Vue/Component/NavBar"
 import {Outlet} from 'react-router-dom'
 import "../Styles/Accueil.css"
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import * as ACTION from '../../redux/reducers/publications';
 import * as ACTIONE from '../../redux/reducers/events';
 import axios from 'axios';

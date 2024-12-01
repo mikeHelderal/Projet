@@ -1,11 +1,8 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import  { useEffect, useState } from 'react'
 
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { InputGroup } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
 
 
 import * as publicationService from '../../../../services/publication/publication.service.ts' 
@@ -13,7 +10,6 @@ import * as publicationService from '../../../../services/publication/publicatio
 const FormulairePublication = (props: any) => {
 
   
-  const navigate = useNavigate();
   const [publication, setPublication] = useState({});
   const [validated, setValidated] = useState(false);
   const [validity, setValidity] = useState(false);
@@ -24,20 +20,18 @@ const FormulairePublication = (props: any) => {
   const [resume, setResume] = useState('');
   const [image, setImage] = useState('');
   const [content, setContent] = useState('');
-  const dispatch = useDispatch();
 
 
   useEffect(  () => {
+    show
+    validity
+    publication
   
     setPublication((publication: any) => ({...publication, userId}));
     setShow(false);
   },[])
 
 
-  const handleChange = async (e: any) =>{
-      const {name, value} = e.currentTarget;
-      await setPublication((publication: any) => ({...publication, [name]: value}));
-  } 
 
   const handleSubmit = (e: any) => {
       e.preventDefault();

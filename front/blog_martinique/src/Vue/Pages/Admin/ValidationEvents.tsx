@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import  { useEffect, useState } from 'react'
 import { Button } from 'react-bootstrap';
 import Modal from 'react-bootstrap/Modal';
 import { useSelector } from 'react-redux';
 import { RootStateEvents } from '../../../Utils/interfaces/events.interface';
-import { getEvents, getEventsAttenteByIdUser } from '../../../../services/selector/Events.selecteur';
+import {  getEventsAttenteByIdUser } from '../../../../services/selector/Events.selecteur';
 import CardEvent from '../../Component/event/CardEvent';
 
 

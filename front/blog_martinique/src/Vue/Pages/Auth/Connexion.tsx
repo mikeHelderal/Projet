@@ -44,7 +44,7 @@ const Connexion = () => {
       dispatch(ACTION.FETCH_START());
       const result = await connexion(user)
       dispatch(ACTION.FETCH_SUCCESS(result))
-      
+      validity
       navigate("/blogMartinique");
       window.location.reload();
 

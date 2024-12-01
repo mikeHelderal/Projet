@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { URl } from '../../src/Utils/Constant/URL';
-import React from 'react'
 import * as ACTION from '../../redux/reducers/reactionPubli';
 import * as ACTIONNBPUBLI from '../../redux/reducers/nbReactionPublication';
 
@@ -47,7 +46,7 @@ const liker = async (publicationId: any, mes_reactions: any[], userId: any, LIKE
         }
         else{
             if(maReaction[0].TypeId == LIKE_ID){
-                let response = await axios.delete(URl.DELETE_REACTION_PUBLICATION + maReaction[0].id);
+                await axios.delete(URl.DELETE_REACTION_PUBLICATION + maReaction[0].id);
                 const tampon = mes_reactions.filter((like) => like.id !== maReaction[0].id);
                 dispatch(ACTION.FETCH_SUCCESS(tampon))
             }
@@ -86,7 +85,7 @@ const unlike = async (publicationId: any, mes_reactions: any[], userId: any, LIK
         }
         else{
             if(maReaction[0].TypeId == UNLIKE_ID){
-                let response = await axios.delete(URl.DELETE_REACTION_PUBLICATION + maReaction[0].id);
+                await axios.delete(URl.DELETE_REACTION_PUBLICATION + maReaction[0].id);
                 const tampon = mes_reactions.filter((unlike) => unlike.id !== maReaction[0].id);
                 dispatch(ACTION.FETCH_SUCCESS(tampon))
             }
