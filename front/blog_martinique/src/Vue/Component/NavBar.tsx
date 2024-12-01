@@ -17,7 +17,6 @@ const NavBar = () => {
   const [show, setShow] = useState(false);
   const [showEvent, setShowEvent] = useState(false);
   const [isAdmin , setisAdmin] = useState("");
-  const [msg, setMsg] = useState("");
 
 
   useEffect( () => {

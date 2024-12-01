@@ -1,5 +1,4 @@
 import { io } from "socket.io-client";
-import { URl } from "./Utils/Constant/URL";
 
 
-export const socket = io(URl.BACK);
+export const socket = io(import.meta.env.REACT_APP_BACKEND_URL);
