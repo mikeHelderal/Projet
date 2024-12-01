@@ -1,14 +1,17 @@
+
+
+const URL_BACK = import.meta.env.REACT_APP_BACKEND_URL;
+
 export const URl = {
 
-    BACK : "http://localhost:8181",
 
     /////users
-    LOGIN: "http://localhost:8181/api/user/login",
-    SIGNUP: "http://localhost:8181/api/user/signUp",
-    GET_ALL_USER: "http://localhost:8181/api/user/all",
-    GET_USER_BY_ID: "http://localhost:8181/api/user/get/",
-    UPDATE_USER: "http://localhost:8181/api/user/update/",
-    DELETE_BY_ID_USER: "http://localhost:8181/api/user/delete/",
+    LOGIN: `${URL_BACK}/api/user/login`,
+    SIGNUP: `${URL_BACK}/api/user/signUp`,
+    GET_ALL_USER: `${URL_BACK}/api/user/all`,
+    GET_USER_BY_ID: `${URL_BACK}/api/user/get/`,
+    UPDATE_USER: `${URL_BACK}/api/user/update/`,
+    DELETE_BY_ID_USER: `${URL_BACK}/api/user/delete/`,
 
 
     
@@ -22,41 +25,41 @@ export const URl = {
  * 
  * 
     ////////news
-    ADD_NEWS: "http://localhost:8181/api/news/add",
-    GET_ALL_NEWS: "http://localhost:8181/api/news/all",
-    GET_NEWS_BY_ID: "http://localhost:8181/api/news/get/",
-    UPDATE_NEWS: "http://localhost:8181/api/news/update/",
-    DELETE_NEWS: "http://localhost:8181/api/news/delete/",
+    ADD_NEWS: `${URL_BACK}/api/news/add`,
+    GET_ALL_NEWS: `${URL_BACK}/api/news/all`,
+    GET_NEWS_BY_ID: `${URL_BACK}/api/news/get/`,
+    UPDATE_NEWS: `${URL_BACK}/api/news/update/`,
+    DELETE_NEWS: `${URL_BACK}/api/news/delete/`,
 
     ///////neighbordhoods
-    GET_ALL_NEIGHBORDHOOD: "http://localhost:8181/api/neighbhood/all",
-    GET_NEIGHBORDHOOD_BY_ID: "http://localhost:8181/api/neighbordhood/get/",
-    GET_CITY_OF_NEIGHBORDHOOD: "http://localhost:8181/api/neighbhood/city/",
-    DELETE_NEIGHBORDHOOD: "http://localhost:8181/api/neighbordhood/delete/",
+    GET_ALL_NEIGHBORDHOOD: `${URL_BACK}/api/neighbhood/all`,
+    GET_NEIGHBORDHOOD_BY_ID: `${URL_BACK}/api/neighbordhood/get/`,
+    GET_CITY_OF_NEIGHBORDHOOD: `${URL_BACK}/api/neighbhood/city/`,
+    DELETE_NEIGHBORDHOOD: `${URL_BACK}/api/neighbordhood/delete/`,
 
     //////cities 
-    ADD_CITIES: "http://localhost:8181/api/city/add",
-    GET_ALL_CITIES: "http://localhost:8181/api/city/all",
-    GET_CITY_BY: "http://localhost:8181/api/city/get:",
-    GET_NEIGHBORHOOD_OF_CITY: "http://localhost:8181/api/city/getgetNeighbordhoods/",
-    DELETE_BY_ID_CITY: "http://localhost:8181/api/city/delete/",
+    ADD_CITIES: `${URL_BACK}/api/city/add`,
+    GET_ALL_CITIES: `${URL_BACK}/api/city/all`,
+    GET_CITY_BY: `${URL_BACK}/api/city/get:`,
+    GET_NEIGHBORHOOD_OF_CITY: `${URL_BACK}/api/city/getgetNeighbordhoods/`,
+    DELETE_BY_ID_CITY: `${URL_BACK}/api/city/delete/`,
 
 
     /////////messages
-    ADD_MESSAGE: "http://localhost:8181/api/messages/add",
-    GET_ALL_MESSAGES: "http://localhost:8181/api/messages/all",
-    GET_MESSAGE_BY_ID: "http://localhost:8181/api/messages/get/",
-    DELETE_MESSAGE: "http://localhost:8181/api/messages/delete/",
+    ADD_MESSAGE: `${URL_BACK}/api/messages/add`,
+    GET_ALL_MESSAGES: `${URL_BACK}/api/messages/all`,
+    GET_MESSAGE_BY_ID: `${URL_BACK}/api/messages/get/`,
+    DELETE_MESSAGE: `${URL_BACK}/api/messages/delete/`,
 
 
     
 
 
     //////response
-    ADD_RESPONSE: "http://localhost:8181/api/response/add",
-    GET_ALL_RESPONSE: "http://localhost:8181/api/response/all",
-    GET_RESPONSE_BY_ID: "http://localhost:8181/api/response/get/",
-    DELETE_RESPONSE: "http://localhost:8181/api/response/delete/",
+    ADD_RESPONSE: `${URL_BACK}/api/response/add`,
+    GET_ALL_RESPONSE: `${URL_BACK}/api/response/all`,
+    GET_RESPONSE_BY_ID: `${URL_BACK}/api/response/get/`,
+    DELETE_RESPONSE: `${URL_BACK}/api/response/delete/`,
 
 
 
@@ -64,11 +67,11 @@ export const URl = {
 
 
     ////////subjects
-    ADD_SUBJECT: "http://localhost:8181/api/subject/add",
-    GET_ALL_SUBJECT: "http://localhost:8181/api/subject/all",
-    GET_SUBJECT_BY_ID: "http://localhost:8181/api/subject/get/",
-    UPDATE_SUBJECT: "http://localhost:8181/api/subject/update/",
-    DELETE_SUBJECT: "http://localhost:8181/api/subject/delete/",
+    ADD_SUBJECT: `${URL_BACK}/api/subject/add`,
+    GET_ALL_SUBJECT: `${URL_BACK}/api/subject/all`,
+    GET_SUBJECT_BY_ID: `${URL_BACK}/api/subject/get/`,
+    UPDATE_SUBJECT: `${URL_BACK}/api/subject/update/`,
+    DELETE_SUBJECT: `${URL_BACK}/api/subject/delete/`,
 
 
 
@@ -76,23 +79,23 @@ export const URl = {
 */
 
     ///////comment
-    ADD_COMMENT: "http://localhost:8181/api/comment/add",
-    GET_ALL_COMMENT: "http://localhost:8181/api/comment/all",
-    GET_COMMENT_BY_ID: "http://localhost:8181/api/comment/get/",
-    GET_COMMENT_BY_PUBLICATION: "http://localhost:8181/api/comment/get/publication/",
-    UPDATE_COMMENT: "http://localhost:8181/api/comment/update/",
-    DELETE_COMMENT: "http://localhost:8181/api/comment/delete/",
+    ADD_COMMENT: `${URL_BACK}/api/comment/add`,
+    GET_ALL_COMMENT: `${URL_BACK}/api/comment/all`,
+    GET_COMMENT_BY_ID: `${URL_BACK}/api/comment/get/`,
+    GET_COMMENT_BY_PUBLICATION: `${URL_BACK}/api/comment/get/publication/`,
+    UPDATE_COMMENT: `${URL_BACK}/api/comment/update/`,
+    DELETE_COMMENT: `${URL_BACK}/api/comment/delete/`,
 
 
 
 
 
     /////////events
-    ADD_EVENTS: "http://localhost:8181/api/evenement/add",
-    GET_ALL_EVENTS: "http://localhost:8181/api/evenement/all",
-    GET_EVENT_BY_ID: "http://localhost:8181/api/evenement/get/",
-    UPDATE_EVENT: "http://localhost:8181/api/evenement/update/",
-    DELETE_EVENT: "http://localhost:8181/api/evenement/delete/",
+    ADD_EVENTS: `${URL_BACK}/api/evenement/add`,
+    GET_ALL_EVENTS: `${URL_BACK}/api/evenement/all`,
+    GET_EVENT_BY_ID: `${URL_BACK}/api/evenement/get/`,
+    UPDATE_EVENT: `${URL_BACK}/api/evenement/update/`,
+    DELETE_EVENT: `${URL_BACK}/api/evenement/delete/`,
     
 
 
@@ -102,28 +105,28 @@ export const URl = {
 
 
     ////////publications
-    ADD_PUBLICATION: "http://localhost:8181/api/publication/add",
-    GET_ALL_PUBLICATION_VALID: "http://localhost:8181/api/publication/all",
-    GET_ALL_PUBLICATION_EN_ATTENTE: "http://localhost:8181/api/publication/all",
-    GET_ALL_PUBLICATION_EN_ATTENTE_BY_IDUSER: "http://localhost:8181/api/publication/all/attente/user/",
-    GET_PUBLICATION_BY_ID: "http://localhost:8181/api/publication/get/",
-    UPDATE_PUBLICATION: "http://localhost:8181/api/publication/update/",
-    DELETE_PUBLICATION: "http://localhost:8181/api/publication/delete/",
+    ADD_PUBLICATION: `${URL_BACK}/api/publication/add`,
+    GET_ALL_PUBLICATION_VALID: `${URL_BACK}/api/publication/all`,
+    GET_ALL_PUBLICATION_EN_ATTENTE: `${URL_BACK}/api/publication/all`,
+    GET_ALL_PUBLICATION_EN_ATTENTE_BY_IDUSER: `${URL_BACK}/api/publication/all/attente/user/`,
+    GET_PUBLICATION_BY_ID: `${URL_BACK}/api/publication/get/`,
+    UPDATE_PUBLICATION: `${URL_BACK}/api/publication/update/`,
+    DELETE_PUBLICATION: `${URL_BACK}/api/publication/delete/`,
 
 
 
 
     /////reaction_events
-    ADD_REACTION_EVENT: "http://localhost:8181/api/reaction_events/add",
-    GET_ALL_REACTION_EVENT: "http://localhost:8181/api/reaction_events/all",
-    GET_REACTION_EVENT_BY_ID: "http://localhost:8181/api/reaction_events/get/",
-    GET_REACTION_EVENT_BY_ID_USER: "http://localhost:8181/api/reaction_events/getByUser/",
-    UPDATE_REACTION_EVENT_BY_ID: "http://localhost:8181/api/reaction_events/update/",
+    ADD_REACTION_EVENT: `${URL_BACK}/api/reaction_events/add`,
+    GET_ALL_REACTION_EVENT: `${URL_BACK}/api/reaction_events/all`,
+    GET_REACTION_EVENT_BY_ID: `${URL_BACK}/api/reaction_events/get/`,
+    GET_REACTION_EVENT_BY_ID_USER: `${URL_BACK}/api/reaction_events/getByUser/`,
+    UPDATE_REACTION_EVENT_BY_ID: `${URL_BACK}/api/reaction_events/update/`,
 
-    GET_NB_LIKE_BY_ID_EVENT: "http://localhost:8181/api/reaction_event/get/nblike/",
-    GET_NB_UNLIKE_BY_ID_EVENT: "http://localhost:8181/api/reaction_event/get/nbunlike/",
+    GET_NB_LIKE_BY_ID_EVENT: `${URL_BACK}/api/reaction_event/get/nblike/`,
+    GET_NB_UNLIKE_BY_ID_EVENT: `${URL_BACK}/api/reaction_event/get/nbunlike/`,
 
-    DELETE_REACTION_EVENT: "http://localhost:8181/api/reaction_events/delete/",
+    DELETE_REACTION_EVENT: `${URL_BACK}/api/reaction_events/delete/`,
     ///get/user/:id
 
 
@@ -131,15 +134,15 @@ export const URl = {
 
 
     ///////reactions_publications
-    ADD_REACTION_PUBLICATION: "http://localhost:8181/api/reaction_publication/add",
-    GET_ALL_REACTION_PUBLICATION: "http://localhost:8181/api/reaction_publication/all",
-    GET_REACTION_PUBLICATION_BY_ID: "http://localhost:8181/api/reaction_publication/",
-    UPDATE_REACTION_PUBLICATION_BY_ID: "http://localhost:8181/api/reaction_publication/update/",
-    DELETE_REACTION_PUBLICATION: "http://localhost:8181/api/reaction_publication/delete/",
-    GET_REACTION_PUBLICATION_BY_ID_USER: "http://localhost:8181/api/reaction_publication/get/user/",
+    ADD_REACTION_PUBLICATION: `${URL_BACK}/api/reaction_publication/add`,
+    GET_ALL_REACTION_PUBLICATION: `${URL_BACK}/api/reaction_publication/all`,
+    GET_REACTION_PUBLICATION_BY_ID: `${URL_BACK}/api/reaction_publication/`,
+    UPDATE_REACTION_PUBLICATION_BY_ID: `${URL_BACK}/api/reaction_publication/update/`,
+    DELETE_REACTION_PUBLICATION: `${URL_BACK}/api/reaction_publication/delete/`,
+    GET_REACTION_PUBLICATION_BY_ID_USER: `${URL_BACK}/api/reaction_publication/get/user/`,
 
-    GET_NB_LIKE_BY_ID_PUBLICATION: "http://localhost:8181/api/reaction_publication/get/nblike/",
-    GET_NB_UNLIKE_BY_ID_PUBLICATION: "http://localhost:8181/api/reaction_publication/get/nbunlike/",
+    GET_NB_LIKE_BY_ID_PUBLICATION: `${URL_BACK}/api/reaction_publication/get/nblike/`,
+    GET_NB_UNLIKE_BY_ID_PUBLICATION: `${URL_BACK}/api/reaction_publication/get/nbunlike/`,
 
 
 
@@ -147,9 +150,9 @@ export const URl = {
 
 
     ///////types
-    GET_ALL_TYPE: "http://localhost:8181/api/type/all",
-    GET_TYPE_BY_ID: "http://localhost:8181/api/type/get/",
-    DELETE_TYPE: "http://localhost:8181/api/type/delete/",
+    GET_ALL_TYPE: `${URL_BACK}/api/type/all`,
+    GET_TYPE_BY_ID: `${URL_BACK}/api/type/get/`,
+    DELETE_TYPE: `${URL_BACK}/api/type/delete/`,
 
 
 
