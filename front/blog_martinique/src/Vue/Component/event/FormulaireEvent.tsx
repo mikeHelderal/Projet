@@ -18,7 +18,7 @@ const FormulaireEvent = (props : any) => {
     const userId = localStorage.getItem("UserId");
 
     const [title, setTitle] = useState('');
-    const [image, setImage] = useState();
+    const [image, setImage] = useState('');
     const [content, setContent] = useState('');
     const [adresse, setAdresse] = useState('');
     const [ville, setVille] = useState('');
@@ -111,7 +111,7 @@ const FormulaireEvent = (props : any) => {
 
         <Form.Group className="position-relative mb-3">
             <Form.Label>File</Form.Label>
-            <Form.Control type="file" required name="image" onChange={(e)=>{setImage(e.target.files[0])}} />
+            <Form.Control type="file" required name="image" onChange={(e)=>{setImage(e.target.value)}} />
             <Form.Control.Feedback type="invalid" >Veuillez insérer une image </Form.Control.Feedback>
             <Form.Control.Feedback  > Looks Good ! </Form.Control.Feedback>
         </Form.Group>
