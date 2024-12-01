@@ -21,7 +21,7 @@ const inscrire = async(user: USER) => {
 
 const connexion = async (user: USER) => {
     try {
-        const response = await axios.post(URl.LOGIN, user);
+        const response = await axios.post(URl.LOGIN, user, { withCredentials: true });
         localStorage.setItem('UserId', response.data.id);
         localStorage.setItem("isAdmin",response.data.isAdmin );
         return response.data ; 

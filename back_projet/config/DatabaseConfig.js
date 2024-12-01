@@ -7,7 +7,7 @@ const connection = new Sequelize(
     env.db_password, // Mot de passe Mysql
     {
         host: env.db_host, // URL de mySQL
-        dialect: 'mysql'
+        dialect: env.db_dialect
     }
 );
 

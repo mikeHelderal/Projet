@@ -1,6 +1,5 @@
 import express from 'express'
 import { env } from './config/config.js';
-import cookieParser from 'cookie-parser'
 import cors from 'cors'
 
 // Connexion MySQL
@@ -21,21 +20,15 @@ import bodyParser from 'body-parser';
 
 import path from 'path';
 import { fileURLToPath } from 'url';
+import cookieParser from 'cookie-parser';
 
 const app = express()
 // MIDDLEWARE
 app.use(express.json())
-app.use(cookieParser())
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.text({type: '/'}));
 
-// CORS
-app.use(cors({
-        origin: env.CORS_ORIGIN, //  <- port React. Ex: 'http://localhost:3000'
-        credentials: true,
-        methods: ['GET', 'PUT', 'POST', 'DELETE'],
-        allowedHeaders: ['Content-Type', 'Authorization']
-}))
 
 
 app.use((req, res, next) => {
@@ -45,6 +38,15 @@ app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Credentials", true);
   return next();
 });
+
+// CORS
+app.use(cors({
+  origin: env.CORS_ORIGIN, //  <- port React. Ex: 'http://localhost:3000'
+  credentials: true,
+  methods: ['GET', 'PUT', 'POST', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}))
+
 
 // STATIC FILES
 app.use('/uploads', express.static('./uploads')); // <- Ici, on valide les images (static files)
