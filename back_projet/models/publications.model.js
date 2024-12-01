@@ -20,7 +20,8 @@ export default (connection, DataTypes) => {
             },
             is_valid: {
                 type: DataTypes.BOOLEAN,
-                allowNull: true
+                allowNull: false,
+                defaultValue: 0
             },
             date_publication: {
                 type: DataTypes.DATE,
