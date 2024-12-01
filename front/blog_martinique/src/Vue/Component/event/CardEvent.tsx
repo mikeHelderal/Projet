@@ -5,7 +5,6 @@ import { useDispatch } from 'react-redux';
 import "../../../Styles/CardT.css"
 
 
-import Carousel from 'react-bootstrap/Carousel';
 import ReactionEvents from './ReactionEvents.tsx';
 
 

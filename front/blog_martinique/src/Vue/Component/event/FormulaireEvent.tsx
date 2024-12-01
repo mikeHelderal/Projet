@@ -15,7 +15,7 @@ const FormulaireEvent = (props : any) => {
     const [event, setEvent] = useState({});
     const [validated, setValidated] = useState(false);
     const [validity, setValidity] = useState(false);
-    const userId = localStorage.getItem("UserId");
+    const userId: any = localStorage.getItem("UserId");
 
     const [title, setTitle] = useState('');
     const [image, setImage] = useState('');

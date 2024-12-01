@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import {  Button, Card, Container, Row, Col } from 'react-bootstrap'
 
-import { URl } from '../../../Utils/Constant/URL.ts';
 import "../../../Styles/CardT.css";
 import { useDispatch, } from 'react-redux';
 
