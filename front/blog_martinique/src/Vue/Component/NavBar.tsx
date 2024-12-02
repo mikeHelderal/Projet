@@ -68,35 +68,35 @@ const NavBar = () => {
     <Navbar bg="dark" data-bs-theme="dark" collapseOnSelect expand="lg" className="bg-body-tertiary">
       {isAdmin && isAdmin === "not_connected" ? 
          <Container>
-         <Navbar.Brand href="/blogMartinique">Fusion Belka</Navbar.Brand>
+         <Navbar.Brand href="">Fusion Belka</Navbar.Brand>
          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
          <Navbar.Collapse id="responsive-navbar-nav">
            <Nav className="me-auto">
-             <Nav.Link href="/blogMartinique/histoire">Histoire</Nav.Link>
-             <Nav.Link href="/blogMartinique/Events">Evenement</Nav.Link>
-             <Nav.Link href="/blogMartinique/News">Actualité</Nav.Link>
+             <Nav.Link href="/histoire">Histoire</Nav.Link>
+             <Nav.Link href="/Events">Evenement</Nav.Link>
+             <Nav.Link href="/News">Actualité</Nav.Link>
            </Nav>
            <Nav>
-             <Nav.Link href="/blogMartinique/inscription">Inscription</Nav.Link>
-             <Nav.Link  href="/blogMartinique/connexion">Connexion </Nav.Link>
+             <Nav.Link href="/inscription">Inscription</Nav.Link>
+             <Nav.Link  href="/connexion">Connexion </Nav.Link>
            </Nav>
          </Navbar.Collapse>
        </Container>
        :
         isAdmin && isAdmin === "admin" ?
         <Container>
-        <Navbar.Brand href="/blogMartinique">Fusion Belka</Navbar.Brand>
+        <Navbar.Brand href="">Fusion Belka</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="/blogMartinique/histoire">Histoire</Nav.Link>
-            <Nav.Link href="/blogMartinique/Events">Evenement</Nav.Link>
-            <Nav.Link href="/blogMartinique/News">Actualité</Nav.Link>
+            <Nav.Link href="/histoire">Histoire</Nav.Link>
+            <Nav.Link href="/Events">Evenement</Nav.Link>
+            <Nav.Link href="/News">Actualité</Nav.Link>
           </Nav>
          
 
           <Nav>
-          <Nav.Link href="/blogMartinique/GU">Admin</Nav.Link>
+          <Nav.Link href="/GU">Admin</Nav.Link>
             <Button variant="link-dark" onClick={handleShow} >Créer une publication</Button>
             <Button variant="link-dark" onClick={handleShowEvent} >Créer un évènement</Button>
             </Nav>
@@ -108,13 +108,13 @@ const NavBar = () => {
       </Container>
         :
         <Container>
-        <Navbar.Brand href="/blogMartinique">Fusion Belka</Navbar.Brand>
+        <Navbar.Brand href="">Fusion Belka</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="/blogMartinique/histoire">Histoire</Nav.Link>
-            <Nav.Link href="/blogMartinique/Events">Evenement</Nav.Link>
-            <Nav.Link href="/blogMartinique/News">Actualité</Nav.Link>
+            <Nav.Link href="/histoire">Histoire</Nav.Link>
+            <Nav.Link href="/Events">Evenement</Nav.Link>
+            <Nav.Link href="/News">Actualité</Nav.Link>
           </Nav>
 
           <Nav>

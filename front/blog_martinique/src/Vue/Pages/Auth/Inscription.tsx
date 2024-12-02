@@ -44,7 +44,7 @@ const Inscription = () => {
     const inscription = async () => {
         try {
             await inscrire(user) ;
-            navigate("/blogMartinique/connexion")
+            navigate("/connexion")
         } catch (error) {
             
         }
