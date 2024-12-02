@@ -29,7 +29,6 @@ const validerEvent = async (idEvent: number, dispatch: any) => {
 const publier = async (config: any, formData: any) => {
         try {
             const response = await axios.post(URl.ADD_EVENTS, formData,config);
-            console.log("response ==> ", response);
             return response.data ;
         } catch (error) {
             console.log(error);

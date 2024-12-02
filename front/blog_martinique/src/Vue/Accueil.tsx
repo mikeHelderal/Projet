@@ -22,8 +22,7 @@ const Accueil = () => {
     const recupPubli = async () => {
       dispatch(ACTION.FETCH_START())
       const response = await axios.get(URl.GET_ALL_PUBLICATION_VALID);
-      //setMesReactions([response.data.data]);
-      console.log(URl.GET_ALL_PUBLICATION_VALID);
+      console.log("accueil ==> ", response);
       dispatch(ACTION.FETCH_SUCCESS(response.data.data))
     }
     const recupEvents = async () => {

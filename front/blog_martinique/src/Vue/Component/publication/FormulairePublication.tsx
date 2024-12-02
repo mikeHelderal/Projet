@@ -34,7 +34,6 @@ const FormulairePublication = (props: any) => {
 
 
   const handleSubmit = (e: any) => {
-    console.log(e.target.files);
       e.preventDefault();
       const formData = new FormData();
         formData.append('title', title);
