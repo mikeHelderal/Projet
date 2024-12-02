@@ -37,23 +37,23 @@ function App() {
     <BrowserRouter> 
       {isAdmin && isAdmin === "admin" ? 
         <Routes>
-          <Route path='/blogMartinique' element={<Accueil/>}>
-            <Route path='/blogMartinique/connexion' element={<Connexion/>}/>
-            <Route path='/blogMartinique/inscription' element={<Inscription/>}/>
-            <Route path='/blogMartinique/histoire' element={<HistoireAccueil/>}/>
-            <Route path='/blogMartinique/News' element={<ActualiteAccueil/>}/>
-            <Route path='/blogMartinique/Events' element={<EvenementAccueil/>}/>
-            <Route path='/blogMartinique/GU' element={<GestionUser/>}/>
+          <Route path='/' element={<Accueil/>}>
+            <Route path='/connexion' element={<Connexion/>}/>
+            <Route path='/inscription' element={<Inscription/>}/>
+            <Route path='/histoire' element={<HistoireAccueil/>}/>
+            <Route path='/News' element={<ActualiteAccueil/>}/>
+            <Route path='/Events' element={<EvenementAccueil/>}/>
+            <Route path='/GU' element={<GestionUser/>}/>
           </Route>    
         </Routes>
     :
       <Routes>
-        <Route path='/blogMartinique' element={<Accueil/>}>
-          <Route path='/blogMartinique/connexion' element={<Connexion/>}/>
-          <Route path='/blogMartinique/inscription' element={<Inscription/>}/>
-          <Route path='/blogMartinique/histoire' element={<HistoireAccueil/>}/>
-          <Route path='/blogMartinique/News' element={<ActualiteAccueil/>}/>
-          <Route path='/blogMartinique/Events' element={<EvenementAccueil/>}/>
+        <Route path='/' element={<Accueil/>}>
+          <Route path='/connexion' element={<Connexion/>}/>
+          <Route path='/inscription' element={<Inscription/>}/>
+          <Route path='/histoire' element={<HistoireAccueil/>}/>
+          <Route path='/News' element={<ActualiteAccueil/>}/>
+          <Route path='/Events' element={<EvenementAccueil/>}/>
         </Route>    
       </Routes>
   }   
