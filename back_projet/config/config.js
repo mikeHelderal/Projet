@@ -10,5 +10,6 @@ export const env = {
   db_user: process.env.DB_USER ,
   db_name: process.env.MYSQL_DATABASE,
   db_dialect: process.env.DB_DIALECT,
-  db_password: process.env.MYSQL_ROOT_PASSWORD
+  db_password: process.env.MYSQL_ROOT_PASSWORD,
+  url_front: process.env.URL_FRONT
 }
