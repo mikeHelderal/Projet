@@ -1,4 +1,3 @@
-import axios from 'axios'
 import  { useEffect, useState } from 'react'
 import { URl } from '../../../Utils/Constant/URL.ts'
 import { Button, Form, Toast } from 'react-bootstrap';
@@ -11,33 +10,35 @@ import { RootStateCom } from '../../../Utils/interfaces/commentaire.interface.ts
 import * as ACTION from '../../../../redux/reducers/commentair.tsx';
 
 import { getCommentair} from "../../../../services/selector/Commentair.selecteur.tsx"
+import * as commentaireService from '../../../../services/commentaire/commentaire.service.ts'
+
 
 const Commentaires = (props : any) => {
     const userId = localStorage.getItem("UserId");
     const socket = io(import.meta.env.REACT_APP_BACKEND_URL);
 
 
-    const [commentaires, setCommentaires] = useState();
     const [commentaire, setCommentaire] = useState<any>({"UserId": userId, "PublicationId": props.PublicationId });
     const [validated, setValidated] = useState(false);
     const [validity, setValidity] = useState(false);
+    const [disabledCommentaire, setDisabledCommentaire] = useState(false);
 
     const dispatch = useDispatch();
     const lesCommentaires = useSelector((state: RootStateCom) => getCommentair(state))
+    console.log("les commentaires => ", lesCommentaires);
 
     useEffect(() => {
-        commentaires
         validity
         dispatch(ACTION.FETCH_START())
         const recupComments = async () => {
-            const response = await axios.get(URl.GET_ALL_COMMENT);
-            dispatch(ACTION.FETCH_SUCCESS(response.data.data))
-            setCommentaires(response.data.data);
+           commentaireService.recupComments(dispatch);
             
         }
         recupComments();
+        setDisabledCommentaire(props.valid);
         socket.on("connect", () => {
             socket.on('newComment', (response) => {
+                console.log(response);
                 dispatch(ACTION.FETCH_SUCCESS( response))
             })
         })
@@ -64,14 +65,7 @@ const Commentaires = (props : any) => {
     }
 
     const commenter = async () => {
-        dispatch(ACTION.FETCH_START());
-        try {
-            await axios.post(URl.ADD_COMMENT, commentaire);
-            //dispatch(ACTION.FETCH_SUCCESS( response.data.response))
-            
-        } catch (error) {
-            
-        }
+        commentaireService.commenter(commentaire, dispatch)
     }
 
 
@@ -103,11 +97,11 @@ const Commentaires = (props : any) => {
 
 <Form className='formulaire' noValidate validated={validated}  onSubmit={handleSubmit}>
       <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Control required type="text" placeholder="Enter comment" name="content" onChange={handleChange}/> 
+        <Form.Control disabled= {disabledCommentaire} required type="text" placeholder="Enter comment" name="content" onChange={handleChange}/> 
         <Form.Control.Feedback type="invalid">Please provide an email</Form.Control.Feedback>
         <Form.Control.Feedback  > Looks Good ! </Form.Control.Feedback>
       </Form.Group>
-      <Button variant="outline-secondary" type='submit'>Commenter</Button>
+      <Button disabled= {disabledCommentaire} variant="outline-secondary" type='submit'>Commenter</Button>
     </Form>
         
     </span>

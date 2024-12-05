@@ -13,6 +13,12 @@ const recupMesLike = async (userId: any, dispatch: any) => {
 }
 
 
+const recupPubli = async (dispatch: any) => {
+    dispatch(ACTION.FETCH_START())
+    const response = await axios.get(URl.GET_ALL_PUBLICATION_VALID);
+    dispatch(ACTIONP.FETCH_SUCCESS(response.data.data))
+  }
+
 const validerPublication = async (idPublication: number, dispatch: any) => {  
 
     dispatch(ACTIONP.FETCH_START())
@@ -39,5 +45,5 @@ const publier = (config: any, formData: any) => {
 
 
 export {
-    recupMesLike, validerPublication, publier
+    recupMesLike, validerPublication, publier, recupPubli
 }

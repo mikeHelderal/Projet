@@ -12,12 +12,7 @@ const ActualiteAccueil = () => {
 
 
   useEffect(() => {
-      /**const recupPublication = async () => {
-          const response = await axios.get(URl.GET_ALL_PUBLICATION_VALID);
-          let result = response.data.data.filter((res: any) => res.SubjectId == idBalneaire );
-          setPublication(result);
-      }
-      recupPublication();*/
+     
 
 
   },[])

@@ -6,7 +6,12 @@ import * as ACTIONE  from '../../redux/reducers/events.tsx';
 
 
 
+const recupEvents = async (dispatch :any) => {
+    dispatch(ACTIONE.FETCH_START())
+    const response = await axios.get(URl.GET_ALL_EVENTS);    
+    dispatch(ACTIONE.FETCH_SUCCESS(response.data.data));
 
+  }
 
 const recupMesLike = async (userId: any, dispatch: any) => {
     dispatch(ACTION.FETCH_START())
@@ -38,4 +43,4 @@ const publier = async (config: any, formData: any) => {
 }
 
 
-export { recupMesLike, validerEvent, publier }
+export { recupMesLike, validerEvent, publier, recupEvents }

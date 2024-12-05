@@ -1,11 +1,10 @@
-import axios from 'axios';
 import  { useEffect, useState } from 'react'
 import Table from 'react-bootstrap/Table';
 import {  Button } from 'react-bootstrap'
-
-import { URl } from '../../../Utils/Constant/URL';
 import ValidationPublication from './ValidationPublication';
 import ValidationEvents from './ValidationEvents';
+import * as adminService from '../../../../services/admin/admin.service.ts'
+
 
 const GestionUser = () => {
 
@@ -14,31 +13,24 @@ const GestionUser = () => {
     useEffect(() => {
         // code here
         const getUsers = async () => {
-            const response = await axios.get(URl.GET_ALL_USER);
-            setUsers(response.data.data);
+          const response = await adminService.getUsers();
+          console.log("response ==> ",response);
+          setUsers(response);
         }
         getUsers();
     },[])
 
 
     const passerAdmin = async (user: any) => {
-      try {
-          user.isAdmin = 1 ;
-          const response = await axios.put(URl.UPDATE_USER+user.id, user);
-          setUsers(response.data.data);
-      } catch (error) {
-          console.log(error);          
-      }
+      const response = await adminService.passerAdmin(user);
+      setUsers(response);
+      
     }
 
     const retirerAdmin = async (user: any) => {
-      try {
-          user.isAdmin = 0 ;
-          const response = await axios.put(URl.UPDATE_USER+user.id, user);
-          setUsers(response.data.data);
-      } catch (error) {
-          console.log(error);          
-      }
+      const response =  await adminService.retirerAdmin(user);
+      setUsers(response);
+
     }
 
 

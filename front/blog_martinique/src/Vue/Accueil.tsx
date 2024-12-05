@@ -3,10 +3,9 @@ import NavBar from "../Vue/Component/NavBar"
 import {Outlet} from 'react-router-dom'
 import "../Styles/Accueil.css"
 import { useDispatch } from 'react-redux';
-import * as ACTION from '../../redux/reducers/publications';
-import * as ACTIONE from '../../redux/reducers/events';
-import axios from 'axios';
-import { URl } from '../Utils/Constant/URL';
+import * as publicationService from '../../services/publication/publication.service.ts' 
+import * as eventService from '../../services/event/event.service.ts'
+
 
 
 
@@ -20,17 +19,10 @@ const Accueil = () => {
   useEffect( () => {
     
     const recupPubli = async () => {
-      dispatch(ACTION.FETCH_START())
-      const response = await axios.get(URl.GET_ALL_PUBLICATION_VALID);
-      console.log("accueil ==> ", response);
-      dispatch(ACTION.FETCH_SUCCESS(response.data.data))
+     publicationService.recupPubli(dispatch);
     }
     const recupEvents = async () => {
-      dispatch(ACTIONE.FETCH_START())
-
-      const response = await axios.get(URl.GET_ALL_EVENTS);
-      
-      dispatch(ACTIONE.FETCH_SUCCESS(response.data.data));
+     eventService.recupEvents(dispatch);
 
     }
     recupPubli();

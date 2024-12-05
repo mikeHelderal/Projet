@@ -60,7 +60,7 @@ const disabledButton = () => {
       {props.valid == true ?
       <div>        
         {mesPublications && mesPublications.map((item: any, index: any) => (
-          <Card className='card' key={index} bg='dark' text='success' border='danger' >
+          <Card className='card' key={index} bg='dark' text='light' border='dark' >
             <Card.Header className='text-center'><h1> {item.title}</h1> </Card.Header>
               <Card.Body>
               <Container>               
@@ -79,8 +79,8 @@ const disabledButton = () => {
               <Card.Footer>
                 <ReactionPublication PublicationId = {item.id}></ReactionPublication>
                 <br></br>
-                <Button variant="danger" disabled= {disabledButton()} onClick={() => {setShowCom(!showCom), afficherCom(item.id)}}>Commentaires</Button>
-                  {selecteurCom.includes(item.id) ? <div> affichage commentaire <Commentaires PublicationId = {item.id}  Commentaires = {item.Comments}></Commentaires></div>
+                <Button variant="danger"  onClick={() => {setShowCom(!showCom), afficherCom(item.id)}}>Commentaires</Button>
+                  {selecteurCom.includes(item.id) ? <div> affichage commentaire <Commentaires valid= {disabledButton()} PublicationId = {item.id}  Commentaires = {item.Comments}></Commentaires></div>
                   : null}
               </Card.Footer> 
           </Card>

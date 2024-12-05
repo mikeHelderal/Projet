@@ -68,11 +68,10 @@ const NavBar = () => {
     <Navbar bg="dark" data-bs-theme="dark" collapseOnSelect expand="lg" className="bg-body-tertiary">
       {isAdmin && isAdmin === "not_connected" ? 
          <Container>
-         <Navbar.Brand href="">Fusion Belka</Navbar.Brand>
+         <Navbar.Brand href="/">Fusion Belka</Navbar.Brand>
          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
          <Navbar.Collapse id="responsive-navbar-nav">
            <Nav className="me-auto">
-             <Nav.Link href="/histoire">Histoire</Nav.Link>
              <Nav.Link href="/Events">Evenement</Nav.Link>
              <Nav.Link href="/News">Actualité</Nav.Link>
            </Nav>
@@ -85,20 +84,20 @@ const NavBar = () => {
        :
         isAdmin && isAdmin === "admin" ?
         <Container>
-        <Navbar.Brand href="">Fusion Belka</Navbar.Brand>
+        <Navbar.Brand href="/">Fusion Belka</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="/histoire">Histoire</Nav.Link>
             <Nav.Link href="/Events">Evenement</Nav.Link>
             <Nav.Link href="/News">Actualité</Nav.Link>
+            <Button variant="link-dark" onClick={handleShow} >Créer une publication</Button>
+            <Button variant="link-dark" onClick={handleShowEvent} >Créer un évènement</Button>
           </Nav>
          
 
           <Nav>
           <Nav.Link href="/GU">Admin</Nav.Link>
-            <Button variant="link-dark" onClick={handleShow} >Créer une publication</Button>
-            <Button variant="link-dark" onClick={handleShowEvent} >Créer un évènement</Button>
+            
             </Nav>
             <Nav>
             <Button variant="link-dark" onClick={deconnexion} >Déconnexion</Button>
@@ -108,19 +107,17 @@ const NavBar = () => {
       </Container>
         :
         <Container>
-        <Navbar.Brand href="">Fusion Belka</Navbar.Brand>
+        <Navbar.Brand href="/">Fusion Belka</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="/histoire">Histoire</Nav.Link>
             <Nav.Link href="/Events">Evenement</Nav.Link>
             <Nav.Link href="/News">Actualité</Nav.Link>
-          </Nav>
-
-          <Nav>
             <Button variant="link-dark" onClick={handleShow} >Créer une publication</Button>
             <Button variant="link-dark" onClick={handleShowEvent} >Créer un évènement</Button>
           </Nav>
+
+         
           <Nav>
           <Button variant="link-dark" onClick={deconnexion} >Déconnexion</Button>
 
