@@ -22,7 +22,6 @@ function App() {
       if(localStorage.getItem("isAdmin") === "false"){
         setisAdmin("connected");
       }else {
-
         setisAdmin("admin");
       }
     }else{
