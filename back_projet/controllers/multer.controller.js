@@ -3,6 +3,7 @@ import {Events, Publications} from "../models/index.js";
 
 export const uploadImage = async (req, res, next) => {
     //code de add publication
+    console.log("DANS MULTER")
     let profilePicture = ""
     const publicationObject = req.body
     try {
