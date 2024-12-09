@@ -29,7 +29,7 @@ export default (connection, DataTypes) => {
             isAdmin: {
                 type: DataTypes.BOOLEAN,
                 allowNull: false,
-                defaultValue: O
+                defaultValue: 0
             },
             isSuperAdmin: {
                 type: DataTypes.BOOLEAN,
