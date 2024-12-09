@@ -1,27 +1,19 @@
 pipeline {
-    agent any
-    
-   
+    agent any   
     parameters {
         stashedFile '.env'
     }
-
     environment {
         NODE_ENV = 'test'
         GIT_CREDENTIALS_ID = 'CredentialBM' // Remplacez par l'ID de vos credentials Jenkins
     }
-
     tools{
         nodejs:"NodeJS"
     }
-    
-
-
     stages {
         stage('Checkout') {
             steps {
                 script {
-                    // Checkout the 'dev' branch
                     checkout([$class: 'GitSCM', branches: [[name: '*/dev']], 
                             doGenerateSubmoduleConfigurations: false, 
                             extensions: [], submoduleCfg: [], 
@@ -36,11 +28,9 @@ pipeline {
                 }
             }
         }
-
         stage('Install Dependencies') {
             steps {
                 script {
-                    // Install Node.js dependencies for both frontend and backend
                     dir('back_projet') {
                         bat 'npm install'
                     }
@@ -54,10 +44,8 @@ pipeline {
         stage('Run Tests') {
             steps {
                 script {
-                    // Run tests for both frontend and backend
                     dir('front/blog_martinique') {
-                        echo 'sur le front'
-                        
+                        echo 'sur le front'                        
                     }
                     dir('back_projet') {
                         echo 'sur le back'
@@ -65,12 +53,8 @@ pipeline {
                     }
                 }
             }
-        }
-
-        
-    }
-
-    
+        }        
+    }   
     post {
         success {
             script {
@@ -78,7 +62,6 @@ pipeline {
                               doGenerateSubmoduleConfigurations: false, 
                               extensions: [], submoduleCfg: [], 
                               userRemoteConfigs: [[credentialsId: env.GIT_CREDENTIALS_ID, url: 'https://github.com/mikeHelderal/Projet.git']]])
-
                 echo 'Tests succeeded, merging dev into main'
                 withCredentials([usernamePassword(credentialsId: env.GIT_CREDENTIALS_ID, passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
                     bat """

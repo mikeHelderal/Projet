@@ -18,14 +18,11 @@ const ReactionEvents = (props: any) => {
 
     const socket = io(import.meta.env.REACT_APP_BACKEND_URL);
     const dispatch = useDispatch();
-    const mes_reactions = useSelector((state: RootStateEvent) => getReactEvents(state));
-    
+    const mes_reactions = useSelector((state: RootStateEvent) => getReactEvents(state));    
     const EventId = props.EventId;
-
     const userId = localStorage.getItem("UserId")
     const LIKE_ID = 1;
     const UNLIKE_ID = 2;
-
     const nbReactP = useSelector((state: RootStateNbReactiontEvent) => getNbReactionEvent(state));
 
     
@@ -34,20 +31,15 @@ const ReactionEvents = (props: any) => {
         reactionEventService.recupMesLike(userId, dispatch);
         reactionEventService.recupCountreact(dispatch);
         dispatch(ACTIONNBReactEvent.FETCH_START());
-
         socket.on("connect", () => {
             socket.on('getNbReactionE', (response) => {
                 dispatch(ACTIONNBReactEvent.FETCH_SUCCESS( response))
             })
-        })
-
-
-        
-    
+        })    
     },[])
 
     const liker = async (eventId: any) => {
-        reactionEventService.unlike(eventId, mes_reactions, userId, LIKE_ID, UNLIKE_ID, dispatch)   ;
+        reactionEventService.liker(eventId, mes_reactions, userId, LIKE_ID, UNLIKE_ID, dispatch)   ;
 
     }
 
@@ -72,24 +64,23 @@ const unlike = async (eventId: any) => {
             } 
         }else {
             return false;
-        }
-       
+        }       
     }
     
 
     const styliserUnlike= (idEvent: number) => {
         if(mes_reactions){
             let maReaction = mes_reactions.filter( (like: any) => like.EventId === idEvent);  
-        if(maReaction.length == 0){
-            return false;
-        }else{
-            if(maReaction[0]?.TypeId == UNLIKE_ID){
-                return true;
-            }else {
+            if(maReaction.length == 0){
                 return false;
-            }   
-        } 
-        }else {
+            }else{
+                if(maReaction[0]?.TypeId == UNLIKE_ID){
+                    return true;
+                }else {
+                    return false;
+                }   
+            } 
+        }else{
             return false ;
         }           
     }
@@ -97,12 +88,11 @@ const unlike = async (eventId: any) => {
 
     const disabledButton = () => {
         if(userId){
-          return false;
+            return false;
         }else{
-          return true;
+            return true;
         }
-      }
-      
+    }      
 
 return (
     <fieldset>
@@ -121,23 +111,22 @@ return (
         : null}
             </span>
         ))}     
-    </Button>
-                
+    </Button>                
     <Button disabled= {disabledButton()} variant={styliserUnlike(EventId) ? 'danger' : 'outline-danger' }  onClick={() => {unlike(EventId)}}>
-      <Badge bg="danger"> 
+        <Badge bg="danger"> 
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-emoji-frown" viewBox="0 0 16 16">
 <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
 <path d="M4.285 12.433a.5.5 0 0 0 .683-.183A3.5 3.5 0 0 1 8 10.5c1.295 0 2.426.703 3.032 1.75a.5.5 0 0 0 .866-.5A4.5 4.5 0 0 0 8 9.5a4.5 4.5 0 0 0-3.898 2.25.5.5 0 0 0 .183.683M7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5m4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5"/>
         </svg>
-      </Badge>
-      <br></br>
-      {nbReactP.map((item: any, index: any) => (
-        <span key={index} >
-          {item.EventId == props.EventId && item.TypeId == 2 ?
-          <span>{item.nombre}</span>
-          : <span>    </span>}
-          </span>
-      ))}
+        </Badge>
+        <br></br>
+        {nbReactP.map((item: any, index: any) => (
+            <span key={index} >
+            {item.EventId == props.EventId && item.TypeId == 2 ?
+            <span>{item.nombre}</span>
+            : <span>    </span>}
+            </span>
+        ))}
     </Button>
     
     </fieldset>

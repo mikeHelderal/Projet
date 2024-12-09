@@ -8,6 +8,12 @@ import express from 'express'
 
 const signUp = async (req, res, next) => {
     try {
+        const user = await Users.findOne({
+            where:
+                { email: req.body.email }
+        });
+        if (user) return res.status(500).json("User already exists");
+
         const hashedPassword = await bcrypt.hash(req.body.password,10);
 
         await Users.create({...req.body, password: hashedPassword});

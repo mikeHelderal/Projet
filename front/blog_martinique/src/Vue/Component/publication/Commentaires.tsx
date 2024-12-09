@@ -27,11 +27,10 @@ const Commentaires = (props : any) => {
     console.log("les commentaires => ", lesCommentaires);
 
     useEffect(() => {
-        validity
+        
         dispatch(ACTION.FETCH_START())
         const recupComments = async () => {
-           commentaireService.recupComments(dispatch);
-            
+            commentaireService.recupComments(dispatch);            
         }
         recupComments();
         setDisabledCommentaire(props.valid);
@@ -53,23 +52,12 @@ const Commentaires = (props : any) => {
     const handleSubmit = (e: any) => {
         e.preventDefault();
         const form = e.currentTarget;
-
-
         setValidity(form.checkValidity());
         setValidated(true);
-
-        if(form.checkValidity()){
-            commenter();
+        if(validity){
+            commentaireService.commenter(commentaire, dispatch)
         }
     }
-
-    const commenter = async () => {
-        commentaireService.commenter(commentaire, dispatch)
-    }
-
-
-
-
 
   return (
     <span>

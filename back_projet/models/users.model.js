@@ -29,12 +29,12 @@ export default (connection, DataTypes) => {
             isAdmin: {
                 type: DataTypes.BOOLEAN,
                 allowNull: false,
-                defaultValue: 1
+                defaultValue: O
             },
             isSuperAdmin: {
                 type: DataTypes.BOOLEAN,
                 allowNull: false,
-                defaultValue: 1
+                defaultValue: 0
             }
         },
         { timestamps: true }

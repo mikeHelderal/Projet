@@ -1,50 +1,41 @@
-//const express = require("express");
-//const request = require("supertest");
-//const routerNeighbordhoods = require("../routes/neighbordhoods.route.js");
+
 import express from 'express';
 import request from 'supertest';
-//import routerNeighbordhoods from '../routes/neighbordhoods.route';
+import routeComment from '../routes/comments.route';
+
 const app = express();
-
 app.use(express.json());
+app.use("/api/comment",routeComment);
 
-test("test trivial qui réussit toujours", () => {
-    expect(true).toBe(true);
-  });
-
-//app.use("/api/neighbordhood",routerNeighbordhoods);
-
-/**
 describe("test d'integration pour neighbordhood", () => {
-    //test get all
     it("test get all neighbordhood", async () => {
-        const {body, statusCode } = await request(app).get("/api/neighbordhood/all");
+        const {body, statusCode } = await request(app).get("/api/comment/all");
         expect(body).toEqual(
             expect.arrayContaining([
                 expect.objectContaining({
                     id: expect.any(Number),
-                    name: expect.any(String),
+                    content: expect.any(String),
                     createdAt: expect.any(String),
                     updatedAt: expect.any(String),
-                    CityId: expect.any(Number),
+                    PublicationId: expect.any(Number),
+                    UserId: expect.any(Number),
+                    firstName: expect.any(String),
                 }),
             ])
         ); 
         expect(statusCode).toBe(200);
 });
-
-// test get by id
-it("test get neighbordhood by id", async () => {
-    const {body, statusCode } = await request(app).get("/api/neighbordhood/get/1");
+it("test get comment by id", async () => {
+    const {body, statusCode } = await request(app).get("/api/comment/get/1");
     expect(body).toEqual(
         expect.objectContaining({
             id: expect.any(Number),
-            name: expect.any(String),
+            content: expect.any(String),
             createdAt: expect.any(String),
             updatedAt: expect.any(String),
-            CityId: expect.any(Number),
-        }),
-        
+            PublicationId: expect.any(Number),
+            UserId: expect.any(Number),
+        }),        
     ); 
     expect(statusCode).toBe(200);
 }); 
@@ -67,5 +58,4 @@ it("test get neighbordhood by id", async () => {
 
 
 
-//test delete 
-})*/
+})
