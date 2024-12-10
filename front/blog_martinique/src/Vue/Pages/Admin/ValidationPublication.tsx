@@ -41,7 +41,12 @@ const ValidationPublication = (props : any) => {
                 <Modal.Title>Modal heading</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-            <CardEA publication = {publications} valid= {false} ></CardEA>
+            {publications && publications.map((item: any, index: any) => (
+                <p key={index}>
+                        <CardEA maPublication = {item} publication = {publications} valid= {false} ></CardEA>
+
+                </p>
+            ))}
             </Modal.Body>
             <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>

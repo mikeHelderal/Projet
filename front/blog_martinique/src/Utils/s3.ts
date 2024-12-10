@@ -1,5 +1,8 @@
+import { URl } from '../../src/Utils/Constant/URL';
+
+
 export const getFileByKey = async (key: any) => {
-    return await fetch('/s3/get', {
+    return await fetch( URl.IMAGE_S3, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

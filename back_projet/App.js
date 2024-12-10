@@ -17,6 +17,9 @@ import routerReactionPublication from './routes/reactions_publications.route.js'
 import routerTypes from './routes/types.route.js';
 import bodyParser from 'body-parser';
 //import bodyParser from 'body-parser';
+import routerS3 from "./routes/s3.route.js";
+
+
 
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -41,7 +44,7 @@ app.use((req, res, next) => {
 
 // CORS
 app.use(cors({
-  origin: env.CORS_ORIGIN, //  <- port React. Ex: 'http://localhost:3000'
+  origin: env.url_front, //  <- port React. Ex: 'http://localhost:3000'
   credentials: true,
   methods: ['GET', 'PUT', 'POST', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
@@ -50,17 +53,20 @@ app.use(cors({
 
 // STATIC FILES
 app.use('/uploads', express.static('./uploads')); // <- Ici, on valide les images (static files)
-
 // MIDDLEWARE TO ROUTE
 // app.use("/api/article", routerArticle)
 // app.use("/api/avis", routerAvis)
 app.use("/api/user", routerUser);
 app.use("/api/publication", routerPublication);
 app.use("/api/evenement", routerEvenement);
+
+app.use("/api/s3", routerS3); 
+
 app.use("/api/comment", routerComment);
 app.use("/api/reaction_events", routerReactionEvents);
 app.use("/api/reaction_publication", routerReactionPublication);
 app.use("/api/type", routerTypes);
+
 
 
 

@@ -5,6 +5,7 @@ import "../../../Styles/CardT.css";
 import { useDispatch, } from 'react-redux';
 
 import * as publicationService from '../../../../services/publication/publication.service.ts' 
+import * as imageService from '../../../../services/S3.service.ts'
 
 import Commentaires from './Commentaires.tsx';
 import ReactionPublication from './ReactionPublication.tsx';
@@ -13,7 +14,10 @@ import ReactionPublication from './ReactionPublication.tsx';
 
 
 const CardEA = (props : any) => {
-  const mesPublications = props.publication; 
+  var mesPublications = props.publication; 
+  const [maPublication, setMaPublication] = useState(props.maPublication);
+  const [monImage, setMonImage] = useState("");
+
   const userId = localStorage.getItem("UserId")
   const dispatch = useDispatch();
   //const mes_reactions = useSelector((state: RootState) => getReactPubli(state));
@@ -25,8 +29,17 @@ const CardEA = (props : any) => {
 
 
   useEffect( () => {
+    setMaPublication(props.maPublication); 
+    const recupImage = async (img: any) => {
+      const image =  await imageService.getImageFromS3(img);
+      if(image){   
+        setMonImage(image);
+      }
+    }  
+    recupImage(maPublication.image);
     publicationService.recupMesLike(userId, dispatch)
-  },[])
+
+  },[monImage, maPublication])
 
 
 const afficherCom = (idPublication: number) => {
@@ -54,66 +67,65 @@ const disabledButton = () => {
 
 
 
-
   return (
     <div>
       {props.valid == true ?
       <div>        
-        {mesPublications && mesPublications.map((item: any, index: any) => (
-          <Card className='card' key={index} bg='dark' text='light' border='dark' >
-            <Card.Header className='text-center'><h1> {item.title}</h1> </Card.Header>
+          <Card className='card'  bg='dark' text='light' border='dark' >
+            <Card.Header className='text-center'><h1> {maPublication.title}</h1> </Card.Header>
               <Card.Body>
               <Container>               
                 <Row>
                   <Col>
-                    <Card.Text>{item.resume}</Card.Text>
+                    <Card.Text>{maPublication.resume}</Card.Text>
                   </Col>                  
                   <Col>
-                      <img className="img-fluid rounded" src={item.image} ></img>
+                      <img className="img-fluid rounded" src={monImage} ></img>
                   </Col>
                 </Row>
               </Container> 
-                <Button variant="danger" onClick={() => {setShow(!show), setSelecteur(item.id)}}>voir Article</Button>
-                { show && selecteur == item.id ?  <div> {item.content}  </div>          : null}
+                <Button variant="danger" onClick={() => {setShow(!show), setSelecteur(maPublication.id)}}>voir Article</Button>
+                { show && selecteur == maPublication.id ?  <div> {maPublication.content}  </div>          : null}
               </Card.Body>
               <Card.Footer>
-                <ReactionPublication PublicationId = {item.id}></ReactionPublication>
+                <ReactionPublication PublicationId = {maPublication.id}></ReactionPublication>
                 <br></br>
-                <Button variant="danger"  onClick={() => {setShowCom(!showCom), afficherCom(item.id)}}>Commentaires</Button>
-                  {selecteurCom.includes(item.id) ? <div> affichage commentaire <Commentaires valid= {disabledButton()} PublicationId = {item.id}  Commentaires = {item.Comments}></Commentaires></div>
+                <Button variant="danger"  onClick={() => {setShowCom(!showCom), afficherCom(maPublication.id)}}>Commentaires</Button>
+                  {selecteurCom.includes(maPublication.id) ? <div> affichage commentaire <Commentaires valid= {disabledButton()} PublicationId = {maPublication.id}  Commentaires = {maPublication.Comments}></Commentaires></div>
                   : null}
               </Card.Footer> 
           </Card>
-        ))} 
       </div>
       :
 
       <div>
-        {mesPublications && mesPublications.map((item: any, index: any) => (
-          <Card className='card' key={index} bg='dark' text='success' border='danger' >
-            <Card.Header className='text-center'><h1> {item.title}</h1> </Card.Header>
+                  <Card className='card' bg='dark' text='success' border='danger' >
+            <Card.Header className='text-center'><h1> {maPublication.title}</h1> </Card.Header>
               <Card.Body>
               <Container>               
                 <Row>
                   <Col>
-                    <Card.Text>{item.resume}</Card.Text>
-                  </Col>                  
+                    <Card.Text>{maPublication.resume}</Card.Text>
+                  </Col> 
+                </Row>
+                <br></br>
+                <Row>
                   <Col>
-                      <img className="img-fluid rounded" src={item.image} ></img>
+                    <Button variant="danger" onClick={() => {setShow(!show), setSelecteur(maPublication.id)}}>voir Article</Button>
+                    { show && selecteur == maPublication.id ?  <div> {maPublication.content}  </div>          : null}
+                  </Col>
+                  <Col>
+                      <img className="img-fluid rounded" src={monImage}></img>
                   </Col>
                 </Row>
               </Container> 
-                <Button variant="danger" onClick={() => {setShow(!show), setSelecteur(item.id)}}>voir Article</Button>
-                { show && selecteur == item.id ?  <div> {item.content}  </div>          : null}
               </Card.Body>
               <Card.Footer>
                   <br></br>
-                  <Button variant="danger" onClick={() => {validerPublication(item.id)}} >valider</Button>
+                  <Button variant="danger" onClick={() => {validerPublication(maPublication.id)}} >valider</Button>
                   
               </Card.Footer>
           </Card>
-        ))} 
-
       </div>
       }
     </div>

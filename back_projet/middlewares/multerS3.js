@@ -13,9 +13,15 @@ const storage = multerS3({
             'image/png',
             'image/jpeg',
         ];
-        console.log("DANS MULTERS3");
+        //console.log("DANS MULTERS3" ,file);
          // Chemin stocker tes images
-        const path = `uploads/profile-picture.png`;
+         const {  originalname } = file
+         const name = originalname.split('.');
+
+
+         const ref = `${name[0]}-${req.body.title}.jpeg`
+            const path = `./uploads/${ref}`
+       // const path = `uploads/profile-picture.pn`;
 
         if (!imageMimeTypes.includes(file.mimetype)) {
             return cb(new Error('Seulement les fichiers .png et .jpeg sont autorisés !'));

@@ -14,7 +14,7 @@ export const URl = {
     DELETE_BY_ID_USER: `${URL_BACK}/api/user/delete/`,
 
 
-    
+    IMAGE_S3 : `${URL_BACK}/api/s3/getImage/`,
 
 
 

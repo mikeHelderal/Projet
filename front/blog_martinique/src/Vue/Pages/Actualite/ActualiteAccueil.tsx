@@ -22,7 +22,12 @@ const ActualiteAccueil = () => {
         <header className='header'>  
         </header>
         <section>
-            <CardEA publication = {publications} valid = {true} ></CardEA>        
+        {publications && publications.map((item: any, index: any) => (
+          <p key={index}>
+            <CardEA maPublication= {item} publication = {publications} valid = {true} ></CardEA>
+            </p>
+          ))}
+        
         </section>
         <footer className='footer'>
         <h1></h1>

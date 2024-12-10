@@ -1,9 +1,8 @@
 import { GetObjectCommand } from"@aws-sdk/client-s3";
-import s3Client from '../config/S3';
+import s3Client from '../config/S3.js';
 import stream from 'stream';
-import { autoAsyncHandler } from '../Utils/asyncHandler';
 
-const generateSignedUrl = async (req, res) => {
+export const generateSignedUrl = async (req, res) => {
     const { key } = req.body; // On récupère le key de l'image depuis l'URL
     const bucketName = process.env.AWS_BUCKET_NAME; // Nom du bucket S3
 
@@ -26,7 +25,3 @@ const generateSignedUrl = async (req, res) => {
     passThrough.pipe(res);
 };
 
-
-export default  autoAsyncHandler({
-    generateSignedUrl
-});

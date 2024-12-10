@@ -83,7 +83,7 @@ const FormulairePublication = (props: any) => {
 
       <Form.Group className="position-relative mb-3">
             <Form.Label>File</Form.Label>
-            <Form.Control type="file" required name="image" onChange={(e)=>{setImage(e.target.value)}} />
+            <Form.Control type="file" required name="image" onChange={(e)=>{setImage(e.target.files[0])}} />
             <Form.Control.Feedback type="invalid" >Veuillez insérer une image </Form.Control.Feedback>
             <Form.Control.Feedback  > Looks Good ! </Form.Control.Feedback>
           </Form.Group>
