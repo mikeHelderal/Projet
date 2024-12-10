@@ -18,7 +18,7 @@ const FormulairePublication = (props: any) => {
 
   const [title, setTitle] = useState('');
   const [resume, setResume] = useState('');
-  const [image, setImage] = useState('');
+  const [image, setImage] = useState<File | null>(null);
   const [content, setContent] = useState('');
 
 
@@ -35,27 +35,29 @@ const FormulairePublication = (props: any) => {
 
   const handleSubmit = (e: any) => {
       e.preventDefault();
+      console.log(e)
       const formData = new FormData();
         formData.append('title', title);
         formData.append('resume', resume);
-        formData.append('image', image);
-        formData.append('content', content);
+        if (image) {
+          formData.append('image', image); // Ajoute le fichier seulement si image n'est pas null
+      } else {
+          console.error("Aucun fichier sélectionné.");
+      }        formData.append('content', content);
         formData.append('UserId', userId);
 
       const form = e.currentTarget;
-
+      console.log(form);
       setValidity(form.checkValidity());
       setValidated(true);
-      const config = {headers:{ 'Content-Type': 'multipart/form-data; boundary=77f77c04-2c7b-4179-aca3-my-cool-boundary'}};
 
       if(form.checkValidity()){
-          publicationService.publier(config, formData);
+          publicationService.publier(formData);
           e.target = null ;
           props.handleClose();
 
       }
   }
-
 
 
   return (
@@ -83,7 +85,12 @@ const FormulairePublication = (props: any) => {
 
       <Form.Group className="position-relative mb-3">
             <Form.Label>File</Form.Label>
-            <Form.Control type="file" required name="image" onChange={(e)=>{setImage(e.target.files[0])}} />
+            <Form.Control type="file" required name="image"  onChange={(e) => {
+        const target = e.target as HTMLInputElement; // Cast explicite
+        if (target.files && target.files[0]) {
+            setImage(target.files[0]); // Définit le fichier sélectionné
+        }
+    }} />
             <Form.Control.Feedback type="invalid" >Veuillez insérer une image </Form.Control.Feedback>
             <Form.Control.Feedback  > Looks Good ! </Form.Control.Feedback>
           </Form.Group>

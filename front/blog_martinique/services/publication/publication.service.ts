@@ -32,7 +32,7 @@ const validerPublication = async (idPublication: number, dispatch: any) => {
 
 
 
-const publier = (config: any, formData: any) => {
+const publier = ( formData: any) => {
     const enregistrer = async () => {
         try {
             await axios.post(URl.ADD_PUBLICATION, formData);        

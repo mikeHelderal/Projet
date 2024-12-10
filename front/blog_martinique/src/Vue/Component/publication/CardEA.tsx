@@ -14,7 +14,6 @@ import ReactionPublication from './ReactionPublication.tsx';
 
 
 const CardEA = (props : any) => {
-  var mesPublications = props.publication; 
   const [maPublication, setMaPublication] = useState(props.maPublication);
   const [monImage, setMonImage] = useState("");
 
