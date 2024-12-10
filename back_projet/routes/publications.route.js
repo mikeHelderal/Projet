@@ -6,10 +6,12 @@ import { verifieToken } from '../utils/auth.js'
 import upload from "../config/multerConfig.js"
 
 import * as multerController from "../controllers/multer.controller.js"; 
+
+import  multerS3 from '../middlewares/multerS3.js'
 const router = express.Router();
 
 
-router.post("/add", upload, multerController.uploadImage);
+router.post("/add", multerS3.any(), add);
 // Route pour obtenir tous les utilisateurs
 router.get("/all", getAllPubli);
 router.get("/all/attente", getAllPubliEnAttente);

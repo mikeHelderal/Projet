@@ -4,29 +4,21 @@ import {Comments, Publications, Users} from "../models/index.js";
 
 
 const add = async (req, res,next) => {
-    let profilePicture = ""
     const publicationObject = req.body
+    console.log("DANS PUBLICATION CONTROLLEUR )>" , req.body);
+    console.log("img => ",req.files[0]);
     try {
-       
-        if (req.file) {
-            const { buffer, originalname } = req.file
-            const timestamp = Date.now()
-            const name = originalname.split(' ').join('_')
-            const ref = `${name}-${timestamp}.webp`
-            const path = `./uploads/${ref}`
-            sharp(buffer).resize(450).webp().toFile(path)
-            profilePicture = `${req.protocol}://${req.get('host')}/images/${ref}`
-        }
-
         const publi = {
             idSubject: publicationObject.idSubject,
             title: publicationObject.title,
             resume: publicationObject.resume,
-            image: profilePicture,
+            image: req.files[0].key,
             content: publicationObject.content
         }
+
+        console.log("PUBLI ==> ",publi);
         
-        await Publications.create(req.body),
+        await Publications.create(publi),
         res.status(201).json({message: "Publication added successfully", data: null})
     } catch (error) {
         res.status(500).json({message : "add Publication encountered a problem", data: error});
