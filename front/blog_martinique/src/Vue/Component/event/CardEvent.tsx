@@ -13,8 +13,7 @@ import * as eventService from '../../../../services/event/event.service.ts'
 
 
 const CardEvent = (props : any) => {
-  //const socket = io("http://localhost:8181");
-  const mesEvenment = props.evenment; 
+
   const userId = localStorage.getItem("UserId")
   const dispatch = useDispatch();
   const [monEvent, setMonEvent] = useState(props.monEvent)
