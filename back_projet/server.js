@@ -6,5 +6,5 @@ const PORT = env.port || 8181
 
 // LISTEN
 server.listen(PORT, () => {
-  console.log(`Listening at http://localhost:${PORT}`);
+  console.log('listening at ', env.cors_origin , env.url_front);
 })
