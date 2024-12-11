@@ -38,6 +38,7 @@ const NavBar = () => {
 
   const handleClose = () => {
     setShow(false);
+    window.location.reload();
 
   }
   const handleCloseEvent = () => {

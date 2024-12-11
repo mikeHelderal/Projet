@@ -2,26 +2,24 @@
 import {Events} from "../models/index.js";
 
 const add = async (req, res) => {
-    let profilePicture = ""
     const EventObject = req.body
     try {
 
-        if (req.file) {
-            const { buffer, originalname } = req.file
-            const timestamp = Date.now()
-            const name = originalname.split(' ').join('_')
-            const ref = `${name}-${timestamp}.webp`
-            const path = `./uploads/${ref}`
-            sharp(buffer).resize(450).webp().toFile(path)
-            profilePicture = `${req.protocol}://${req.get('host')}/images/${ref}`
+        const evenement = {
+            title: EventObject.title,
+            content: EventObject.content,
+            UserId: EventObject.UserId,
+            image: req.files[0].key,
+            adresse: EventObject.adresse,
+            ville: EventObject.ville,
+            date_event: EventObject.date_event,
+            heure_debut: EventObject.heure_event,
+            heure_fin: EventObject.heure_fin,
         }
 
 
 
-
-
-
-        const result = await Events.create(req.body);
+        const result = await Events.create(evenement);
         res.status(201).json({message: "Evenement added successfully", data: result})
     } catch (error) {
         res.status(500).json({message : "add events message encountered a problem", data: error});         

@@ -31,17 +31,19 @@ const ValidationEvents = (props : any) => {
 
 
  return (
-   <div>
-       <div>
-           <Button variant="danger" disabled= {disabledButton()} onClick={handleShow} >voir </Button>
-       </div>
-       <div>
-       <Modal show={show} fullscreen= {true} scrollable= {true} onHide={handleClose}>
-           <Modal.Header closeButton>
-               <Modal.Title>Modal heading</Modal.Title>
-           </Modal.Header>
-           <Modal.Body>
-            <CardEvent evenment = {events} valid = {false}></CardEvent>
+   <>
+        <Button variant="danger" disabled= {disabledButton()} onClick={handleShow} >voir évènements </Button>
+        <Modal show={show} fullscreen= {true} scrollable= {true} onHide={handleClose}>
+            <Modal.Header closeButton>
+            <Modal.Title>Modal heading</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+            {events && events.map((item: any, index: any) => (
+                <p key={index}>
+                    <CardEvent monEvent= {item} evenment = {events} valid = {false}></CardEvent>
+                </p>
+            ))}
+
            </Modal.Body>
            <Modal.Footer>
            <Button variant="secondary" onClick={handleClose}>
@@ -50,9 +52,8 @@ const ValidationEvents = (props : any) => {
            
            </Modal.Footer>
        </Modal>
-       </div>
        
-   </div>
+   </>
  )
 }
 

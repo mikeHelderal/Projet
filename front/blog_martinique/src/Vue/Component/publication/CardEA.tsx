@@ -30,7 +30,7 @@ const CardEA = (props : any) => {
   useEffect( () => {
     setMaPublication(props.maPublication); 
     const recupImage = async (img: any) => {
-      const image =  await imageService.getImageFromS3(img);
+      const image = await imageService.getImageFromS3(img);
       if(image){   
         setMonImage(image);
       }

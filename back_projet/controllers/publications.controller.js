@@ -5,15 +5,13 @@ import {Comments, Publications, Users} from "../models/index.js";
 
 const add = async (req, res,next) => {
     const publicationObject = req.body
-    console.log("DANS PUBLICATION CONTROLLEUR )>" , req.body);
-    console.log("img => ",req.files[0]);
     try {
         const publi = {
-            idSubject: publicationObject.idSubject,
             title: publicationObject.title,
             resume: publicationObject.resume,
             image: req.files[0].key,
-            content: publicationObject.content
+            content: publicationObject.content,
+            UserId: publicationObject.UserId
         }
 
         console.log("PUBLI ==> ",publi);

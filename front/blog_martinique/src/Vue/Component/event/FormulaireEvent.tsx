@@ -18,7 +18,7 @@ const FormulaireEvent = (props : any) => {
     const userId: any = localStorage.getItem("UserId");
 
     const [title, setTitle] = useState('');
-    const [image, setImage] = useState('');
+    const [image, setImage] = useState<File | null>(null);
     const [content, setContent] = useState('');
     const [adresse, setAdresse] = useState('');
     const [ville, setVille] = useState('');
@@ -41,7 +41,11 @@ const FormulaireEvent = (props : any) => {
         e.preventDefault();
         const formData = new FormData();
             formData.append('title', title);
-            formData.append('image', image);
+            if (image) {
+                formData.append('image', image); // Ajoute le fichier seulement si image n'est pas null
+            } else {
+                console.error("Aucun fichier sélectionné.");
+            }
             formData.append('content', content);
             formData.append('UserId', userId);
             formData.append('adresse', adresse);
@@ -52,12 +56,9 @@ const FormulaireEvent = (props : any) => {
         const form = e.currentTarget;
         setValidity(form.checkValidity());
         setValidated(true);
-        const config = {headers:{ 'Content-Type': 'multipart/form-data; boundary=77f77c04-2c7b-4179-aca3-my-cool-boundary'}};
         if(form.checkValidity()){
             validity
-            const result = await eventService.publier(config, formData);
-            console.log("result ==> ",result.message);
-            props.afficherAlert(result.message, "success")
+            eventService.publier(formData);
             e.target = null ;
             props.handleCloseEvent();
         }   
@@ -111,7 +112,12 @@ const FormulaireEvent = (props : any) => {
 
         <Form.Group className="position-relative mb-3">
             <Form.Label>File</Form.Label>
-            <Form.Control type="file" required name="image" onChange={(e)=>{setImage(e.target.value)}} />
+            <Form.Control type="file" required name="image" onChange={(e) => {
+        const target = e.target as HTMLInputElement; // Cast explicite
+        if (target.files && target.files[0]) {
+            setImage(target.files[0]); // Définit le fichier sélectionné
+        }
+    }} />
             <Form.Control.Feedback type="invalid" >Veuillez insérer une image </Form.Control.Feedback>
             <Form.Control.Feedback  > Looks Good ! </Form.Control.Feedback>
         </Form.Group>

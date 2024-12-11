@@ -43,8 +43,9 @@ const FormulairePublication = (props: any) => {
           formData.append('image', image); // Ajoute le fichier seulement si image n'est pas null
       } else {
           console.error("Aucun fichier sélectionné.");
-      }        formData.append('content', content);
-        formData.append('UserId', userId);
+      }
+      formData.append('content', content);
+      formData.append('UserId', userId);
 
       const form = e.currentTarget;
       console.log(form);
@@ -63,12 +64,6 @@ const FormulairePublication = (props: any) => {
   return (
     <div>    
     <Form noValidate encType='multipart/form-data' method='post' validated={validated}  onSubmit={handleSubmit}>
-      <Form.Group className="mb-3" controlId="formBasicTitle">
-        <Form.Label>Sujet :</Form.Label>
-        <Form.Control.Feedback type="invalid">Please provide an subject</Form.Control.Feedback>
-        <Form.Control.Feedback  > Looks Good ! </Form.Control.Feedback>
-      </Form.Group>
-
       <Form.Group className="mb-3" controlId="formBasicTitle">
         <Form.Label>Titre :</Form.Label>
         <Form.Control required type="text" placeholder="Enter title" name="title" onChange={(e)=>{setTitle(e.target.value)}}/> 

@@ -14,7 +14,11 @@ const EvenementAccueil = () => {
             <header className='header'>  
             </header>
             <section>
-                <CardEvent evenment = {evenments} valid = {true}></CardEvent>        
+            {evenments && evenments.map((item: any, index: any) => (
+              <p key={index} >
+                <CardEvent monEvent = {item} evenment = {evenments} valid = {true}></CardEvent>    
+              </p>
+            ))}
             </section>
             <footer className='footer'>
             </footer>

@@ -31,14 +31,17 @@ const validerEvent = async (idEvent: number, dispatch: any) => {
     }
 }
 
-const publier = async (config: any, formData: any) => {
+const publier = async (formData: any) => {
+    const enregistrer = async() => {
         try {
-            const response = await axios.post(URl.ADD_EVENTS, formData,config);
+            const response = await axios.post(URl.ADD_EVENTS, formData);
             return response.data ;
         } catch (error) {
             console.log(error);
             return error;
-        }   
+        } 
+    }
+    enregistrer();         
     
 }
 
