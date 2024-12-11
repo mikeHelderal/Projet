@@ -33,13 +33,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.text({type: '/'}));
 
 
-// CORS
-app.use(cors({
-  origin: env.url_front, //  <- port React. Ex: 'http://localhost:3000'
-  credentials: true,
-  methods: ['GET', 'PUT', 'POST', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-}))
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", env.cors_origin);
@@ -49,6 +42,14 @@ app.use((req, res, next) => {
   return next();
 });
 
+
+// CORS
+app.use(cors({
+  origin: env.url_front, //  <- port React. Ex: 'http://localhost:3000'
+  credentials: true,
+  methods: ['GET', 'PUT', 'POST', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}))
 
 
 // STATIC FILES

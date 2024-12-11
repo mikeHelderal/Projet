@@ -33,7 +33,7 @@ const FormulairePublication = (props: any) => {
 
 
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
       e.preventDefault();
       console.log(e)
       const formData = new FormData();
@@ -53,7 +53,7 @@ const FormulairePublication = (props: any) => {
       setValidated(true);
 
       if(form.checkValidity()){
-          publicationService.publier(formData);
+         await  publicationService.publier(formData);
           e.target = null ;
           props.handleClose();
 

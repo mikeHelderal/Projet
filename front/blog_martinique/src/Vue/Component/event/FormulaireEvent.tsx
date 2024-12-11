@@ -58,7 +58,7 @@ const FormulaireEvent = (props : any) => {
         setValidated(true);
         if(form.checkValidity()){
             validity
-            eventService.publier(formData);
+            await eventService.publier(formData);
             e.target = null ;
             props.handleCloseEvent();
         }   
