@@ -27,4 +27,14 @@ const passerAdmin = async (user: any) => {
     }
   }
 
-  export {getUsers, passerAdmin, retirerAdmin }
+  const supprimerUser = async (id: any) => {
+    try {
+        const response = await axios.delete(URl.DELETE_BY_ID_USER+id);
+        console.log(response);
+        return response ;
+    } catch (e: any) {
+        
+    }
+  }
+
+  export {getUsers, passerAdmin, retirerAdmin, supprimerUser }

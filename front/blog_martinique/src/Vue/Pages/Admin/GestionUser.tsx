@@ -33,6 +33,11 @@ const GestionUser = () => {
 
     }
 
+    const supUser = async (id: any) => {
+      const response = await adminService.supprimerUser(id);
+      console.log(response);
+    }
+
 
 
 
@@ -73,7 +78,7 @@ const GestionUser = () => {
             }
             <td><ValidationPublication UserId = {item.id}></ValidationPublication></td>
             <td><ValidationEvents UserId = {item.id}></ValidationEvents></td>
-            <td><Button variant="danger">reinitialiser</Button></td>
+            <td><Button onClick={() => {supUser(item.id)}} variant="danger">supprimer</Button></td>
             {
               item.isSuperAdmin == true ?
                 <td>super admin</td>

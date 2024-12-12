@@ -95,7 +95,7 @@ const validerEvent = async (idEvent: number) => {
 
       <div>
 
-          <Card className='card'  bg='dark' text='success' border='danger' >
+          <Card className='card'  bg='dark' text='light' border='danger' >
             <Card.Header className='text-center'><h1> {monEvent.title}</h1> </Card.Header>
               <Card.Body>
               <Container>
