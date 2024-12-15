@@ -84,7 +84,6 @@ if(mes_reactions.length == 0){
     else{
         if(maReaction[0].TypeId == UNLIKE_ID){
             const response = await axios.delete(URl.DELETE_REACTION_EVENT + maReaction[0].id);
-            const tampon = mes_reactions.filter((unlike: any) => unlike.id !== maReaction[0].id);
             dispatch(ACTIONReactEvent.FETCH_SUCCESS(response.data.data))  
         }
         else if(maReaction[0].TypeId == LIKE_ID){            

@@ -33,7 +33,7 @@ const GestionUser = () => {
     }
 
     const supUser = async (id: any) => {
-      const response = await adminService.supprimerUser(id);
+      await adminService.supprimerUser(id);
     }
 
 

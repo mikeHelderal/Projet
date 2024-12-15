@@ -13,7 +13,7 @@ const commenter = async (commentaire: any, dispatch: any) => {
     dispatch(ACTION.FETCH_START());
     try {
         const result = await axios.post(URl.ADD_COMMENT, commentaire);
-        //dispatch(ACTION.FETCH_SUCCESS( response.data.response))
+        dispatch(ACTION.FETCH_SUCCESS( result.data.response))
         
     } catch (error) {
         
