@@ -10,10 +10,10 @@ const io = new Server(server, {
 });
 
 io.on("connection", (socket) => {
-    console.log("Socket connected");
+    console.log("Socket connected" );
 
     socket.on("disconnect", (error) => {
-        console.log("Socket disconnected")
+        console.log("Socket disconnected= > ", error)
     })
     socket.on("error", (error) => {
         console.log("Socker error : ", error);

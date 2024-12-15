@@ -7,13 +7,11 @@ const storage = multerS3({
     s3,
     bucket: process.env.AWS_BUCKET_NAME,
     key: async (req, file, cb) => {
-        console.log("DANS MULTER S3.0");
         const fileSize = parseInt(req.headers["content-length"])
         const imageMimeTypes = [
             'image/png',
             'image/jpeg',
         ];
-        //console.log("DANS MULTERS3" ,file);
          // Chemin stocker tes images
          const {  originalname } = file
          const name = originalname.split('.');

@@ -35,7 +35,6 @@ const FormulairePublication = (props: any) => {
 
   const handleSubmit = async (e: any) => {
       e.preventDefault();
-      console.log(e)
       const formData = new FormData();
         formData.append('title', title);
         formData.append('resume', resume);
@@ -48,7 +47,6 @@ const FormulairePublication = (props: any) => {
       formData.append('UserId', userId);
 
       const form = e.currentTarget;
-      console.log(form);
       setValidity(form.checkValidity());
       setValidated(true);
 

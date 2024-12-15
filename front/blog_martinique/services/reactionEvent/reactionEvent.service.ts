@@ -17,6 +17,14 @@ const recupCountreact = async ( dispatch: any) => {
 }
 
 
+const recupReactionEvent= async(idEvent: any, dispatch: any) => {
+    dispatch(ACTIONNBReactEvent.FETCH_START())  ;
+    const response = await axios.get(URl.GET_NB_REACTION_EVENT+idEvent);
+    dispatch(ACTIONNBReactEvent.FETCH_SUCCESS(response.data.data));
+}
+
+
+
 const liker = async (eventId: any, mes_reactions: any[], userId: any, LIKE_ID: any, UNLIKE_ID: any, dispatch: any) => {
     dispatch(ACTIONReactEvent.FETCH_START())      
     if(mes_reactions.length == 0){
@@ -40,9 +48,8 @@ const liker = async (eventId: any, mes_reactions: any[], userId: any, LIKE_ID: a
         }
         else{
             if(maReaction[0].TypeId == LIKE_ID){
-                await axios.delete(URl.DELETE_REACTION_EVENT + maReaction[0].id);
-                const tampon = mes_reactions.filter((like: any) => like.id !== maReaction[0].id);
-                dispatch(ACTIONReactEvent.FETCH_SUCCESS(tampon))
+                const result = await axios.delete(URl.DELETE_REACTION_EVENT + maReaction[0].id+"/"+maReaction[0].EventId);
+                dispatch(ACTIONReactEvent.FETCH_SUCCESS(result .data.data))
             }
             else if(maReaction[0].TypeId == UNLIKE_ID){
                 let response = await axios.put(URl.UPDATE_REACTION_EVENT_BY_ID + maReaction[0].id);
@@ -76,9 +83,9 @@ if(mes_reactions.length == 0){
     }
     else{
         if(maReaction[0].TypeId == UNLIKE_ID){
-            await axios.delete(URl.DELETE_REACTION_EVENT + maReaction[0].id);
+            const response = await axios.delete(URl.DELETE_REACTION_EVENT + maReaction[0].id);
             const tampon = mes_reactions.filter((unlike: any) => unlike.id !== maReaction[0].id);
-            dispatch(ACTIONReactEvent.FETCH_SUCCESS(tampon))  
+            dispatch(ACTIONReactEvent.FETCH_SUCCESS(response.data.data))  
         }
         else if(maReaction[0].TypeId == LIKE_ID){            
             let response = await axios.put(URl.UPDATE_REACTION_EVENT_BY_ID +maReaction[0].id);
@@ -89,4 +96,4 @@ if(mes_reactions.length == 0){
 return 'tt'
 }
 
-export { recupMesLike, recupCountreact, liker, unlike }
+export { recupMesLike, recupCountreact, liker, unlike, recupReactionEvent }

@@ -10,13 +10,14 @@ import { Badge, Button } from 'react-bootstrap';
 import "../../../Styles/reaction.css";
 
 import * as reactionEventService from '../../../../services/reactionEvent/reactionEvent.service.ts' 
+import { URl } from '../../../Utils/Constant/URL.ts';
 
 
 const ReactionEvents = (props: any) => {
 
     
 
-    const socket = io(import.meta.env.REACT_APP_BACKEND_URL);
+    const socket = io(URl.BACK);
     const dispatch = useDispatch();
     const mes_reactions = useSelector((state: RootStateEvent) => getReactEvents(state));    
     const EventId = props.EventId;
@@ -29,7 +30,7 @@ const ReactionEvents = (props: any) => {
     useEffect( () => {
     
         reactionEventService.recupMesLike(userId, dispatch);
-        reactionEventService.recupCountreact(dispatch);
+        reactionEventService.recupReactionEvent(EventId,dispatch);
         dispatch(ACTIONNBReactEvent.FETCH_START());
         socket.on("connect", () => {
             socket.on('getNbReactionE', (response) => {

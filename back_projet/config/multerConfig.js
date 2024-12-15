@@ -12,7 +12,6 @@ const storage = multer.diskStorage({
     filename: function (req, file, cb){
         const name = file.originalname.split('.');
 
-        console.log("MULTERCONFIG ===> ", req.body)
         cb(null, name[0] + '-'+ req.body.title+ '.jpeg');
     }
 })

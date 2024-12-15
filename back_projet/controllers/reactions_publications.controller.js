@@ -24,6 +24,26 @@ const add = async (req, res) => {
     }
 }
 
+
+const getNumberLikePublication = async (req,res) => {
+    try {
+        const result = await Reactions_publications.findAll({
+            attributes: [
+                'PublicationId',
+                'TypeId',// We had to list all attributes...
+                [Sequelize.fn('COUNT', Sequelize.col('PublicationId')), 'nombre'], // To add the aggregation...
+              ],
+            where : {PublicationId: req.params.id},
+            group: ['PublicationId', 'TypeId'],});
+        //if(!result) return res.status(404).json({message: "Reactions_events not found!", data: ""});
+        res.status(200).json({message: "nombre de like", data: result});
+
+    } catch (error) {
+        res.status(500).json({message : "get all events message encountered a problem", data: error});
+
+    }
+}
+
 const countLike = async (req, res) => {
     try {
         const result = await Reactions_publications.count({where : {PublicationId : req.params.id, TypeId: 1}})
@@ -68,17 +88,6 @@ const getAll = async (req, res) => {
     }
 }
 
-const getNumberLikePublication = async (req,res) => {
-    try {
-        const result = await Reactions_publications.findAll({where : {PublicationId: req.params.id}});
-        //if(!result) return res.status(404).json({message: "Reactions_events not found!", data: ""});
-        res.status(200).json({message: "nombre de like", data: result.length});
-
-    } catch (error) {
-        res.status(500).json({message : "get all events message encountered a problem", data: error});
-
-    }
-}
 
 const getById = async (req, res) => {
     try {
@@ -172,6 +181,6 @@ const deleteById = async (req, res) => {
 
 
 export {
-    add, getAll, getById, getByIdUser, countLike, countUnlike,  updateById, deleteById
+    add, getAll, getById, getByIdUser, countLike, countUnlike,  updateById, deleteById, getNumberLikePublication
 }
 

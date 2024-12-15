@@ -1,5 +1,5 @@
 import express from 'express';
-import {add,  getAll, getById,getByIdUser,countLike, countUnlike, updateById,  deleteById} from "../controllers/reactions_publications.controller.js";
+import {add,  getAll, getById,getByIdUser,countLike, countUnlike, updateById,  deleteById,getNumberLikePublication} from "../controllers/reactions_publications.controller.js";
 import { verifieToken } from '../utils/auth.js'
 
 const router = express.Router();
@@ -17,6 +17,7 @@ router.put("/update/:id", updateById)
 router.get("/get/nblike/:id", countLike)
 
 router.get("/get/nbunlike/:id", countUnlike)
+router.get("/get/reactionPublication/:id", getNumberLikePublication);
 
 
 

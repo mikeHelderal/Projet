@@ -31,7 +31,7 @@ const CardEvent = (props : any) => {
     
     setMonEvent(props.monEvent);
     const recupImage = async (img: any) => {
-      const image = await imageService.getImageFromS3(img);
+      const image = null ;//await imageService.getImageFromS3(img);
       if(image){   
         setMonImage(image);
       }

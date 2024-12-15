@@ -30,7 +30,7 @@ const CardEA = (props : any) => {
   useEffect( () => {
     setMaPublication(props.maPublication); 
     const recupImage = async (img: any) => {
-      const image = await imageService.getImageFromS3(img);
+      const image = null ; //await imageService.getImageFromS3(img);
       if(image){   
         setMonImage(image);
       }
@@ -90,7 +90,8 @@ const disabledButton = () => {
                 <ReactionPublication PublicationId = {maPublication.id}></ReactionPublication>
                 <br></br>
                 <Button variant="danger"  onClick={() => {setShowCom(!showCom), afficherCom(maPublication.id)}}>Commentaires</Button>
-                  {selecteurCom.includes(maPublication.id) ? <div> affichage commentaire <Commentaires valid= {disabledButton()} PublicationId = {maPublication.id}  Commentaires = {maPublication.Comments}></Commentaires></div>
+                  {selecteurCom.includes(maPublication.id) ? <div> 
+                     <Commentaires valid= {disabledButton()} PublicationId = {maPublication.id}  Commentaires = {maPublication.Comments}></Commentaires></div>
                   : null}
               </Card.Footer> 
           </Card>

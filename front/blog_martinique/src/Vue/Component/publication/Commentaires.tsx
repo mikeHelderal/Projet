@@ -24,7 +24,6 @@ const Commentaires = (props : any) => {
 
     const dispatch = useDispatch();
     const lesCommentaires = useSelector((state: RootStateCom) => getCommentair(state))
-    console.log("les commentaires => ", lesCommentaires);
 
     useEffect(() => {
         
@@ -36,7 +35,7 @@ const Commentaires = (props : any) => {
         setDisabledCommentaire(props.valid);
         socket.on("connect", () => {
             socket.on('newComment', (response) => {
-                console.log(response);
+                console.log("commentaire =>, ", response);
                 dispatch(ACTION.FETCH_SUCCESS( response))
             })
         })
@@ -49,13 +48,18 @@ const Commentaires = (props : any) => {
 
     
 
-    const handleSubmit = (e: any) => {
+    const handleSubmit = async  (e: any) => {
         e.preventDefault();
         const form = e.currentTarget;
         setValidity(form.checkValidity());
         setValidated(true);
-        if(validity){
-            commentaireService.commenter(commentaire, dispatch)
+        if(validity || commentaire.content != null){
+            await commentaireService.commenter(commentaire, dispatch)
+            e.target.reset();
+
+
+
+           
         }
     }
 
@@ -65,14 +69,14 @@ const Commentaires = (props : any) => {
           <span key={index}  >
             {  item.PublicationId == props.PublicationId ?
 
-        <Toast className='com dark' >
+        <Toast bg='Dark' >
             <Toast.Header closeButton={false}>
                 <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
                 <strong className="me-auto">{item.User.firstName}</strong>
-                <small> {props.PublicationId} 11 mins ago</small>
             </Toast.Header>
-            <Toast.Body>{item.content}</Toast.Body>
+            <Toast.Body className='Dark'>{item.content}</Toast.Body>
         </Toast>  
+
         : null}
         
         </span>
@@ -85,7 +89,7 @@ const Commentaires = (props : any) => {
 <Form className='formulaire' noValidate validated={validated}  onSubmit={handleSubmit}>
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Control disabled= {disabledCommentaire} required type="text" placeholder="Enter comment" name="content" onChange={handleChange}/> 
-        <Form.Control.Feedback type="invalid">Please provide an email</Form.Control.Feedback>
+        <Form.Control.Feedback type="invalid">veuillez écrire un commentaire</Form.Control.Feedback>
         <Form.Control.Feedback  > Looks Good ! </Form.Control.Feedback>
       </Form.Group>
       <Button disabled= {disabledCommentaire} variant="outline-secondary" type='submit'>Commenter</Button>

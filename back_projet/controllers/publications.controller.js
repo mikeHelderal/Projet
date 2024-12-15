@@ -14,7 +14,6 @@ const add = async (req, res,next) => {
             UserId: publicationObject.UserId
         }
 
-        console.log("PUBLI ==> ",publi);
         
         await Publications.create(publi),
         res.status(201).json({message: "Publication added successfully", data: null})
@@ -26,7 +25,6 @@ const add = async (req, res,next) => {
 
 const getAllPubli = async (req, res) => {
     try {
-        console.log("COOKIES ==> ",req.cookies);
         const result = await Publications.findAll();
         if(!result) return res.status(404).json({message: "Publication not found!", data: null})
         res.status(200).json({message: "get all publication ", data: result});
@@ -37,7 +35,6 @@ const getAllPubli = async (req, res) => {
 
 const getAllPubliValider = async (req, res) => {
     try {
-        console.log("COOKIES ==> ",req.cookies);
         const result = await Publications.findAll({where :
              {is_valid: true},
              include: [{model: Comments, include: [{model: Users}]}]});
@@ -84,6 +81,7 @@ const updateById = async (req, res) => {
         if(!publication) return res.status(404).json({message: "Publication not found!", data: null})
 
             publication.is_valid = true;
+            publication.date_publication = Date.now();
             const enregistrement = await publication.save();
             const result = await Publications.findAll();
 

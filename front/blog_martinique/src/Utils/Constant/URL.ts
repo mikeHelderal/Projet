@@ -4,6 +4,8 @@ const URL_BACK = import.meta.env.REACT_APP_BACKEND_URL;
 
 export const URl = {
 
+    BACK : "http://localhost:8181",
+    URL_BACK : URL_BACK,
 
     /////users
     LOGIN: `${URL_BACK}/api/user/login`,
@@ -128,6 +130,9 @@ export const URl = {
 
     DELETE_REACTION_EVENT: `${URL_BACK}/api/reaction_events/delete/`,
     ///get/user/:id
+    GET_NB_REACTION_EVENT:   `${URL_BACK}/api/reaction_events/get/reactionEvent/`,
+
+
 
 
 
@@ -143,6 +148,7 @@ export const URl = {
 
     GET_NB_LIKE_BY_ID_PUBLICATION: `${URL_BACK}/api/reaction_publication/get/nblike/`,
     GET_NB_UNLIKE_BY_ID_PUBLICATION: `${URL_BACK}/api/reaction_publication/get/nbunlike/`,
+    GET_NB_REACTION_PUBLICATION:   `${URL_BACK}/api/reaction_publication/get/reactionPublication/`,
 
 
 

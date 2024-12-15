@@ -14,7 +14,6 @@ const GestionUser = () => {
         // code here
         const getUsers = async () => {
           const response = await adminService.getUsers();
-          console.log("response ==> ",response);
           setUsers(response);
         }
         getUsers();
@@ -35,7 +34,6 @@ const GestionUser = () => {
 
     const supUser = async (id: any) => {
       const response = await adminService.supprimerUser(id);
-      console.log(response);
     }
 
 

@@ -1,4 +1,4 @@
-import  { useEffect } from 'react'
+import  { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { getReactPubli } from '../../../../services/selector/ReactionPubli.selecteur.tsx';
 import * as ACTIONNBPUBLI from '../../../../redux/reducers/nbReactionPublication.tsx';
@@ -14,31 +14,38 @@ import { RootStateReaciontPublication } from '../../../Utils/interfaces/nbReacti
 
 import { getNbReactionPublication } from '../../../../services/selector/NbReactionPublication.selecteur.tsx';
 import { io } from "socket.io-client";
+import { URl } from '../../../Utils/Constant/URL.ts';
 
 
 
 const ReactionPublication = (props: any) => {
 
 
-    const socket = io(import.meta.env.REACT_APP_BACKEND_URL);
+    const socket = io(URl.URL_BACK);
     const dispatch = useDispatch();
     const mes_reactions = useSelector((state: RootState) => getReactPubli(state));
 
     const PublicationId = props.PublicationId;
-
     const userId = localStorage.getItem("UserId")
     const LIKE_ID = 1;
     const UNLIKE_ID = 2;
 
     const nbReactP = useSelector((state: RootStateReaciontPublication) => getNbReactionPublication(state));
 
+    //const [nbReactP, setNbReactP] = useState(useSelector((state: RootStateReaciontPublication) => getNbReactionPublication(state)));
 
-    useEffect( () => {
+    
+
+
+    useEffect(  () => {
         reactionPublicationService.recupMesLike(userId, dispatch);
-        reactionPublicationService.recupCountreact(dispatch);
+        reactionPublicationService.recupReactionPublication(PublicationId,dispatch);
+        
+
 
         socket.on("connect", () => {
           socket.on('getNbReactionP', (response) => {
+            //setNbReactP(response);
               dispatch(ACTIONNBPUBLI.FETCH_SUCCESS( response))
           })
       })
@@ -106,13 +113,18 @@ const disabledButton = () => {
                     </svg>
                   </Badge>
                   <br></br>
+
+
                   {nbReactP.map((item: any, index: any) => (
+                    
                     <span key={index} >
-                      {item.PublicationId == PublicationId && item.TypeId == 1 ?
+                      {item.PublicationId === PublicationId && item.TypeId == 1 ?
                       <span>{item.nombre}</span>
-                      : <span>    </span>}
+
+                      : <span>     </span>}
                       </span>
                   ))}
+                
                 </Button>
                             
                 <Button disabled= {disabledButton()} variant={styliserUnlike(PublicationId) ? 'danger' : 'outline-danger' }  onClick={() => {unlike(PublicationId)}}>
@@ -127,7 +139,8 @@ const disabledButton = () => {
                     <span key={index} >
                       {item.PublicationId == PublicationId && item.TypeId == 2 ?
                       <span>{item.nombre}</span>
-                      : <span>    </span>}
+
+                      : <span>   </span>}
                       </span>
                   ))}
                 </Button>

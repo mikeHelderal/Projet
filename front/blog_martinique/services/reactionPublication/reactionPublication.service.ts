@@ -12,6 +12,12 @@ const recupMesLike = async (userId: any, dispatch: any) => {
     dispatch(ACTION.FETCH_SUCCESS(response.data.data))
 }
 
+const recupReactionPublication= async(idPublication: any, dispatch: any) => {
+    dispatch(ACTIONNBPUBLI.FETCH_START())  ;
+    const response = await axios.get(URl.GET_NB_REACTION_PUBLICATION+idPublication);
+    dispatch(ACTIONNBPUBLI.FETCH_SUCCESS(response.data.data));
+}
+
 
 
 const recupCountreact = async ( dispatch: any) => {
@@ -98,4 +104,4 @@ const unlike = async (publicationId: any, mes_reactions: any[], userId: any, LIK
     return 'tt'
 }
 
-export { recupMesLike, recupCountreact, liker, unlike }
+export { recupMesLike, recupCountreact, liker, unlike , recupReactionPublication}
