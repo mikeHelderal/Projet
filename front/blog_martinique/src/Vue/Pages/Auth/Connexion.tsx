@@ -1,6 +1,5 @@
 import  { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import {useDispatch} from  'react-redux';
 
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -15,7 +14,6 @@ const Connexion = () => {
     const [user, setUser] = useState<any>({});
     const [validated, setValidated] = useState(false);
     const [validity, setValidity] = useState(false);
-    const dispatch = useDispatch();
 
 
 
