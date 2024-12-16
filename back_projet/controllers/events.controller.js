@@ -17,12 +17,10 @@ const add = async (req, res) => {
             heure_fin: EventObject.heure_fin,
         }
 
-        console.log("AVANT CREATE => ", evenement);
 
 
 
         const result = await Events.create(evenement);
-        console.log("CONTROLLEUR => ", result);
         res.status(201).json({message: "Evenement added successfully", data: result})
     } catch (error) {
         res.status(500).json({message : "add events message encountered a problem", data: error});         

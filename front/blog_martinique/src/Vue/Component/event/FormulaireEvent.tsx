@@ -60,7 +60,6 @@ const FormulaireEvent = (props : any) => {
             validity;
             props;
             const result = await eventService.publier(formData);
-            console.log(result,);
             e.target = null ;
             //props.handleCloseEvent();
         }   

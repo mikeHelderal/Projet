@@ -17,7 +17,7 @@ const storage = multerS3({
          const name = originalname.split('.');
 
 
-         const ref = `${name[0]}-${req.body.title}.jpeg`
+         const ref = `${name[0]}-${req.body.UserId}.jpeg`
             const path = `./uploads/${ref}`
        // const path = `uploads/profile-picture.pn`;
 
