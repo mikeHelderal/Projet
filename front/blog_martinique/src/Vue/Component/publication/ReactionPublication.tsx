@@ -1,4 +1,4 @@
-import  { useEffect } from 'react'
+import  { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { getReactPubli } from '../../../../services/selector/ReactionPubli.selecteur.tsx';
 import * as ACTIONNBPUBLI from '../../../../redux/reducers/nbReactionPublication.tsx';
@@ -30,33 +30,41 @@ const ReactionPublication = (props: any) => {
     const LIKE_ID = 1;
     const UNLIKE_ID = 2;
 
-    const nbReactP = useSelector((state: RootStateReaciontPublication) => getNbReactionPublication(state));
 
-    //const [nbReactP, setNbReactP] = useState(useSelector((state: RootStateReaciontPublication) => getNbReactionPublication(state)));
+    const [nbReact, setNbReact] = useState(useSelector((state: RootStateReaciontPublication) => getNbReactionPublication(state)));
 
     
 
 
     useEffect(  () => {
+      const recup = async  () => {
         reactionPublicationService.recupMesLike(userId, dispatch);
-        reactionPublicationService.recupReactionPublication(PublicationId,dispatch);
+        const response = await  reactionPublicationService.recupReactionPublication(PublicationId,dispatch);
+        setNbReact(response);
+      }
+        recup();
         
-
-
         socket.on("connect", () => {
           socket.on('getNbReactionP', (response) => {
-            //setNbReactP(response);
+            setNbReact(response);
+            console.log("avant dispatch => ", response);
               dispatch(ACTIONNBPUBLI.FETCH_SUCCESS( response))
+
           })
       })
-
-
-        
-    
-      },[])
+      socket.on("disconnect", (reason) => {
+        if (reason === "ping timeout") {
+          console.log("reconnexion")
+          socket.connect();
+        }
+        // else the socket will automatically try to reconnect
+      });
+      console.log('nbreact => ',nbReact);
+      },[nbReact])
 
     
   const liker = async (publicationId: any) => {
+    console.log('dans liker');
     reactionPublicationService.liker(publicationId, mes_reactions, userId, LIKE_ID, UNLIKE_ID, dispatch) ;  
   }
 
@@ -115,7 +123,7 @@ const disabledButton = () => {
                   <br></br>
 
 
-                  {nbReactP.map((item: any, index: any) => (
+                  {nbReact.map((item: any, index: any) => (
                     
                     <span key={index} >
                       {item.PublicationId === PublicationId && item.TypeId == 1 ?
@@ -135,7 +143,7 @@ const disabledButton = () => {
                     </svg>
                   </Badge>
                   <br></br>
-                  {nbReactP.map((item: any, index: any) => (
+                  {nbReact.map((item: any, index: any) => (
                     <span key={index} >
                       {item.PublicationId == PublicationId && item.TypeId == 2 ?
                       <span>{item.nombre}</span>

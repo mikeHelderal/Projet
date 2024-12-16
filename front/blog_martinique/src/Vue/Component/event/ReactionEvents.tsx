@@ -1,4 +1,4 @@
-import  { useEffect } from 'react'
+import  { useEffect, useState } from 'react'
 import { getReactEvents } from '../../../../services/selector/reactionEvents.selecteur.tsx';
 import {getNbReactionEvent } from '../../../../services/selector/NbReactionEvent.selecteur.tsx'
 import { RootStateEvent } from '../../../Utils/interfaces/reactEvents.interface.ts';
@@ -24,16 +24,22 @@ const ReactionEvents = (props: any) => {
     const userId = localStorage.getItem("UserId")
     const LIKE_ID = 1;
     const UNLIKE_ID = 2;
-    const nbReactP = useSelector((state: RootStateNbReactiontEvent) => getNbReactionEvent(state));
 
-    
+    const [nbReact, setNbReact] =useState(useSelector((state: RootStateNbReactiontEvent) => getNbReactionEvent(state)));
+
     useEffect( () => {
+        const recup = async () => {
+            reactionEventService.recupMesLike(userId, dispatch);
+            const response = await reactionEventService.recupReactionEvent(EventId,dispatch);
+            console.log(response);
+            setNbReact(response);
+        }
+        recup();
     
-        reactionEventService.recupMesLike(userId, dispatch);
-        reactionEventService.recupReactionEvent(EventId,dispatch);
         dispatch(ACTIONNBReactEvent.FETCH_START());
         socket.on("connect", () => {
             socket.on('getNbReactionE', (response) => {
+                setNbReact(response);
                 dispatch(ACTIONNBReactEvent.FETCH_SUCCESS( response))
             })
         })    
@@ -105,7 +111,7 @@ return (
         </svg>
         </Badge>
         <br></br>
-        {nbReactP.map((item: any, index: any) => (
+        {nbReact.map((item: any, index: any) => (
             <span key={index} >
                 {item.EventId == props.EventId && item.TypeId == 1 ?
                 <span>{item.nombre}</span>
@@ -121,7 +127,7 @@ return (
         </svg>
         </Badge>
         <br></br>
-        {nbReactP.map((item: any, index: any) => (
+        {nbReact.map((item: any, index: any) => (
             <span key={index} >
             {item.EventId == props.EventId && item.TypeId == 2 ?
             <span>{item.nombre}</span>

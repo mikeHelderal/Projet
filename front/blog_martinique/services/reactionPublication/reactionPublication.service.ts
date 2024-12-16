@@ -16,6 +16,7 @@ const recupReactionPublication= async(idPublication: any, dispatch: any) => {
     dispatch(ACTIONNBPUBLI.FETCH_START())  ;
     const response = await axios.get(URl.GET_NB_REACTION_PUBLICATION+idPublication);
     dispatch(ACTIONNBPUBLI.FETCH_SUCCESS(response.data.data));
+    return response.data.data; 
 }
 
 
@@ -28,8 +29,6 @@ const recupCountreact = async ( dispatch: any) => {
 }
 
 const liker = async (publicationId: any, mes_reactions: any[], userId: any, LIKE_ID: any, UNLIKE_ID: any, dispatch: any) => {
-
-
     dispatch(ACTION.FETCH_START())      
     if(mes_reactions.length == 0){
         const leLike = {

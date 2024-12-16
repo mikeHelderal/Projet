@@ -21,6 +21,7 @@ const recupReactionEvent= async(idEvent: any, dispatch: any) => {
     dispatch(ACTIONNBReactEvent.FETCH_START())  ;
     const response = await axios.get(URl.GET_NB_REACTION_EVENT+idEvent);
     dispatch(ACTIONNBReactEvent.FETCH_SUCCESS(response.data.data));
+    return response.data.data;
 }
 
 
@@ -66,7 +67,7 @@ if(mes_reactions.length == 0){
     const leUnlike = {
         "EventId": eventId, 
         "UserId": userId,
-        "TypeId": LIKE_ID 
+        "TypeId": UNLIKE_ID 
 } 
     let response = await axios.post(URl.ADD_REACTION_EVENT, leUnlike);
     dispatch(ACTIONReactEvent.FETCH_SUCCESS([...mes_reactions, response.data.data]))  
@@ -76,7 +77,7 @@ if(mes_reactions.length == 0){
         const leUnlike = {
             "EventId": eventId,
             "UserId": userId,
-            "TypeId": LIKE_ID  
+            "TypeId": UNLIKE_ID  
         } 
         let response = await axios.post(URl.ADD_REACTION_EVENT, leUnlike);
         dispatch(ACTIONReactEvent.FETCH_SUCCESS([...mes_reactions, response.data.data]))       

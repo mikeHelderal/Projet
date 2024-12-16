@@ -13,7 +13,8 @@ io.on("connection", (socket) => {
     console.log("Socket connected" );
 
     socket.on("disconnect", (error) => {
-        console.log("Socket disconnected= > ", error)
+        console.log("Socket disconnected= >", error)
+        
     })
     socket.on("error", (error) => {
         console.log("Socker error : ", error);
