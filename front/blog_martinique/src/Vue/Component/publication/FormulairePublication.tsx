@@ -51,7 +51,7 @@ const FormulairePublication = (props: any) => {
       setValidated(true);
 
       if(form.checkValidity()){
-         await  publicationService.publier(formData);
+        await  publicationService.publier(formData);
           e.target = null ;
           props.handleClose();
 
