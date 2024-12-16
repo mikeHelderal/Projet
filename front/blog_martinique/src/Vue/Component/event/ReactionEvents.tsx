@@ -77,7 +77,7 @@ const unlike = async (eventId: any) => {
 
     const styliserUnlike= (idEvent: number) => {
         if(mes_reactions){
-            let maReaction = mes_reactions.filter( (like: any) => like.EventId === idEvent);  
+            let maReaction = mes_reactions.filter( (unlike: any) => unlike.EventId === idEvent);  
             if(maReaction.length == 0){
                 return false;
             }else{
