@@ -57,9 +57,10 @@ const FormulaireEvent = (props : any) => {
         setValidity(form.checkValidity());
         setValidated(true);
         if(form.checkValidity()){
-            validity
+            validity;
+            props;
             const result = await eventService.publier(formData);
-            console.log(result);
+            console.log(result,);
             e.target = null ;
             //props.handleCloseEvent();
         }   
