@@ -30,7 +30,6 @@ const Connexion = () => {
 
         setValidity(form.checkValidity());
         setValidated(true);
-
         if(form.checkValidity()){
             ceConnecter();
         }
@@ -39,10 +38,14 @@ const Connexion = () => {
 
     const ceConnecter = async () => {
       const result = await connexion(user)
-      localStorage.setItem('isAdmin', result.isAdmin);
-      validity
-      navigate("/");
-      window.location.reload();
+      console.log("result => ", result.id );
+      if(result.id !== 'erreur'){
+        localStorage.setItem('isAdmin', result.isAdmin);
+        validity
+        navigate("/");
+        window.location.reload();
+      }
+     
 
 
     }

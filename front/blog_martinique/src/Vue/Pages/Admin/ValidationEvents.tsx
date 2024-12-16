@@ -35,7 +35,7 @@ const ValidationEvents = (props : any) => {
         <Button variant="danger" disabled= {disabledButton()} onClick={handleShow} >voir évènements </Button>
         <Modal show={show} fullscreen= {true} scrollable= {true} onHide={handleClose}>
             <Modal.Header closeButton>
-            <Modal.Title>Modal heading</Modal.Title>
+            <Modal.Title></Modal.Title>
             </Modal.Header>
             <Modal.Body>
             {events && events.map((item: any, index: any) => (

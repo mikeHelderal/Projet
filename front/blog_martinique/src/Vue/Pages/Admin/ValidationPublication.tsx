@@ -35,7 +35,7 @@ const ValidationPublication = (props : any) => {
         <Button variant="danger" disabled={disabledButton()} onClick={handleShow} >voir publications </Button>
         <Modal show={show} fullscreen= {true} scrollable= {true} onHide={handleClose}>
             <Modal.Header closeButton>
-                <Modal.Title>Modal heading</Modal.Title>
+                <Modal.Title></Modal.Title>
             </Modal.Header>
             <Modal.Body>
             {publications && publications.map((item: any, index: any) => (

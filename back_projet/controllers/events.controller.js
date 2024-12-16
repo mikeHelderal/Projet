@@ -13,9 +13,10 @@ const add = async (req, res) => {
             adresse: EventObject.adresse,
             ville: EventObject.ville,
             date_event: EventObject.date_event,
-            heure_debut: EventObject.heure_event,
+            heure_debut: EventObject.heure_debut,
             heure_fin: EventObject.heure_fin,
         }
+
 
 
 
