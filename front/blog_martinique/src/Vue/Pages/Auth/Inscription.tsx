@@ -13,7 +13,6 @@ const Inscription = () => {
     const navigate = useNavigate();
     const [user, setUser] = useState({});
     const [validated, setValidated] = useState(false);
-    const [validity, setValidity] = useState(false);
     useEffect(  () => {
         
       },[])
@@ -23,28 +22,27 @@ const Inscription = () => {
         setUser((user: any) => ({...user, [name]: value})); 
     } 
 
-    const handleSubmit = (e: any) => {
+    const handleSubmit = async  (e: any) => {
         e.preventDefault();
-        validityCheck(e);
-    }
-
-    const validityCheck = (e: any) => {
+        console.log("handle submit");
         const form = e.currentTarget;
-        setValidity(form.checkValidity());
-        setValidated(true);
-        if(validity){
-            inscription();
+        if (form.checkValidity()) {
+            try {
+                setValidated(true);
+                await inscrire(user) ;
+                console.log("avant navigate");
+                navigate("/connexion");
+            } catch (error) {
+                gestionErreur.afficherErreur(error);
+            }
         }
+        
+
+        
+
     }
 
-    const inscription = async () => {
-        try {
-            await inscrire(user) ;
-            navigate("/connexion")
-        } catch (error) {
-            gestionErreur.afficherErreur(error);
-        }
-    }
+
 
   return (
     <div>          

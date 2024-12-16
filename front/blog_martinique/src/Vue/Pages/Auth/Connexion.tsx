@@ -1,7 +1,6 @@
 import  { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {useDispatch} from  'react-redux';
-import * as ACTION from '../../../../redux/reducers/reactionPubli';
 
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -41,9 +40,9 @@ const Connexion = () => {
 
 
     const ceConnecter = async () => {
-      dispatch(ACTION.FETCH_START());
       const result = await connexion(user)
-      dispatch(ACTION.FETCH_SUCCESS(result))
+      console.log(result);
+      localStorage.setItem('isAdmin', result.isAdmin);
       validity
       navigate("/");
       window.location.reload();

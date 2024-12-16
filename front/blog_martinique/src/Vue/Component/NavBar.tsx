@@ -20,6 +20,7 @@ const NavBar = () => {
 
 
   useEffect( () => {
+    console.log("connexion => ", localStorage.getItem("isAdmin") );
     if(localStorage.getItem("isAdmin")){
       if(localStorage.getItem("isAdmin") === "false"){
         setisAdmin("connected");
