@@ -35,7 +35,6 @@ const Commentaires = (props : any) => {
         setDisabledCommentaire(props.valid);
         socket.on("connect", () => {
             socket.on('newComment', (response) => {
-                console.log("commentaire =>, ", response);
                 dispatch(ACTION.FETCH_SUCCESS( response))
             })
         })

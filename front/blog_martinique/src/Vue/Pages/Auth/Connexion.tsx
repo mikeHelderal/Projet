@@ -41,7 +41,6 @@ const Connexion = () => {
 
     const ceConnecter = async () => {
       const result = await connexion(user)
-      console.log(result);
       localStorage.setItem('isAdmin', result.isAdmin);
       validity
       navigate("/");

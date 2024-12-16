@@ -24,13 +24,11 @@ const Inscription = () => {
 
     const handleSubmit = async  (e: any) => {
         e.preventDefault();
-        console.log("handle submit");
         const form = e.currentTarget;
         if (form.checkValidity()) {
             try {
                 setValidated(true);
                 await inscrire(user) ;
-                console.log("avant navigate");
                 navigate("/connexion");
             } catch (error) {
                 gestionErreur.afficherErreur(error);
