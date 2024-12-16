@@ -41,7 +41,8 @@ const publier = async (formData: any) => {
             return error;
         } 
     }
-    enregistrer();         
+    const response = enregistrer();
+    return response;         
     
 }
 

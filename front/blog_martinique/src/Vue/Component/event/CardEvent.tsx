@@ -75,7 +75,7 @@ const validerEvent = async (idEvent: number) => {
                     <Card.Text>{monEvent.resume}</Card.Text>
                   </Col>                  
                   <Col>
-                  <img className="img-fluid rounded" src={monEvent.image} ></img>
+                  <img className="img-fluid rounded" src={monImage} ></img>
                   </Col>
                 </Row>
 
@@ -110,7 +110,7 @@ const validerEvent = async (idEvent: number) => {
                     <Card.Text>{monEvent.resume}</Card.Text>
                   </Col>                  
                   <Col>
-                  <img className="img-fluid rounded" src={monEvent.image} ></img>
+                  <img className="img-fluid rounded" src={monImage} ></img>
                   </Col>
                 </Row>
               </Container>
