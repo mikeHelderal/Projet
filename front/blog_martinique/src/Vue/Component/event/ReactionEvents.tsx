@@ -113,7 +113,7 @@ return (
         <br></br>
         {nbReact.map((item: any, index: any) => (
             <span key={index} >
-                {item.EventId == props.EventId && item.TypeId == 1 ?
+                {item.EventId == props.EventId && item.TypeId == LIKE_ID ?
                 <span>{item.nombre}</span>
         : null}
             </span>
@@ -129,7 +129,7 @@ return (
         <br></br>
         {nbReact.map((item: any, index: any) => (
             <span key={index} >
-            {item.EventId == props.EventId && item.TypeId == 2 ?
+            {item.EventId == props.EventId && item.TypeId == UNLIKE_ID ?
             <span>{item.nombre}</span>
             : <span>    </span>}
             </span>

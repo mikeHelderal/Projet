@@ -126,7 +126,7 @@ const disabledButton = () => {
                   {nbReact.map((item: any, index: any) => (
                     
                     <span key={index} >
-                      {item.PublicationId === PublicationId && item.TypeId == 1 ?
+                      {item.PublicationId === PublicationId && item.TypeId == LIKE_ID ?
                       <span>{item.nombre}</span>
 
                       : <span>     </span>}
@@ -145,7 +145,7 @@ const disabledButton = () => {
                   <br></br>
                   {nbReact.map((item: any, index: any) => (
                     <span key={index} >
-                      {item.PublicationId == PublicationId && item.TypeId == 2 ?
+                      {item.PublicationId == PublicationId && item.TypeId == UNLIKE_ID ?
                       <span>{item.nombre}</span>
 
                       : <span>   </span>}
