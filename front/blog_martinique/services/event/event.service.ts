@@ -35,6 +35,7 @@ const publier = async (formData: any) => {
     const enregistrer = async() => {
         try {
             const response = await axios.post(URl.ADD_EVENTS, formData);
+            console.log("response => ", response);
             return response.data ;
         } catch (error) {
             return error;
