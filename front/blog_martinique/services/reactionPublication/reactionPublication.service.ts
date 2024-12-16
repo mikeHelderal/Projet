@@ -66,14 +66,12 @@ const liker = async (publicationId: any, mes_reactions: any[], userId: any, LIKE
 
 
 const unlike = async (publicationId: any, mes_reactions: any[], userId: any, LIKE_ID: any, UNLIKE_ID: any, dispatch: any) => {
-
-
     dispatch(ACTION.FETCH_START())      
     if(mes_reactions.length == 0){
         const leUnlike = {
             "PublicationId": publicationId, 
             "UserId": userId,
-            "TypeId": LIKE_ID 
+            "TypeId": UNLIKE_ID 
         } 
         let response = await axios.post(URl.ADD_REACTION_PUBLICATION, leUnlike);
         dispatch(ACTION.FETCH_SUCCESS([...mes_reactions, response.data.dara]))
@@ -83,7 +81,7 @@ const unlike = async (publicationId: any, mes_reactions: any[], userId: any, LIK
             const leUnlike = {
                 "PublicationId": publicationId,
                 "UserId": userId,
-                "TypeId": LIKE_ID  
+                "TypeId": UNLIKE_ID  
             } 
             let response = await axios.post(URl.ADD_REACTION_PUBLICATION, leUnlike);
             dispatch(ACTION.FETCH_SUCCESS([...mes_reactions, response.data.data]))       

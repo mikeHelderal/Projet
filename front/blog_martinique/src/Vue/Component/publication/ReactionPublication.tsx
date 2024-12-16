@@ -27,8 +27,8 @@ const ReactionPublication = (props: any) => {
 
     const PublicationId = props.PublicationId;
     const userId = localStorage.getItem("UserId")
-    const LIKE_ID = 2;
-    const UNLIKE_ID = 3;
+    const LIKE_ID = import.meta.env.REACT_APP_LIKE_ID;
+    const UNLIKE_ID = import.meta.env.REACT_APP_UNLIKE_ID;
 
 
     const [nbReact, setNbReact] = useState(useSelector((state: RootStateReaciontPublication) => getNbReactionPublication(state)));
@@ -69,6 +69,7 @@ const ReactionPublication = (props: any) => {
   }
 
 const unlike = async (publicationId: any) => {
+  console.log('dans unlike');
   reactionPublicationService.unlike(publicationId, mes_reactions, userId, LIKE_ID, UNLIKE_ID, dispatch)   ;
 }
 
