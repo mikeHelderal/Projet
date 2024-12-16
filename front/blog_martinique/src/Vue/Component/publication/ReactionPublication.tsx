@@ -27,8 +27,8 @@ const ReactionPublication = (props: any) => {
 
     const PublicationId = props.PublicationId;
     const userId = localStorage.getItem("UserId")
-    const LIKE_ID = 1;
-    const UNLIKE_ID = 2;
+    const LIKE_ID = 2;
+    const UNLIKE_ID = 3;
 
 
     const [nbReact, setNbReact] = useState(useSelector((state: RootStateReaciontPublication) => getNbReactionPublication(state)));

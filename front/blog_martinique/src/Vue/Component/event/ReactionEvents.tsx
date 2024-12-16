@@ -22,8 +22,8 @@ const ReactionEvents = (props: any) => {
     const mes_reactions = useSelector((state: RootStateEvent) => getReactEvents(state));    
     const EventId = props.EventId;
     const userId = localStorage.getItem("UserId")
-    const LIKE_ID = 1;
-    const UNLIKE_ID = 2;
+    const LIKE_ID = 2;
+    const UNLIKE_ID = 3;
 
     const [nbReact, setNbReact] =useState(useSelector((state: RootStateNbReactiontEvent) => getNbReactionEvent(state)));
 
