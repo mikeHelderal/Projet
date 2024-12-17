@@ -2,6 +2,7 @@
 import {Reactions_events} from "../models/index.js";
 import { Sequelize } from "sequelize";
 import { io } from "../Services/Socket.js";
+import { env } from "../config/config.js";
 
 
 
@@ -114,9 +115,9 @@ const updateById = async (req, res) => {
     try {
         const reaction = await Reactions_events.findByPk(req.params.id);
         if(!reaction) return res.status(404).json({message: "Reactions_events not found!", data: null});
-        if(reaction.TypeId == 1){
+        if(reaction.TypeId == env.like_id){
             try {
-                reaction.TypeId = 2;
+                reaction.TypeId = env.unlike_id;
                 const result = await reaction.save();
                 const response = await Reactions_events.findAll({
                     attributes: [
@@ -125,16 +126,18 @@ const updateById = async (req, res) => {
                         [Sequelize.fn('COUNT', Sequelize.col('EventId')), 'nombre'], // To add the aggregation...
                     ],
                     group: ['EventId', 'TypeId'],
+                    where : {EventId: reaction.EventId},
+
             });
             
             io.emit("getNbReactionE", response);
-            res.status(200).json({message: "Reactions event has been updated!", data: result.dataValues});
+            res.status(200).json({message: "Reactions event has been updated!", data: response});
             } catch (error) {
             }
             
-        }else if(reaction.TypeId == 2){
+        }else if(reaction.TypeId == env.unlike_id){
             try {
-                reaction.TypeId = 1;
+                reaction.TypeId = env.like_id;
             const result = await reaction.save();
             const response = await Reactions_events.findAll({
                 attributes: [
@@ -146,7 +149,7 @@ const updateById = async (req, res) => {
             });
             
             io.emit("getNbReactionE", response);
-            res.status(200).json({message: "Reactions event has been updated!", data: result.dataValues});
+            res.status(200).json({message: "Reactions event has been updated!", data: response});
             } catch (error) {
             }            
         }       

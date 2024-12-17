@@ -30,7 +30,6 @@ const passerAdmin = async (user: any) => {
   const supprimerUser = async (id: any) => {
     try {
         const response = await axios.delete(URl.DELETE_BY_ID_USER+id);
-        console.log(response);
         return response ;
     } catch (e: any) {
         

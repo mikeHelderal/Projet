@@ -38,7 +38,6 @@ const Connexion = () => {
 
     const ceConnecter = async () => {
       const result = await connexion(user)
-      console.log("result => ", result.id );
       if(result.id !== 'erreur'){
         localStorage.setItem('isAdmin', result.isAdmin);
         validity

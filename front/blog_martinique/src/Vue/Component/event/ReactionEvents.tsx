@@ -31,14 +31,14 @@ const ReactionEvents = (props: any) => {
         const recup = async () => {
             reactionEventService.recupMesLike(userId, dispatch);
             const response = await reactionEventService.recupReactionEvent(EventId,dispatch);
-            console.log(response);
             setNbReact(response);
         }
         recup();
     
-        dispatch(ACTIONNBReactEvent.FETCH_START());
+        
         socket.on("connect", () => {
             socket.on('getNbReactionE', (response) => {
+                dispatch(ACTIONNBReactEvent.FETCH_START());
                 setNbReact(response);
                 dispatch(ACTIONNBReactEvent.FETCH_SUCCESS( response))
             })
@@ -46,14 +46,27 @@ const ReactionEvents = (props: any) => {
     },[])
 
     const liker = async (eventId: any) => {
-        reactionEventService.liker(eventId, mes_reactions, userId, LIKE_ID, UNLIKE_ID, dispatch)   ;
+        if(mes_reactions.length == 0){
+          reactionEventService.ajoutReaction(eventId, mes_reactions, userId, LIKE_ID, dispatch) ;
+          reactionEventService.recupMesLike(userId, dispatch);
 
+        }else{
+        const response = await reactionEventService.updateById(eventId, mes_reactions, dispatch)   ;
+        setNbReact(response.data.data);
+        reactionEventService.recupMesLike(userId, dispatch);
+
+        }
     }
 
     
 const unlike = async (eventId: any) => {
-    reactionEventService.unlike(eventId, mes_reactions, userId, LIKE_ID, UNLIKE_ID, dispatch)   ;
+    if(mes_reactions.length == 0){
+      reactionEventService.ajoutReaction(eventId, mes_reactions, userId, UNLIKE_ID, dispatch) ;
+    }else{
+    const response = await reactionEventService.updateById(eventId, mes_reactions,  dispatch)   ;
+    setNbReact(response.data.data);
 
+    }
 }
 
 

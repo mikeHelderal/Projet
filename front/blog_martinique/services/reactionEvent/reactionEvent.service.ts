@@ -5,6 +5,21 @@ import axios from 'axios';
 
 
 
+
+
+const ajoutReaction = async (eventId: any, mes_reactions: any[], userId: any, TYPE_ID: any,  dispatch: any) => {
+    dispatch(ACTIONReactEvent.FETCH_START())      
+    const leLike = {
+        "EventId": eventId, 
+        "UserId": userId,
+        "TypeId": TYPE_ID 
+    } 
+    let response = await axios.post(URl.ADD_REACTION_EVENT, leLike);
+    dispatch(ACTIONReactEvent.FETCH_SUCCESS([...mes_reactions, response.data.data]))
+  
+}
+
+
 const recupMesLike = async (userId: any, dispatch: any) => {
     const response = await axios.get(URl.GET_REACTION_EVENT_BY_ID_USER + userId);
     dispatch(ACTIONReactEvent.FETCH_SUCCESS(response.data.data))
@@ -14,6 +29,15 @@ const recupCountreact = async ( dispatch: any) => {
     dispatch(ACTIONNBReactEvent.FETCH_START());
     const response = await axios(URl.GET_ALL_REACTION_EVENT);
     dispatch(ACTIONNBReactEvent.FETCH_SUCCESS(response.data.data));
+}
+
+const updateById = async (eventId: any, mes_reactions: any[],  dispatch: any) => {
+    dispatch(ACTIONNBReactEvent.FETCH_START());
+    let maReaction = mes_reactions.filter( (reaction: any) => reaction.EventId === eventId);
+    const response = await axios.put(URl.UPDATE_REACTION_EVENT_BY_ID+maReaction[0].id); 
+    dispatch(ACTIONNBReactEvent.FETCH_SUCCESS(response.data.data));
+    return response;    
+  
 }
 
 
@@ -96,4 +120,4 @@ if(mes_reactions.length == 0){
 return 'tt'
 }
 
-export { recupMesLike, recupCountreact, liker, unlike, recupReactionEvent }
+export { ajoutReaction, recupMesLike, recupCountreact, liker, unlike, recupReactionEvent, updateById }

@@ -12,5 +12,7 @@ export const env = {
   db_dialect: process.env.DB_DIALECT,
   db_password: process.env.MYSQL_ROOT_PASSWORD,
   url_front: process.env.URL_FRONT,
-  cors_origin: process.env.CORS_ORIGIN
+  cors_origin: process.env.CORS_ORIGIN,
+  like_id: process.env.LIKE_ID,
+  unlike_id: process.env.UNLIKE_ID
 }

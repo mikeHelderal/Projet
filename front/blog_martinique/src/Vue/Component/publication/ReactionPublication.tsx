@@ -30,7 +30,6 @@ const ReactionPublication = (props: any) => {
     const LIKE_ID = import.meta.env.REACT_APP_LIKE_ID;
     const UNLIKE_ID = import.meta.env.REACT_APP_UNLIKE_ID;
 
-
     const [nbReact, setNbReact] = useState(useSelector((state: RootStateReaciontPublication) => getNbReactionPublication(state)));
 
     
@@ -47,30 +46,39 @@ const ReactionPublication = (props: any) => {
         socket.on("connect", () => {
           socket.on('getNbReactionP', (response) => {
             setNbReact(response);
-            console.log("avant dispatch => ", response);
               dispatch(ACTIONNBPUBLI.FETCH_SUCCESS( response))
 
           })
       })
       socket.on("disconnect", (reason) => {
         if (reason === "ping timeout") {
-          console.log("reconnexion")
           socket.connect();
         }
         // else the socket will automatically try to reconnect
       });
-      console.log('nbreact => ',nbReact);
       },[nbReact])
 
     
   const liker = async (publicationId: any) => {
-    console.log('dans liker');
-    reactionPublicationService.liker(publicationId, mes_reactions, userId, LIKE_ID, UNLIKE_ID, dispatch) ;  
+    if(mes_reactions.length == 0){
+      reactionPublicationService.ajoutReaction(publicationId, mes_reactions, userId, LIKE_ID, dispatch) ; 
+      reactionPublicationService.recupMesLike(userId, dispatch); 
+    }else{
+      reactionPublicationService.updateById(publicationId, mes_reactions, dispatch) ; 
+      reactionPublicationService.recupMesLike(userId, dispatch);
+    }
+
+    
   }
 
 const unlike = async (publicationId: any) => {
-  console.log('dans unlike');
-  reactionPublicationService.unlike(publicationId, mes_reactions, userId, LIKE_ID, UNLIKE_ID, dispatch)   ;
+  if(mes_reactions.length == 0){
+    reactionPublicationService.ajoutReaction(publicationId, mes_reactions, userId, UNLIKE_ID, dispatch) ; 
+    reactionPublicationService.recupMesLike(userId, dispatch); 
+  }else{
+    reactionPublicationService.updateById(publicationId, mes_reactions, dispatch) ; 
+    reactionPublicationService.recupMesLike(userId, dispatch);
+  }
 }
 
 const styliserLike= (idPublication: number) => {

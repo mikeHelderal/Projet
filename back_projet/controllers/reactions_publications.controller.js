@@ -2,6 +2,7 @@
 import { Sequelize } from "sequelize";
 import {Reactions_publications} from "../models/index.js";
 import { io } from "../Services/Socket.js";
+import { env } from "../config/config.js";
 
 
 
@@ -115,9 +116,9 @@ const updateById = async (req, res) => {
     try {
         const reaction = await Reactions_publications.findByPk(req.params.id);
         if(!reaction) return res.status(404).json({message: "Reactions_publications not found!", data: null});
-        if(reaction.TypeId == 1){
+        if(reaction.TypeId == env.like_id){
             try {
-                reaction.TypeId = 2;
+                reaction.TypeId = env.unlike_id;
             const result = await reaction.save();
             const response = await Reactions_publications.findAll({
                 attributes: [
@@ -125,17 +126,18 @@ const updateById = async (req, res) => {
                   'TypeId',// We had to list all attributes...
                   [Sequelize.fn('COUNT', Sequelize.col('PublicationId')), 'nombre'], // To add the aggregation...
                 ],
+                where : {PublicationId: req.params.id},
                 group: ['PublicationId', 'TypeId'],
               });
             
             io.emit("getNbReactionP", response);
-            res.status(200).json({message: "Reactions publications has been updated!", data: result.dataValues});
+            res.status(200).json({message: "Reactions publications has been updated!", data: response});
             } catch (error) {
             }
             
-        }else if(reaction.TypeId == 2){
+        }else if(reaction.TypeId == env.unlike_id){
             try {
-                reaction.TypeId = 1;
+                reaction.TypeId = env.like_id;
             const result = await reaction.save();
             const response = await Reactions_publications.findAll({
                 attributes: [
@@ -143,11 +145,12 @@ const updateById = async (req, res) => {
                   'TypeId',// We had to list all attributes...
                   [Sequelize.fn('COUNT', Sequelize.col('PublicationId')), 'nombre'], // To add the aggregation...
                 ],
+                where : {PublicationId: req.params.id},
                 group: ['PublicationId', 'TypeId'],
               });
             
             io.emit("getNbReactionP", response);
-            res.status(200).json({message: "Reactions publications has been updated!", data: result.dataValues});
+            res.status(200).json({message: "Reactions publications has been updated!", data: response});
             } catch (error) {
             }
             

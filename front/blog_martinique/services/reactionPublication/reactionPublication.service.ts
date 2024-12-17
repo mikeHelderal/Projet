@@ -6,6 +6,20 @@ import * as ACTIONNBPUBLI from '../../redux/reducers/nbReactionPublication';
 
 
 
+
+
+const ajoutReaction = async (publicationId: any, mes_reactions: any[], userId: any, TYPE_ID: any, dispatch: any) => {
+    dispatch(ACTION.FETCH_START())      
+    const leLike = {
+        "PublicationId": publicationId, 
+        "UserId": userId,
+        "TypeId": TYPE_ID 
+    } 
+    let response = await axios.post(URl.ADD_REACTION_EVENT, leLike);
+    dispatch(ACTION.FETCH_SUCCESS([...mes_reactions, response.data.data]))
+  
+}
+
 const recupMesLike = async (userId: any, dispatch: any) => {
     dispatch(ACTION.FETCH_START())  ;
     const response = await axios.get(URl.GET_REACTION_PUBLICATION_BY_ID_USER + userId);
@@ -26,6 +40,15 @@ const recupCountreact = async ( dispatch: any) => {
     dispatch(ACTIONNBPUBLI.FETCH_START());
     const response = await axios(URl.GET_ALL_REACTION_PUBLICATION);
     dispatch(ACTIONNBPUBLI.FETCH_SUCCESS(response.data.data));
+}
+
+
+const updateById = async (publicationId: any, mes_reactions: any[], dispatch: any) => {
+    dispatch(ACTIONNBPUBLI.FETCH_START());
+    let maReaction = mes_reactions.filter( (reaction: any) => reaction.PublicationId === publicationId);
+    const response = await axios.put(URl.UPDATE_REACTION_PUBLICATION_BY_ID+maReaction[0].id); 
+    dispatch(ACTIONNBPUBLI.FETCH_SUCCESS(response.data.data));
+    return response;  
 }
 
 const liker = async (publicationId: any, mes_reactions: any[], userId: any, LIKE_ID: any, UNLIKE_ID: any, dispatch: any) => {
@@ -101,4 +124,4 @@ const unlike = async (publicationId: any, mes_reactions: any[], userId: any, LIK
     return 'tt'
 }
 
-export { recupMesLike, recupCountreact, liker, unlike , recupReactionPublication}
+export {ajoutReaction,  recupMesLike, recupCountreact, liker, unlike , recupReactionPublication, updateById}
