@@ -11,12 +11,14 @@
     font-size: xx-large;
 }
 .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1050; /* Permet à la navbar d'être au-dessus du reste du contenu */
     width: 100%;
-    height: 10vh;
-    display: grid;
-    background-color: #293035;
-
-}
+    background-color: #343a40; /* couleur de fond de la navbar (si nécessaire) */
+  }
 
 h1{
     font-size: xx-large;
@@ -24,10 +26,13 @@ h1{
 }
 
 body{
-    padding: 0;
-    margin: 0;   
+    padding-top: 60px; 
+    margin-top: 60px;   
+    
     font-family: 'Jersey 10', sans-serif;
     background-color: #293035;
+    background-clip: padding-box;
+    box-shadow: 0 0 10px #293035;
 
     
 }

@@ -53,7 +53,7 @@ const GestionUser = () => {
           <th>statut</th>
           <th>publication en attente</th>
           <th>evenement en attente</th>
-          <th>mot de passe </th>
+          <th>supprimer </th>
           <th>modifier statut </th>
         </tr>
       </thead>

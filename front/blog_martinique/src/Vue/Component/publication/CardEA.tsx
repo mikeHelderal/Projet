@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import {  Button, Card, Container, Row, Col } from 'react-bootstrap'
+import {  Button, Card, Container, Row, Col, Image } from 'react-bootstrap'
 
 import "../../../Styles/CardT.css";
 import { useDispatch, } from 'react-redux';
@@ -38,7 +38,7 @@ const CardEA = (props : any) => {
     recupImage(maPublication.image);
     publicationService.recupMesLike(userId, dispatch)
 
-  },[monImage, maPublication])
+  },[ ])
 
 
 const afficherCom = (idPublication: number) => {
@@ -77,14 +77,15 @@ const disabledButton = () => {
                 <Row>
                   <Col>
                     <Card.Text>{maPublication.resume}</Card.Text>
+                    <Button variant="danger" onClick={() => {setShow(!show), setSelecteur(maPublication.id)}}>voir Article</Button>
+                { show && selecteur == maPublication.id ?  <div> {maPublication.content}  </div>          : null}
                   </Col>                  
                   <Col>
-                      <img className="img-fluid rounded" src={monImage} ></img>
+                  <Image src={monImage} thumbnail  className="custom-image" fluid />
                   </Col>
                 </Row>
               </Container> 
-                <Button variant="danger" onClick={() => {setShow(!show), setSelecteur(maPublication.id)}}>voir Article</Button>
-                { show && selecteur == maPublication.id ?  <div> {maPublication.content}  </div>          : null}
+                
               </Card.Body>
               <Card.Footer>
                 <ReactionPublication PublicationId = {maPublication.id}></ReactionPublication>
@@ -106,16 +107,14 @@ const disabledButton = () => {
                 <Row>
                   <Col>
                     <Card.Text>{maPublication.resume}</Card.Text>
+                    <Button variant="danger" onClick={() => {setShow(!show), setSelecteur(maPublication.id)}}>voir Article</Button>
+                    { show && selecteur == maPublication.id ?  <div> {maPublication.content}  </div>          : null}
                   </Col> 
                 </Row>
                 <br></br>
                 <Row>
                   <Col>
-                    <Button variant="danger" onClick={() => {setShow(!show), setSelecteur(maPublication.id)}}>voir Article</Button>
-                    { show && selecteur == maPublication.id ?  <div> {maPublication.content}  </div>          : null}
-                  </Col>
-                  <Col>
-                      <img className="img-fluid rounded" src={monImage}></img>
+                  <Image src={monImage} thumbnail  className="custom-image" fluid />
                   </Col>
                 </Row>
               </Container> 

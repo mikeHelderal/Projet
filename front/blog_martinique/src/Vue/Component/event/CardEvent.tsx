@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Badge, Button, Card, Container, Row, Col } from 'react-bootstrap'
+import { Badge, Button, Card, Container, Row, Col,Image  } from 'react-bootstrap'
 import { useDispatch } from 'react-redux';
 
 import "../../../Styles/CardT.css"
@@ -64,25 +64,33 @@ const validerEvent = async (idEvent: number) => {
             <Card.Header className='text-center'><h1> {monEvent.title}</h1> </Card.Header>
               <Card.Body>
               <Container>
-                <Row>
-                  <Col><h4>Date : <Badge bg="secondary">{monEvent.date_event}</Badge></h4></Col>
-                  <Col><h4> Lieu : <Badge bg="secondary">{monEvent.adresse} {monEvent.ville}</Badge></h4></Col>
-                  <Col><h4> Horraire : <Badge bg="secondary">de {monEvent.heure_debut} à {monEvent.heure_fin}</Badge></h4></Col>
-                </Row> 
-
-                <Row>
-                  <Col>
-                    <Card.Text>{monEvent.resume}</Card.Text>
-                  </Col>                  
-                  <Col>
-                  <img className="img-fluid rounded" src={monImage} ></img>
-                  </Col>
-                </Row>
-
-
-              </Container>                              
-                <Button variant="danger" onClick={() => {setShow(!show), setSelecteur(monEvent.id)}}>voir Article</Button>
-                { show && selecteur == monEvent.id ?  <div> {monEvent.content}  </div>          : null}
+            <Row>
+              <Col xs={12} md={4}>
+                <h4>Date: <Badge bg="secondary">{monEvent.date_event}</Badge></h4>
+              </Col>
+              <Col xs={12} md={4}>
+                <h4>Lieu: <Badge bg="secondary">{monEvent.adresse} {monEvent.ville}</Badge></h4>
+              </Col>
+              <Col xs={12} md={4}>
+                <h4>Horraire: <Badge bg="secondary">de {monEvent.heure_debut} à {monEvent.heure_fin}</Badge></h4>
+              </Col>
+            </Row>
+            <br />
+            <br />
+            <Row>
+              <Col xs={12} md={8}>
+                <Card.Text>{monEvent.resume}</Card.Text>
+                <Button variant="danger" onClick={() => { setShow(!show); setSelecteur(monEvent.id); }}>
+                  Voir Article
+                </Button>
+                {show && selecteur === monEvent.id ? <div>{monEvent.content}</div> : null}
+              </Col>
+              <Col xs={6} md={4}>
+              <Image src={monImage} thumbnail  className="custom-image" fluid />
+              </Col>
+            </Row>
+          </Container>                           
+                
               </Card.Body>
               <Card.Footer>
                 <ReactionEvents EventId = {monEvent.id}></ReactionEvents>
@@ -94,38 +102,44 @@ const validerEvent = async (idEvent: number) => {
       :
 
       <div>
-
-          <Card className='card'  bg='dark' text='light' border='danger' >
-            <Card.Header className='text-center'><h1> {monEvent.title}</h1> </Card.Header>
-              <Card.Body>
-              <Container>
-                <Row>
-                  <Col><h4>Date : <Badge bg="secondary">{monEvent.date_event}</Badge></h4></Col>
-                  <Col><h4> Lieu : <Badge bg="secondary">{monEvent.adresse} {monEvent.ville}</Badge></h4></Col>
-                  <Col><h4> Horraire : <Badge bg="secondary">de {monEvent.heure_debut} à {monEvent.heure_fin}</Badge></h4></Col>
-                </Row> 
-                <br /><br />               
-                <Row>
-                  <Col>
-                    <Card.Text>{monEvent.resume}</Card.Text>
-                  </Col>                  
-                  <Col>
-                  <img className="img-fluid rounded" src={monImage} ></img>
-                  </Col>
-                </Row>
-              </Container>
-                <Button variant="danger" onClick={() => {setShow(!show), setSelecteur(monEvent.id)}}>voir Article</Button>
-                { show && selecteur == monEvent.id ?  <div> {monEvent.content}  </div>          : null}
-              </Card.Body>
-              <Card.Footer>
-                  <br></br>
-                  <Button variant="danger" onClick={() => {validerEvent(monEvent.id)}} >valider</Button>
-                  
-              </Card.Footer>
-          </Card>
-      
-
-      </div>
+      <Card className='card' bg='dark' text='light' border='danger'>
+        <Card.Header className='text-center'>
+          <h1>{monEvent.title}</h1>
+        </Card.Header>
+        <Card.Body>
+          <Container>
+            <Row>
+              <Col xs={12} md={4}>
+                <h4>Date: <Badge bg="secondary">{monEvent.date_event}</Badge></h4>
+              </Col>
+              <Col xs={12} md={4}>
+                <h4>Lieu: <Badge bg="secondary">{monEvent.adresse} {monEvent.ville}</Badge></h4>
+              </Col>
+              <Col xs={12} md={4}>
+                <h4>Horraire: <Badge bg="secondary">de {monEvent.heure_debut} à {monEvent.heure_fin}</Badge></h4>
+              </Col>
+            </Row>
+            <br />
+            <br />
+            <Row>
+              <Col xs={12} md={8}>
+                <Card.Text>{monEvent.resume}</Card.Text>
+                <Button variant="danger" onClick={() => { setShow(!show); setSelecteur(monEvent.id); }}>
+                  Voir Article
+                </Button>
+                {show && selecteur === monEvent.id ? <div>{monEvent.content}</div> : null}
+              </Col>
+              <Col xs={6} md={4}>
+              <Image src={monImage} thumbnail  className="custom-image" fluid />
+              </Col>
+            </Row>
+          </Container>
+        </Card.Body>
+        <Card.Footer>
+          <Button variant="danger" onClick={() => { validerEvent(monEvent.id); }}>Valider</Button>
+        </Card.Footer>
+      </Card>
+    </div>
       }
     </div>
   )

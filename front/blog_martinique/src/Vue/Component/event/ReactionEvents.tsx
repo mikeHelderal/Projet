@@ -1,4 +1,4 @@
-import  { useEffect, useState } from 'react'
+import  { useEffect, useState, useMemo } from 'react'
 import { getReactEvents } from '../../../../services/selector/reactionEvents.selecteur.tsx';
 import {getNbReactionEvent } from '../../../../services/selector/NbReactionEvent.selecteur.tsx'
 import { RootStateEvent } from '../../../Utils/interfaces/reactEvents.interface.ts';
@@ -17,7 +17,7 @@ const ReactionEvents = (props: any) => {
 
     
 
-    const socket = io(URl.BACK);
+    const socket = useMemo(() => io(URl.URL_BACK), []);
     const dispatch = useDispatch();
     const mes_reactions = useSelector((state: RootStateEvent) => getReactEvents(state));    
     const EventId = props.EventId;
@@ -33,40 +33,40 @@ const ReactionEvents = (props: any) => {
             const response = await reactionEventService.recupReactionEvent(EventId,dispatch);
             setNbReact(response);
         }
-        recup();
-    
+        recup();    
         
-        socket.on("connect", () => {
-            socket.on('getNbReactionE', (response) => {
-                dispatch(ACTIONNBReactEvent.FETCH_START());
-                setNbReact(response);
-                dispatch(ACTIONNBReactEvent.FETCH_SUCCESS( response))
-            })
-        })    
-    },[])
+        const handleNbReactionUpdate = (response: any) => {
+        if (JSON.stringify(response) !== JSON.stringify(nbReact)) {
+            setNbReact(response);
+            dispatch(ACTIONNBReactEvent.FETCH_SUCCESS(response));
+        }
+        };         
+        socket.on("getNbReactionE", handleNbReactionUpdate);        
+        return () => {
+            socket.off("getNbReactionE", handleNbReactionUpdate);
+        };
+        }, [EventId, userId, nbReact, dispatch, socket]);
+        
 
     const liker = async (eventId: any) => {
         if(mes_reactions.length == 0){
-          reactionEventService.ajoutReaction(eventId, mes_reactions, userId, LIKE_ID, dispatch) ;
-          reactionEventService.recupMesLike(userId, dispatch);
-
+            await reactionEventService.ajoutReaction(eventId, mes_reactions, userId, LIKE_ID, dispatch) ;
         }else{
-        const response = await reactionEventService.updateById(eventId, mes_reactions, dispatch)   ;
-        setNbReact(response.data.data);
-        reactionEventService.recupMesLike(userId, dispatch);
-
+            await reactionEventService.updateById(eventId, mes_reactions, dispatch)   ;
         }
+        await reactionEventService.recupMesLike(userId, dispatch);
+
     }
 
     
 const unlike = async (eventId: any) => {
     if(mes_reactions.length == 0){
-      reactionEventService.ajoutReaction(eventId, mes_reactions, userId, UNLIKE_ID, dispatch) ;
+        await reactionEventService.ajoutReaction(eventId, mes_reactions, userId, UNLIKE_ID, dispatch) ;
     }else{
-    const response = await reactionEventService.updateById(eventId, mes_reactions,  dispatch)   ;
-    setNbReact(response.data.data);
-
+    await reactionEventService.updateById(eventId, mes_reactions,  dispatch);
     }
+    await reactionEventService.recupMesLike(userId, dispatch);
+
 }
 
 
@@ -105,6 +105,35 @@ const unlike = async (eventId: any) => {
         }           
     }
 
+/**
+    const countReactions = (typeId: any) => {
+        const reaction = nbReact.find((item: any) => item.EventId === EventId && item.TypeId === typeId);
+        return reaction ? reaction.nombre : 0;
+      };
+
+*/
+
+
+const counts = useMemo(() => {
+    const initialCounts = { likes: 0, unlikes: 0 };
+  
+    if (nbReact.length !== 0) {
+      const likeReaction = nbReact.find(
+        (item: any) => item.PublicationId === EventId && item.TypeId === LIKE_ID
+      );
+      const unlikeReaction = nbReact.find(
+        (item: any) => item.PublicationId === EventId && item.TypeId === UNLIKE_ID
+      );
+      console.log(likeReaction);
+      return {
+        likes: likeReaction ? likeReaction.nombre : 0,
+        unlikes: unlikeReaction ? unlikeReaction.nombre : 0,
+      };
+    }
+    return initialCounts;
+  }, [nbReact, EventId, LIKE_ID, UNLIKE_ID]);
+
+
 
     const disabledButton = () => {
         if(userId){
@@ -113,6 +142,7 @@ const unlike = async (eventId: any) => {
             return true;
         }
     }      
+
 
 return (
     <fieldset>
@@ -123,14 +153,8 @@ return (
 <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m0-1A7 7 0 1 1 8 1a7 7 0 0 1 0 14"/>
         </svg>
         </Badge>
-        <br></br>
-        {nbReact.map((item: any, index: any) => (
-            <span key={index} >
-                {item.EventId == props.EventId && item.TypeId == LIKE_ID ?
-                <span>{item.nombre}</span>
-        : null}
-            </span>
-        ))}     
+        <br />
+        <span>{counts.likes}</span>
     </Button>                
     <Button disabled= {disabledButton()} variant={styliserUnlike(EventId) ? 'danger' : 'outline-danger' }  onClick={() => {unlike(EventId)}}>
         <Badge bg="danger"> 
@@ -139,14 +163,8 @@ return (
 <path d="M4.285 12.433a.5.5 0 0 0 .683-.183A3.5 3.5 0 0 1 8 10.5c1.295 0 2.426.703 3.032 1.75a.5.5 0 0 0 .866-.5A4.5 4.5 0 0 0 8 9.5a4.5 4.5 0 0 0-3.898 2.25.5.5 0 0 0 .183.683M7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5m4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5"/>
         </svg>
         </Badge>
-        <br></br>
-        {nbReact.map((item: any, index: any) => (
-            <span key={index} >
-            {item.EventId == props.EventId && item.TypeId == UNLIKE_ID ?
-            <span>{item.nombre}</span>
-            : <span>    </span>}
-            </span>
-        ))}
+        <br />
+        <span>{counts.unlikes}</span>
     </Button>
     
     </fieldset>

@@ -15,7 +15,7 @@ const ajoutReaction = async (publicationId: any, mes_reactions: any[], userId: a
         "UserId": userId,
         "TypeId": TYPE_ID 
     } 
-    let response = await axios.post(URl.ADD_REACTION_EVENT, leLike);
+    let response = await axios.post(URl.ADD_REACTION_PUBLICATION, leLike);
     dispatch(ACTION.FETCH_SUCCESS([...mes_reactions, response.data.data]))
   
 }
@@ -124,4 +124,12 @@ const unlike = async (publicationId: any, mes_reactions: any[], userId: any, LIK
     return 'tt'
 }
 
-export {ajoutReaction,  recupMesLike, recupCountreact, liker, unlike , recupReactionPublication, updateById}
+const deleteReactionPubli = async (publicationId: any, mes_reactions: any[], dispatch: any) =>{
+    let maReaction = mes_reactions.filter( (reaction) => reaction.PublicationId === publicationId);
+    await axios.delete(URl.DELETE_REACTION_PUBLICATION + maReaction[0].id);
+    //const tampon = mes_reactions.filter((like) => like.id !== maReaction[0].id);
+    //dispatch(ACTION.FETCH_SUCCESS(tampon))
+
+}
+
+export {ajoutReaction,  recupMesLike, recupCountreact, liker, unlike , recupReactionPublication, updateById, deleteReactionPubli}

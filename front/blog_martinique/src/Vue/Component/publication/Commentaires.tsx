@@ -1,4 +1,4 @@
-import  { useEffect, useState } from 'react'
+import  { useEffect, useMemo, useState } from 'react'
 import { Button, Form, Toast } from 'react-bootstrap';
 import "../../../Styles/Commentaires.css";
 import { io } from "socket.io-client";
@@ -10,11 +10,13 @@ import * as ACTION from '../../../../redux/reducers/commentair.tsx';
 
 import { getCommentair} from "../../../../services/selector/Commentair.selecteur.tsx"
 import * as commentaireService from '../../../../services/commentaire/commentaire.service.ts'
+import { URl } from '../../../Utils/Constant/URL.ts';
 
 
 const Commentaires = (props : any) => {
     const userId = localStorage.getItem("UserId");
-    const socket = io(import.meta.env.REACT_APP_BACKEND_URL);
+    const socket = useMemo(() => io(URl.URL_BACK), []); 
+    const PublicationId = props.PublicationId;
 
 
     const [commentaire, setCommentaire] = useState<any>({"UserId": userId, "PublicationId": props.PublicationId });
@@ -38,7 +40,16 @@ const Commentaires = (props : any) => {
                 dispatch(ACTION.FETCH_SUCCESS( response))
             })
         })
-    },[]);
+        socket.on("disconnect", (reason : any) => {
+            if (reason === "ping timeout") {
+                socket.connect();
+            }
+            // else the socket will automatically try to reconnect
+            });
+            return () => {
+            socket.off("getNbReactionP")
+        }
+    },[PublicationId])
 
     const handleChange = (e: any) =>{
         const {name, value} = e.target;
@@ -54,11 +65,7 @@ const Commentaires = (props : any) => {
         setValidated(true);
         if(validity || commentaire.content != null){
             await commentaireService.commenter(commentaire, dispatch)
-            e.target.reset();
-
-
-
-           
+            e.target.reset();           
         }
     }
 

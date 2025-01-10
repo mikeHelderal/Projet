@@ -23,14 +23,14 @@ const ActualiteAccueil = () => {
         </header>
         <section>
         {publications && publications.map((item: any, index: any) => (
-          <p key={index}>
+          <div key={index}>
             <CardEA maPublication= {item} publication = {publications} valid = {true} ></CardEA>
-            </p>
+            </div>
           ))}
         
         </section>
         <footer className='footer'>
-        <h1></h1>
+        
         </footer>
     </div>
     </div>
